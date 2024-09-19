@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float mouseSensitivity = 100f;
 
-    void Update()
+    private void Update()
     {
         float mouseX = InputManager.LookHorizontalInput * mouseSensitivity * Time.deltaTime;
 
