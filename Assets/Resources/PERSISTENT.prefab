@@ -143,6 +143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7191923135304239471}
   - component: {fileID: 1190761197989363236}
+  - component: {fileID: 8072304178030238641}
   m_Layer: 0
   m_Name: InputManager
   m_TagString: Untagged
@@ -180,7 +181,7 @@ MonoBehaviour:
   m_Actions: {fileID: -944628639613478452, guid: 91eebbb9d1cf773109f8abc2f07028dc,
     type: 3}
   m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 2957967715791248655}
+  m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -196,6 +197,18 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &8072304178030238641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8789703711500977890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9b7b1eca0470a23d88eed2f806367cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9020543167392531522
 GameObject:
   m_ObjectHideFlags: 0

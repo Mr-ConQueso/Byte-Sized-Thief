@@ -10,14 +10,8 @@ public class InputManager : MonoBehaviour
     public Vector2 NavigationInput { get; set; }
     
     public static float LookHorizontalInput;
-    public static float LookVerticalInput;
 
-    public static bool WasAttackPressed;
-    public static bool WasAimPressed;
-    public static bool WasAimReleased;
-    
-    public static bool WasNextWeaponPressed;
-    public static bool WasPreviousWeaponPressed;
+    public static Vector2 MoveInput;
     
     public static bool WasEscapePressed;
     public static bool WasInteractPressed;
@@ -25,13 +19,8 @@ public class InputManager : MonoBehaviour
     // ---- / Private Variables / ---- //
     private InputAction _navigationAction;
     private InputAction _lookHorizontalAction;
-    private InputAction _lookVerticalAction;
     
-    private InputAction _attackAction;
-    private InputAction _aimAction;
-    
-    private InputAction _nextWeaponAction;
-    private InputAction _previousWeaponAction;
+    private InputAction _moveAction;
     
     private InputAction _interactAction;
     private InputAction _escapeAction;
@@ -49,13 +38,8 @@ public class InputManager : MonoBehaviour
         
         _navigationAction = _playerInput.actions["Navigate"];
         _lookHorizontalAction = _playerInput.actions["LookHorizontal"];
-        _lookVerticalAction = _playerInput.actions["LookVertical"];
         
-        _attackAction = _playerInput.actions["Fire"];
-        _aimAction = _playerInput.actions["Aim"];
-        
-        _nextWeaponAction = _playerInput.actions["SwitchNextWeapon"];
-        _previousWeaponAction = _playerInput.actions["SwitchPreviousWeapon"];
+        _moveAction = _playerInput.actions["Move"];
         
         _interactAction = _playerInput.actions["Interact"];
         _escapeAction = _playerInput.actions["Escape"];
@@ -65,14 +49,8 @@ public class InputManager : MonoBehaviour
     {
         NavigationInput = _navigationAction.ReadValue<Vector2>();
         LookHorizontalInput = _lookHorizontalAction.ReadValue<float>();
-        LookVerticalInput = _lookVerticalAction.ReadValue<float>();
-
-        WasAttackPressed = _attackAction.WasPressedThisFrame();
-        WasAimPressed = _aimAction.WasPressedThisFrame();
-        WasAimReleased = _aimAction.WasReleasedThisFrame();
-
-        WasNextWeaponPressed = _nextWeaponAction.WasPressedThisFrame();
-        WasPreviousWeaponPressed = _previousWeaponAction.WasPressedThisFrame();
+        
+        MoveInput = _moveAction.ReadValue<Vector2>();
         
         WasInteractPressed = _interactAction.WasPressedThisFrame();
         WasEscapePressed = _escapeAction.WasPressedThisFrame();
