@@ -181,7 +181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 155357573}
   m_Layer: 0
-  m_Name: ------------PLAYER---------------------
+  m_Name: ------------PLAYER----------------------
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -541,7 +541,7 @@ GameObject:
   m_Component:
   - component: {fileID: 921708292}
   m_Layer: 0
-  m_Name: ------------GAME-CONTROLLER---------
+  m_Name: ------------GAME-CONTROLLER----------------------
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -794,7 +794,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1621253101}
   m_Layer: 0
-  m_Name: ------------GUI-------------------------
+  m_Name: ------------GUI--------------------------------
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -821,7 +821,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1621253101}
-  - {fileID: 155357573}
-  - {fileID: 757497495}
   - {fileID: 371525610}
+  - {fileID: 757497495}
+  - {fileID: 155357573}
   - {fileID: 921708292}
