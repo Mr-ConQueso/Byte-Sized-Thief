@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SetResolution : MonoBehaviour
+public class SetVideoSettings : MonoBehaviour
 {
     // ---- / Private Variables / ---- //
     private float _lastWidth;
@@ -8,7 +8,14 @@ public class SetResolution : MonoBehaviour
     
     private void Start()
     {
-        SetRatio(4, 3);
+        SetRatio(16, 9);
+        SetMouse();
+    }
+
+    private void SetMouse()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
     
     private void SetRatio(float width, float height)
