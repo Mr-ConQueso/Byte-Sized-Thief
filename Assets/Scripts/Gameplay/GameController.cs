@@ -29,6 +29,16 @@ public class GameController : MonoBehaviour
             Instance = this;
         }
     }
+    
+    private void OnEnable()
+    {
+        TimerCounter.OnTimerStart += OnTimerStart;
+    }
+
+    private void OnDisable()
+    {
+        TimerCounter.OnTimerStart -= OnTimerStart;
+    }
 
     private void Start()
     {
@@ -51,9 +61,13 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void StartGame()
+    private void OnTimerStart()
     {
         IsPlayerFrozen = false;
+    }
+
+    private void StartGame()
+    {
         OnGameStart?.Invoke();
     }
 

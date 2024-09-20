@@ -818,7 +818,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
 --- !u!195 &677133571
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2234,29 +2234,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!136 &5538197770000601042
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7031886645916110841}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.83
-  m_Height: 2.71
-  m_Direction: 2
-  m_Center: {x: 0, y: 0.82, z: 0.15}
 --- !u!81 &6036945973702578526
 AudioListener:
   m_ObjectHideFlags: 0
@@ -2373,7 +2350,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1080415742835512485}
-  - component: {fileID: 5538197770000601042}
   - component: {fileID: 677133571}
   - component: {fileID: 677133570}
   - component: {fileID: 7031886645916110842}

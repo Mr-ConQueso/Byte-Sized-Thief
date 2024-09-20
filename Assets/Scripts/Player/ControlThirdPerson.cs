@@ -20,7 +20,12 @@ public class ControlThirdPerson : MonoBehaviour
     {
         if (!GameController.Instance.IsPlayerFrozen)
         {
+            _navAgent.isStopped = false;
             TryMoveToPointer();
+        }
+        else
+        {
+            _navAgent.isStopped = true;
         }
     }
 

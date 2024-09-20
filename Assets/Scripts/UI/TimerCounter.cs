@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class TimerCounter : MonoBehaviour
 {
+    // ---- / Events / ---- //
+    public delegate void TimerStartEventHandler();
+    public static event TimerStartEventHandler OnTimerStart;
+    
     // ---- / Serialized Variables / ---- //
     [Header("References")]
     [SerializeField] private GameObject timerGUI;
@@ -65,6 +69,7 @@ public class TimerCounter : MonoBehaviour
         _isTimerRunning = true;
         _currentTime = GameController.Instance.TimerInSeconds;
         UpdateTimerUI();
+        OnTimerStart?.Invoke();
     }
     
     private void UpdateTimerUI()
