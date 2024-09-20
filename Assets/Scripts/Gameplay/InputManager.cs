@@ -33,7 +33,7 @@ public class InputManager : MonoBehaviour
         
         _navigationAction = _playerInput.actions["Navigate"];
         
-        _interactAction = _playerInput.actions["Interact"];
+        _interactAction = _playerInput.actions["GrabRelease"];
         _escapeAction = _playerInput.actions["Escape"];
         _moveAction = _playerInput.actions["Move"];
     }
