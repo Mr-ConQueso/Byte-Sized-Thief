@@ -24,10 +24,13 @@ public class ObjectGrabber : MonoBehaviour
 
     private void Update()
     {
-        HighlightGrabbableObjects();
-        if (InputManager.WasGrabOrReleasePressed)
+        if (!GameController.Instance.IsPlayerFrozen)
         {
-            TryGrabOrReleaseObject();
+            HighlightGrabbableObjects();
+            if (InputManager.WasGrabOrReleasePressed)
+            {
+                TryGrabOrReleaseObject();
+            }
         }
     }
 

@@ -19,9 +19,8 @@ public class GameController : MonoBehaviour
     
     // ---- / Public Variables / ---- //
     public int TimerInSeconds = 120;
-    
-    // ---- / Private Variables / ---- //
-    private bool _isGamePaused = false;
+    [HideInInspector] public bool IsPlayerFrozen { get; private set; } = true;
+    [HideInInspector] public bool IsGamePaused { get; private set; }
     
     private void Awake()
     {
@@ -40,8 +39,8 @@ public class GameController : MonoBehaviour
     {
         if (InputManager.WasEscapePressed)
         {
-            _isGamePaused = !_isGamePaused;
-            if (_isGamePaused)
+            IsGamePaused = !IsGamePaused;
+            if (IsGamePaused)
             {
                 PauseGame();
             }
@@ -54,23 +53,25 @@ public class GameController : MonoBehaviour
 
     private void StartGame()
     {
+        IsPlayerFrozen = false;
         OnGameStart?.Invoke();
     }
 
     private void PauseGame()
     {
+        IsPlayerFrozen = true;
         OnGamePaused?.Invoke();
-        Time.timeScale = 0.0f;
     }
     
     private void ResumeGame()
     {
+        IsPlayerFrozen = false;
         OnGameResumed?.Invoke();
-        Time.timeScale = 1.0f;
     }
 
     private void EndGame()
     {
+        IsPlayerFrozen = true;
         OnGameEnd?.Invoke();
     }
 }
