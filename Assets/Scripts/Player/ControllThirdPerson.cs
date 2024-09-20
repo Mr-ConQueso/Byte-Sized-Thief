@@ -32,7 +32,7 @@ public class ControllThirdPerson : MonoBehaviour
             }
             else
             {
-                Debug.Log("No la misma capa");
+                //Debug.Log("No la misma capa");
             }
         }
     }
