@@ -25,7 +25,7 @@ public class ObjectGrabber : MonoBehaviour
     private void Update()
     {
         HighlightGrabbableObjects();
-        if (InputManager.WasInteractPressed)
+        if (InputManager.WasGrabOrReleasePressed)
         {
             TryGrabOrReleaseObject();
         }
@@ -52,21 +52,35 @@ public class ObjectGrabber : MonoBehaviour
         Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
+        // Perform a SphereCast from the mouse pointer
         if (Physics.SphereCast(ray, grabPointerDistance, out hit, Mathf.Infinity, grabbableObjectLayer))
         {
+            // Check if the object hit has an IGrabbable component
             IGrabbable grabbableObject = hit.collider.GetComponent<IGrabbable>();
 
             if (grabbableObject != null)
             {
-                TryGrabObject(grabbableObject, hit.collider.gameObject);
+                // Check if the hit object is already in the grabbed list
+                GameObject hitObject = hit.collider.gameObject;
+                if (!_grabbedObjects.Contains(hitObject))
+                {
+                    // If the object is not in the grabbed list, attempt to grab it
+                    TryGrabObject(grabbableObject, hitObject);
+                }
+                else
+                {
+                    Debug.Log("Hit object is already grabbed: " + hitObject.name);
+                }
             }
             else if (_grabbedObjects.Count > 0)
             {
+                // Release the last grabbed object if no grabbable object is found
                 ReleaseLastObject();
             }
         }
         else if (_grabbedObjects.Count > 0)
         {
+            // Release the last grabbed object if the SphereCast doesn't hit anything
             ReleaseLastObject();
         }
     }

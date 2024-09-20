@@ -10,7 +10,8 @@ public class InputManager : MonoBehaviour
     public Vector2 NavigationInput { get; set; }
     
     public static bool WasEscapePressed;
-    public static bool WasInteractPressed;
+    public static bool WasGrabOrReleasePressed;
+    public static bool WasReleaseAllPressed;
     public static bool WasMousePressed;
     
     // ---- / Private Variables / ---- //
@@ -18,9 +19,12 @@ public class InputManager : MonoBehaviour
 
     private InputAction _navigationAction;
     
-    private InputAction _interactAction;
-    private InputAction _escapeAction;
     private InputAction _moveAction;
+
+    private InputAction _grabReleaseAction;
+    private InputAction _releaseAllAction;
+    
+    private InputAction _escapeAction;
 
     private void Awake()
     {
@@ -33,9 +37,12 @@ public class InputManager : MonoBehaviour
         
         _navigationAction = _playerInput.actions["Navigate"];
         
-        _interactAction = _playerInput.actions["GrabRelease"];
-        _escapeAction = _playerInput.actions["Escape"];
         _moveAction = _playerInput.actions["Move"];
+
+        _grabReleaseAction = _playerInput.actions["GrabRelease"];
+        _releaseAllAction = _playerInput.actions["ReleaseAll"];
+        
+        _escapeAction = _playerInput.actions["Escape"];
     }
 
     private void Update()
@@ -43,7 +50,10 @@ public class InputManager : MonoBehaviour
         NavigationInput = _navigationAction.ReadValue<Vector2>();
         
         WasMousePressed = _moveAction.IsPressed();
-        WasInteractPressed = _interactAction.WasPressedThisFrame();
+        
+        WasGrabOrReleasePressed = _grabReleaseAction.WasPressedThisFrame();
+        WasReleaseAllPressed = _releaseAllAction.WasPressedThisFrame();
+        
         WasEscapePressed = _escapeAction.WasPressedThisFrame();
     }
 }
