@@ -23,7 +23,7 @@ public class ControllThirdPerson : MonoBehaviour
             if(((1 << hit.collider.gameObject.layer) & Ground) != 0)
             {
 
-                if (Input.GetKey(KeyCode.Mouse3))
+                if (InputManager.WasMousePressed)
                 {
                     NavMeshPath path = new NavMeshPath();
                     navAgent.CalculatePath(hit.point, path);

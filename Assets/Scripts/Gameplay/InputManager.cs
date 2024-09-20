@@ -9,23 +9,20 @@ public class InputManager : MonoBehaviour
     // ---- / Public Variables / ---- //
     public Vector2 NavigationInput { get; set; }
     
-    public static float LookHorizontalInput;
-
-    public static Vector2 MoveInput;
-    
+    public static float LookHorizontalInput;    
     public static bool WasEscapePressed;
     public static bool WasInteractPressed;
+    public static bool WasMousePressed;
     
     // ---- / Private Variables / ---- //
     private InputAction _navigationAction;
     private InputAction _lookHorizontalAction;
     
-    private InputAction _moveAction;
-    
     private InputAction _interactAction;
     private InputAction _escapeAction;
     
     private static PlayerInput _playerInput;
+    private InputAction _move;
 
     private void Awake()
     {
@@ -39,10 +36,11 @@ public class InputManager : MonoBehaviour
         _navigationAction = _playerInput.actions["Navigate"];
         _lookHorizontalAction = _playerInput.actions["LookHorizontal"];
         
-        _moveAction = _playerInput.actions["Move"];
+       
         
         _interactAction = _playerInput.actions["Interact"];
         _escapeAction = _playerInput.actions["Escape"];
+        _move = _playerInput.actions["Move"];
     }
 
     private void Update()
@@ -50,8 +48,8 @@ public class InputManager : MonoBehaviour
         NavigationInput = _navigationAction.ReadValue<Vector2>();
         LookHorizontalInput = _lookHorizontalAction.ReadValue<float>();
         
-        MoveInput = _moveAction.ReadValue<Vector2>();
         
+        WasMousePressed = _move.IsPressed();
         WasInteractPressed = _interactAction.WasPressedThisFrame();
         WasEscapePressed = _escapeAction.WasPressedThisFrame();
     }

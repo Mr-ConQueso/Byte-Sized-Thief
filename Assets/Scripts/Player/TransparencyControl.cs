@@ -14,8 +14,8 @@ public class TransparencyControl : MonoBehaviour
     void Update()
     {
         // Create a ray from the camera towards the object
-        //Ray ray = new Ray(Camera.main.transform.position, _transform.position - Camera.main.transform.position);
-        Ray ray = new Ray(_transform.position, Vector3.up);
+        Ray ray = new Ray(Camera.main.transform.position, _transform.position - Camera.main.transform.position);
+        //Ray ray = new Ray(_transform.position, Vector3.up);
         Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
 
         // Cast the ray and get all hits
@@ -37,8 +37,9 @@ public class TransparencyControl : MonoBehaviour
 
                 // Change the alpha (transparency)
                 Color color = material.color;
-                color.a = 0.5f;  // Adjust the transparency level
+                color.a = 0f;  // Adjust the transparency level
                 material.color = color;
+                
             }
         }
     }
@@ -54,5 +55,6 @@ public class TransparencyControl : MonoBehaviour
         material.EnableKeyword("_ALPHABLEND_ON");
         material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
         material.renderQueue = 3000; // Transparent queue
+        
     }
 }
