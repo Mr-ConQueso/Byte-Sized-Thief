@@ -23,6 +23,9 @@ public class GrabbableObject : MonoBehaviour, IGrabbable
     {
         Debug.Log(gameObject.name + " has been released!");
         _rigidbody.isKinematic = false;
+
+        Vector3 forwardPush = transform.forward * 5f;
+        _rigidbody.AddForce(forwardPush, ForceMode.Impulse);
     }
 
     public float GetWeight()
