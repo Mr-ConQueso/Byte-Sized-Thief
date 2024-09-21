@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class TransparencyControl : MonoBehaviour
 {
+<<<<<<< Updated upstream
     [SerializeField] private LayerMask Translucent;
+=======
+    [SerializeField] private LayerMask translucent;
+>>>>>>> Stashed changes
     [Range(0,1)]
     [SerializeField] private float transparencyLevel;
     private Transform _transform;
@@ -23,7 +27,11 @@ public class TransparencyControl : MonoBehaviour
         Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
 
         // Cast the ray and get all hits
+<<<<<<< Updated upstream
         RaycastHit[] hits = Physics.RaycastAll(ray, 200, Translucent);
+=======
+        RaycastHit[] hits = Physics.RaycastAll(ray, 200, translucent);
+>>>>>>> Stashed changes
 
         // Loop through all hits
         foreach (RaycastHit hit in hits)
@@ -37,7 +45,11 @@ public class TransparencyControl : MonoBehaviour
 
                 // Switch the rendering mode to transparent in URP
                 SetMaterialToTransparentURP(material);
+<<<<<<< Updated upstream
 
+=======
+                //SetMaterialToOpaquetURP(material);
+>>>>>>> Stashed changes
                 // Change the alpha (transparency)
                 Color color = material.color;
                 color.a = transparencyLevel;  // Adjust the transparency level (you can change this value)
@@ -46,10 +58,17 @@ public class TransparencyControl : MonoBehaviour
         }
     }
 
+<<<<<<< Updated upstream
     // Method to set the material to transparent mode in URP
     void SetMaterialToTransparentURP(Material material)
     {
         // Set the surface type to transparent
+=======
+
+    void SetMaterialToTransparentURP(Material material)
+    {
+
+>>>>>>> Stashed changes
         material.SetFloat("_Surface", 1.0f);  // 1 = Transparent, 0 = Opaque
         
         // Enable the shader keyword for transparent materials
@@ -63,5 +82,25 @@ public class TransparencyControl : MonoBehaviour
 
         // Make sure transparency is rendered correctly in URP
         material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+<<<<<<< Updated upstream
+=======
+    }
+    void SetMaterialToOpaquetURP(Material material)
+    {
+
+        material.SetFloat("_Surface", 0);  // 1 = Transparent, 0 = Opaque
+        
+        // Enable the shader keyword for transparent materials
+        material.EnableKeyword("_SURFACE_TYPE_OPAQUE");
+
+        // Set blend modes
+        material.SetOverrideTag("RenderType", "Opaque");
+        material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        material.SetInt("_ZWrite", 0);  // Disable ZWrite for transparency
+
+        // Make sure transparency is rendered correctly in URP
+        material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+>>>>>>> Stashed changes
     }
 }
