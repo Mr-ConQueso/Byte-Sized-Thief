@@ -1,17 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TransparencyControl : MonoBehaviour
 {
-<<<<<<< Updated upstream
-    [SerializeField] private LayerMask Translucent;
-=======
+    // ---- / Serialized Variables / ---- //
     [SerializeField] private LayerMask translucent;
->>>>>>> Stashed changes
     [Range(0,1)]
     [SerializeField] private float transparencyLevel;
+
+    // ---- / Private Variables / ---- //
     private Transform _transform;
+    private Material _material;
+    private Renderer _hitRenderer;
+
+    private Dictionary<Renderer, Color> _originalColor = new Dictionary<Renderer, Color>();
+    private List<Renderer> _currentHits = new List<Renderer>();
+    private List<Renderer> _previousHits = new List<Renderer>();
 
     void Start()
     {
@@ -22,85 +28,70 @@ public class TransparencyControl : MonoBehaviour
     {
         Vector3 screenPoint = Camera.main.WorldToScreenPoint(_transform.position);
 
-        // Create a ray from the camera, through the screen point
         Ray ray = Camera.main.ScreenPointToRay(screenPoint);
         Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
 
-        // Cast the ray and get all hits
-<<<<<<< Updated upstream
-        RaycastHit[] hits = Physics.RaycastAll(ray, 200, Translucent);
-=======
         RaycastHit[] hits = Physics.RaycastAll(ray, 200, translucent);
->>>>>>> Stashed changes
 
-        // Loop through all hits
+        _currentHits.Clear();
         foreach (RaycastHit hit in hits)
         {
-            Renderer hitRenderer = hit.collider.GetComponent<Renderer>();
+            _hitRenderer = hit.collider.GetComponent<Renderer>();
 
-            if (hitRenderer != null)
+            if (_hitRenderer != null)
             {
-                // Access the material and switch it to transparent mode
-                Material material = hitRenderer.material;
-
-                // Switch the rendering mode to transparent in URP
-                SetMaterialToTransparentURP(material);
-<<<<<<< Updated upstream
-
-=======
-                //SetMaterialToOpaquetURP(material);
->>>>>>> Stashed changes
-                // Change the alpha (transparency)
-                Color color = material.color;
-                color.a = transparencyLevel;  // Adjust the transparency level (you can change this value)
-                material.color = color;
+                _material = _hitRenderer.material;
+                    if(!_originalColor.ContainsKey(_hitRenderer))
+                    {
+                        _originalColor[_hitRenderer] = _material.color;
+                    }
+                    TransformToTranslucent(_material);
+                    Color color = _material.color;
+                    color.a = transparencyLevel;
+                    _material.color = color;
+                    _currentHits.Add(_hitRenderer);                    
             }
         }
+        foreach(Renderer renderer in _previousHits)
+        {
+            if(!_currentHits.Contains(renderer) && renderer != null)
+            {
+                Material material = renderer.material;
+                material.color = _originalColor[renderer];
+                TransformToOpaque(material);
+            }
+        }   
+        _previousHits.Clear();
+        _previousHits.AddRange(_currentHits);
+        Debug.Log(_material);
     }
 
-<<<<<<< Updated upstream
-    // Method to set the material to transparent mode in URP
-    void SetMaterialToTransparentURP(Material material)
+    private void TransformToTranslucent(Material material)
     {
-        // Set the surface type to transparent
-=======
-
-    void SetMaterialToTransparentURP(Material material)
-    {
-
->>>>>>> Stashed changes
-        material.SetFloat("_Surface", 1.0f);  // 1 = Transparent, 0 = Opaque
+        material.SetFloat("_Surface", 1);
         
-        // Enable the shader keyword for transparent materials
         material.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
 
-        // Set blend modes
         material.SetOverrideTag("RenderType", "Transparent");
-        material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-        material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-        material.SetInt("_ZWrite", 0);  // Disable ZWrite for transparency
+        material.SetFloat("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        material.SetFloat("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        //material.SetInteger ("_AlphaClip", 1);
+        material.SetFloat("_ZWrite", 0);
 
-        // Make sure transparency is rendered correctly in URP
         material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
-<<<<<<< Updated upstream
-=======
     }
-    void SetMaterialToOpaquetURP(Material material)
+    private void TransformToOpaque(Material material)
     {
-
-        material.SetFloat("_Surface", 0);  // 1 = Transparent, 0 = Opaque
+        material.SetFloat("_Surface", 0);
         
-        // Enable the shader keyword for transparent materials
         material.EnableKeyword("_SURFACE_TYPE_OPAQUE");
+        material.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
 
-        // Set blend modes
-        material.SetOverrideTag("RenderType", "Opaque");
-        material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-        material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-        material.SetInt("_ZWrite", 0);  // Disable ZWrite for transparency
+        material.SetFloat("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+        material.SetFloat("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+        //material.SetInteger ("_AlphaClip", 1);
+        material.SetFloat("_ZWrite", 0);
 
-        // Make sure transparency is rendered correctly in URP
-        material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
->>>>>>> Stashed changes
+        material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
     }
 }
