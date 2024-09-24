@@ -1,4 +1,3 @@
-using BaseGame;
 using UnityEngine;
 
 public class MainMenu : MonoBehaviour

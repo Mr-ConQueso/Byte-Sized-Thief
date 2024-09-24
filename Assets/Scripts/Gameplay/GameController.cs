@@ -21,6 +21,13 @@ public class GameController : MonoBehaviour
     public int TimerInSeconds = 120;
     [HideInInspector] public bool IsPlayerFrozen { get; private set; } = true;
     [HideInInspector] public bool IsGamePaused { get; private set; }
+
+    public void InvokeOnGameResumed()
+    {
+        IsPlayerFrozen = false;
+        IsGamePaused = false;
+        OnGameResumed?.Invoke();
+    }
     
     private void Awake()
     {
