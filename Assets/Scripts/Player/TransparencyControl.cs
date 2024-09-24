@@ -75,7 +75,6 @@ public class TransparencyControl : MonoBehaviour
         material.SetOverrideTag("RenderType", "Transparent");
         material.SetFloat("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
         material.SetFloat("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-        //material.SetInteger ("_AlphaClip", 1);
         material.SetFloat("_ZWrite", 0);
 
         material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
@@ -89,8 +88,7 @@ public class TransparencyControl : MonoBehaviour
 
         material.SetFloat("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
         material.SetFloat("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
-        //material.SetInteger ("_AlphaClip", 1);
-        material.SetFloat("_ZWrite", 0);
+        material.SetFloat("_ZWrite", 1);
 
         material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
     }
