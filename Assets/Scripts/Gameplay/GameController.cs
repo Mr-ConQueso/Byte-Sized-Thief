@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
     public static event GameResumedEventHandler OnGameResumed;
     
     // ---- / Public Variables / ---- //
+    [HideInInspector] public bool CanPauseGame = false;
     public int TimerInSeconds = 120;
     [HideInInspector] public bool IsPlayerFrozen { get; private set; } = true;
     [HideInInspector] public bool IsGamePaused { get; private set; }
@@ -54,7 +55,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        if (InputManager.WasEscapePressed)
+        if (InputManager.WasEscapePressed && CanPauseGame)
         {
             IsGamePaused = !IsGamePaused;
             if (IsGamePaused)
@@ -71,6 +72,7 @@ public class GameController : MonoBehaviour
     private void OnTimerStart()
     {
         IsPlayerFrozen = false;
+        CanPauseGame = true;
     }
 
     private void StartGame()

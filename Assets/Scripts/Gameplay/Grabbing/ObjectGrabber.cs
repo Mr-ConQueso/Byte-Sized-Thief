@@ -26,26 +26,9 @@ public class ObjectGrabber : MonoBehaviour
     {
         if (!GameController.Instance.IsPlayerFrozen)
         {
-            HighlightGrabbableObjects();
             if (InputManager.WasGrabOrReleasePressed)
             {
                 TryGrabOrReleaseObject();
-            }
-        }
-    }
-
-    private void HighlightGrabbableObjects()
-    {
-        Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.SphereCast(ray, grabPointerDistance, out hit))
-        {
-            IGrabbable grabbableObject = hit.collider.GetComponent<IGrabbable>();
-
-            if (grabbableObject != null)
-            {
-                //Todo: Añadir el borde de los objetos
             }
         }
     }
@@ -125,7 +108,7 @@ public class ObjectGrabber : MonoBehaviour
         {
             RaycastHit hit;
             Vector3 origin = new Vector3(heldPoint.position.x, heldPoint.position.y + 100f, heldPoint.position.z);
-            if (Physics.Raycast(origin, Vector3.down, out hit, Mathf.Infinity))
+            if (Physics.Raycast(origin, Vector3.down, out hit, Mathf.Infinity, grabbableObjectLayer))
             {
                 newObject.transform.SetParent(heldPoint);
                 newObject.transform.position = hit.point;
