@@ -7,7 +7,7 @@ public class PointsCounter : MonoBehaviour
     public static PointsCounter Instance;
     
     // ---- / Static Variables / ---- //
-    private static string _moneySuffix;
+    private static string _moneySuffix = "$";
 
     // ---- / Public Variables / ---- //
     public float Points { get; private set; } = 0;
@@ -23,6 +23,10 @@ public class PointsCounter : MonoBehaviour
 
     public void RemovePoints(float value)
     {
+        if ((Points -= value) > 0)
+        {
+            Points = 0;
+        }
         Points -= value;
         UpdatePointsGUI();
     }

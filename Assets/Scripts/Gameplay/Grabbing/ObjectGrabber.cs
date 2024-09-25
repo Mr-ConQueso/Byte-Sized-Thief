@@ -82,8 +82,10 @@ public class ObjectGrabber : MonoBehaviour
             _currentTotalWeight += objectWeight;
 
             PositionObject(grabbedObject);
-
+            
+            
             grabbableObject.OnGrab();
+            PointsCounter.Instance.AddPoints(grabbableObject.GetValue());
 
             Debug.Log("Object grabbed: " + grabbedObject.name + " | Total Weight: " + _currentTotalWeight);
         }
@@ -131,6 +133,7 @@ public class ObjectGrabber : MonoBehaviour
             if (grabbableObject != null)
             {
                 grabbableObject.OnRelease();
+                PointsCounter.Instance.RemovePoints(grabbableObject.GetValue());
             }
 
             _grabbedObjects.RemoveAt(_grabbedObjects.Count - 1);

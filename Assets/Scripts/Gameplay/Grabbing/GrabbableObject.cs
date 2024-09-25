@@ -18,7 +18,6 @@ public class GrabbableObject : MonoBehaviour, IGrabbable
     {
         Debug.Log(gameObject.name + " has been grabbed!");
         _rigidbody.isKinematic = true;
-        PointsCounter.Instance.AddPoints(GetValue());
     }
 
     public void OnRelease()
@@ -28,7 +27,6 @@ public class GrabbableObject : MonoBehaviour, IGrabbable
 
         Vector3 forwardPush = transform.forward * 5f;
         _rigidbody.AddForce(forwardPush, ForceMode.Impulse);
-        PointsCounter.Instance.RemovePoints(GetValue());
     }
 
     public float GetWeight()

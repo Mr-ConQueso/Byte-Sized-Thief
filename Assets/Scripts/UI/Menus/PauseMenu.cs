@@ -4,8 +4,10 @@ using UnityEngine;
 public class PauseMenu : MonoBehaviour
 {
     // ---- / Serialized Variables / ---- //
-    [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private float fadeDuration = 1f;
+    
+    // ---- / Private Variables / ---- //
+    private CanvasGroup canvasGroup;
     
     public void OnClick_ResumeGame()
     {
