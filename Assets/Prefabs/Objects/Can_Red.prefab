@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c3ca418efe49409f15a042871e9882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectName: Red Can
   objectWeight: 2
   objectValue: 5
 --- !u!54 &7418667452528160642

@@ -4,4 +4,5 @@ public interface IGrabbable
     void OnRelease();
     float GetWeight();
     float GetValue();
+    string GetName();
 }

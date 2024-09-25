@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -14,6 +16,9 @@ public class PointsCounter : MonoBehaviour
     
     // ---- / Serialized Variables / ---- //
     [SerializeField] private TMP_Text pointsText;
+    
+    // ---- / Private Variables / ---- //
+    private List<Tuple<string, float, int>> items = new List<Tuple<string, float, int>>();
 
     public void AddPoints(float value)
     {
@@ -43,5 +48,30 @@ public class PointsCounter : MonoBehaviour
     {
         string fullPointsText = $"{Points} {_moneySuffix}";
         pointsText.text = fullPointsText;
+    }
+    
+    public void AddOrUpdateItem(string name, float value)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i].Item1 == name)
+            {
+                int updatedAmount = items[i].Item3 + 1;
+                items[i] = new Tuple<string, float, int>(name, value, updatedAmount);
+                Debug.Log($"Updated: {name}, New Amount: {updatedAmount}");
+                return; 
+            }
+        }
+
+        items.Add(new Tuple<string, float, int>(name, value, 1));
+        Debug.Log($"Added: {name}, Value: {value}, Amount: 1");
+    }
+
+    private void PrintItems()
+    {
+        foreach (var item in items)
+        {
+            Debug.Log($"Name: {item.Item1}, Value: {item.Item2}, Amount: {item.Item3}");
+        }
     }
 }

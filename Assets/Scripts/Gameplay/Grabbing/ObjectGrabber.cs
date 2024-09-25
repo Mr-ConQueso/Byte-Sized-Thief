@@ -86,6 +86,7 @@ public class ObjectGrabber : MonoBehaviour
             
             grabbableObject.OnGrab();
             PointsCounter.Instance.AddPoints(grabbableObject.GetValue());
+            PointsCounter.Instance.AddOrUpdateItem(grabbableObject.GetName(), grabbableObject.GetValue());
 
             Debug.Log("Object grabbed: " + grabbedObject.name + " | Total Weight: " + _currentTotalWeight);
         }

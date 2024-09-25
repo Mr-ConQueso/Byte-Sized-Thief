@@ -3,6 +3,8 @@ using UnityEngine;
 public class GrabbableObject : MonoBehaviour, IGrabbable
 {
     // ---- / Serialized Variables / ---- //
+    [Header("Object Properties")]
+    [SerializeField] private string objectName;
     [SerializeField] private float objectWeight = 5f;
     [SerializeField] private float objectValue = 5f;
     
@@ -37,5 +39,10 @@ public class GrabbableObject : MonoBehaviour, IGrabbable
     public float GetValue()
     {
         return objectValue;
+    }
+
+    public string GetName()
+    {
+        return objectName;
     }
 }
