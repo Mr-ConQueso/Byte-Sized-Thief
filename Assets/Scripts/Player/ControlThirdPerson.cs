@@ -34,6 +34,7 @@ public class ControlThirdPerson : MonoBehaviour
         Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit[] hits = Physics.RaycastAll(ray, 1000f);
 
+
         Debug.DrawRay(ray.origin, ray.direction * 100, Color.green);
 
         foreach(RaycastHit hit in hits)

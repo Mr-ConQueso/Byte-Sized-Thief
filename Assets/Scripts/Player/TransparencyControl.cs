@@ -9,6 +9,7 @@ public class TransparencyControl : MonoBehaviour
     [SerializeField] private LayerMask translucent;
     [Range(0,1)]
     [SerializeField] private float transparencyLevel;
+    [SerializeField] private float CameraOffset = 1.0f;
 
     // ---- / Private Variables / ---- //
     private Transform _transform;
@@ -26,21 +27,28 @@ public class TransparencyControl : MonoBehaviour
 
     void Update()
     {
-        Vector3 screenPoint = Camera.main.WorldToScreenPoint(_transform.position);
+        Vector3 screenPoint = Camera.main.WorldToViewportPoint(_transform.position);
+        //Vector3 worldPoint = Camera.main.
 
-        Ray ray = Camera.main.ScreenPointToRay(screenPoint);
-        Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
+        Ray ray = Camera.main.ViewportPointToRay(screenPoint);
+        Vector3 limit = _transform.position - 10 * ray.direction;
+        Debug.DrawLine(ray.origin, limit, Color.red);
 
-        RaycastHit[] hits = Physics.RaycastAll(ray, 200, translucent);
 
-        _currentHits.Clear();
-        foreach (RaycastHit hit in hits)
+        float distanceToPlayer = Vector3.Distance(Camera.main.transform.position, _transform.position);
+        float cameraDistance = distanceToPlayer - CameraOffset;
+
+        if(cameraDistance > 0)
         {
-            _hitRenderer = hit.collider.GetComponent<Renderer>();
-
-            if (_hitRenderer != null)
+            RaycastHit[] hits = Physics.RaycastAll(ray, Vector3.Distance(limit, ray.origin), translucent);
+            _currentHits.Clear();
+            foreach (RaycastHit hit in hits)
             {
-                _material = _hitRenderer.material;
+                Debug.Log(hit.collider.name);
+                _hitRenderer = hit.collider.GetComponent<Renderer>();
+                if (_hitRenderer != null)
+                {
+                    _material = _hitRenderer.material;
                     if(!_originalColor.ContainsKey(_hitRenderer))
                     {
                         _originalColor[_hitRenderer] = _material.color;
@@ -50,20 +58,21 @@ public class TransparencyControl : MonoBehaviour
                     color.a = transparencyLevel;
                     _material.color = color;
                     _currentHits.Add(_hitRenderer);                    
+                }
             }
-        }
-        foreach(Renderer renderer in _previousHits)
-        {
-            if(!_currentHits.Contains(renderer) && renderer != null)
+            foreach(Renderer renderer in _previousHits)
             {
-                Material material = renderer.material;
-                material.color = _originalColor[renderer];
-                TransformToOpaque(material);
-            }
-        }   
-        _previousHits.Clear();
-        _previousHits.AddRange(_currentHits);
-        Debug.Log(_material);
+                if(!_currentHits.Contains(renderer) && renderer != null)
+                {
+                    Material material = renderer.material;
+                    material.color = _originalColor[renderer];
+                    TransformToOpaque(material);
+                }
+            }   
+            _previousHits.Clear();
+            _previousHits.AddRange(_currentHits);
+            Debug.Log(_material);
+        }
     }
 
     private void TransformToTranslucent(Material material)
