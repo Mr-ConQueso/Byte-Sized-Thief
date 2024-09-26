@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -18,6 +19,11 @@ public class PauseMenu : MonoBehaviour
     public void OnClick_Exit()
     {
         MenuManager.OpenMenu(Menu.ExitMenu, gameObject);
+    }
+    
+    public void OnClick_GoToEnd()
+    {
+        SceneManager.LoadScene("EndMenu");
     }
 
     public void OnClick_Settings()
@@ -47,8 +53,6 @@ public class PauseMenu : MonoBehaviour
     {
         GameController.Instance.CanPauseGame = false;
         StartCoroutine(FadeCanvasGroup(canvasGroup, 1f, 0f, false));
-        canvasGroup.interactable = false;
-        canvasGroup.blocksRaycasts = true;
     }
 
     private void OnGamePaused()
@@ -56,8 +60,6 @@ public class PauseMenu : MonoBehaviour
         GameController.Instance.CanPauseGame = false;
         gameObject.SetActive(true);
         StartCoroutine(FadeCanvasGroup(canvasGroup, 0f, 1f, true));
-        canvasGroup.interactable = true;
-        canvasGroup.blocksRaycasts = false;
     }
 
     private IEnumerator FadeCanvasGroup(CanvasGroup canvasGroup, float startAlpha, float endAlpha, bool active)

@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
+using UnityEditor;
 using UnityEngine;
 
 public class PointsCounter : MonoBehaviour
@@ -9,23 +9,27 @@ public class PointsCounter : MonoBehaviour
     // ---- / Singleton / ---- //
     public static PointsCounter Instance;
     
-    // ---- / Static Variables / ---- //
-    private static string _moneySuffix = "$";
-
     // ---- / Public Variables / ---- //
     public float Value { get; private set; } = 0;
+    public List<Tuple<string, float, int>> ObtainedItems { get; private set; } = new List<Tuple<string, float, int>>();
+    public List<GameObject> AllGrabbedObjects { get; private set; } = new List<GameObject>();
     
     // ---- / Serialized Variables / ---- //
     [SerializeField] private float sellDuration = 1;
     
     // ---- / Private Variables / ---- //
-    private List<Tuple<string, float, int>> items = new List<Tuple<string, float, int>>();
     private Vector3 targetPosition;
 
     public void SellObject(IGrabbable grabbedObject, GameObject soldObject)
     {
         AddOrUpdateItem(grabbedObject.GetName(), grabbedObject.GetValue());
         StartCoroutine(MoveAndShrink(soldObject.transform, targetPosition, sellDuration));
+        
+        /*
+        PrefabUtility.FindPrefabRoot(soldObject);
+        string path = AssetDatabase.GetAssetPath(prefabParent);
+        AllGrabbedObjects.Add(go);
+        */
     }
     
     private void Awake()
@@ -90,25 +94,25 @@ public class PointsCounter : MonoBehaviour
     
     private void AddOrUpdateItem(string name, float value)
     {
-        for (int i = 0; i < items.Count; i++)
+        for (int i = 0; i < ObtainedItems.Count; i++)
         {
-            if (items[i].Item1 == name)
+            if (ObtainedItems[i].Item1 == name)
             {
-                int updatedAmount = items[i].Item3 + 1;
-                items[i] = new Tuple<string, float, int>(name, value, updatedAmount);
+                int updatedAmount = ObtainedItems[i].Item3 + 1;
+                ObtainedItems[i] = new Tuple<string, float, int>(name, value, updatedAmount);
                 Debug.Log($"Updated: {name}, New Amount: {updatedAmount}");
                 return; 
             }
         }
 
-        items.Add(new Tuple<string, float, int>(name, value, 1));
+        ObtainedItems.Add(new Tuple<string, float, int>(name, value, 1));
         Debug.Log($"Added: {name}, Value: {value}, Amount: 1");
         GetTotalValue();
     }
 
     private void PrintItems()
     {
-        foreach (var item in items)
+        foreach (var item in ObtainedItems)
         {
             Debug.Log($"Name: {item.Item1}, Value: {item.Item2}, Amount: {item.Item3}");
         }
@@ -118,7 +122,7 @@ public class PointsCounter : MonoBehaviour
     {
         float total = 0f;
 
-        foreach (var item in items)
+        foreach (var item in ObtainedItems)
         {
             total += item.Item2 * item.Item3;
         }
