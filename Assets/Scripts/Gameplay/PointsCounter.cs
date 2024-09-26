@@ -107,7 +107,8 @@ public class PointsCounter : MonoBehaviour
 
         ObtainedItems.Add(new Tuple<string, float, int>(name, value, 1));
         Debug.Log($"Added: {name}, Value: {value}, Amount: 1");
-        GetTotalValue();
+        
+        Value = GetTotalValue();
     }
 
     private void PrintItems()
@@ -127,7 +128,6 @@ public class PointsCounter : MonoBehaviour
             total += item.Item2 * item.Item3;
         }
 
-        Value = total;
         return total;
     }
 }

@@ -13,6 +13,7 @@ public class ObjectGrabber : MonoBehaviour
     [SerializeField] private float grabDistance = 3f;
     [SerializeField] private float grabPointerDistance = 0.5f;
     [SerializeField] private LayerMask grabbableObjectLayer;
+    [SerializeField] private LayerMask currentlyGrabbedLayer;
     [SerializeField] private Transform heldPoint;
     
     [Header("Selling Objects")]
@@ -109,7 +110,6 @@ public class ObjectGrabber : MonoBehaviour
 
             PositionObject(grabbedObject);
             
-            
             grabbableObject.OnGrab();
 
             Debug.Log("Object grabbed: " + grabbedObject.name + " | Total Weight: " + _currentTotalWeight);
@@ -135,7 +135,7 @@ public class ObjectGrabber : MonoBehaviour
         {
             RaycastHit hit;
             Vector3 origin = new Vector3(heldPoint.position.x, heldPoint.position.y + 100f, heldPoint.position.z);
-            if (Physics.Raycast(origin, Vector3.down, out hit, Mathf.Infinity, grabbableObjectLayer))
+            if (Physics.Raycast(origin, Vector3.down, out hit, Mathf.Infinity, currentlyGrabbedLayer))
             {
                 newObject.transform.SetParent(heldPoint);
                 newObject.transform.position = hit.point;
@@ -169,36 +169,36 @@ public class ObjectGrabber : MonoBehaviour
 
     private void SellGrabbedObjects()
     {
-        if (_grabbedObjects.Count > 0)
-        {
-            GameObject lastObject = _grabbedObjects[_grabbedObjects.Count - 1];
+        GameObject lastObject = _grabbedObjects[_grabbedObjects.Count - 1];
 
-            lastObject.transform.SetParent(null);
+        lastObject.transform.SetParent(null);
 
-            IGrabbable grabbableObject = lastObject.GetComponent<IGrabbable>();
+        IGrabbable grabbableObject = lastObject.GetComponent<IGrabbable>();
 
-            _grabbedObjects.RemoveAt(_grabbedObjects.Count - 1);
-            _currentTotalWeight -= grabbableObject.GetWeight();
-            
-            PointsCounter.Instance.SellObject(grabbableObject, lastObject);
-        }
+        _grabbedObjects.RemoveAt(_grabbedObjects.Count - 1);
+        _currentTotalWeight -= grabbableObject.GetWeight();
+        
+        PointsCounter.Instance.SellObject(grabbableObject, lastObject);
     }
 
     private Coroutine _sellCoroutine;
-
+    
     private void CheckIfSellPointInBounds()
     {
         if (Vector3.Distance(transform.position, sellPoint.position) <= sellDistance)
         {
-            _sellCoroutine = StartCoroutine(SellItemsWithDelay(10f));
+            if (_sellCoroutine == null)
+            {
+                _sellCoroutine = StartCoroutine(SellItemsWithDelay(1f));
+            }
         }
         else
         {
             if (_sellCoroutine != null)
             {
                 StopCoroutine(_sellCoroutine);
+                _sellCoroutine = null;
             }
-            _sellCoroutine = null;
         }
     }
 
@@ -207,9 +207,10 @@ public class ObjectGrabber : MonoBehaviour
         while (_grabbedObjects.Count > 0)
         {
             SellGrabbedObjects();
-
             yield return new WaitForSeconds(interval);
         }
+
+        _sellCoroutine = null;
     }
 
     private void UpdateDebugGUI()

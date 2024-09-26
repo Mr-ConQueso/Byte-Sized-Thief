@@ -4,10 +4,10 @@ using UnityEngine;
 public class SimpleObjectSpawn : MonoBehaviour
 {
     [Header("Prefab List")]
-    [SerializeField] private List<GameObject> prefabs; // List of prefabs to spawn
+    [SerializeField] private List<GameObject> prefabs;
 
     [Header("Spawn Points")]
-    [SerializeField] private List<Transform> spawnPoints; // List of transform positions to spawn objects
+    [SerializeField] private List<Transform> spawnPoints;
 
     private void Start()
     {
@@ -33,6 +33,5 @@ public class SimpleObjectSpawn : MonoBehaviour
         GameObject randomPrefab = prefabs[Random.Range(0, prefabs.Count)];
 
         Instantiate(randomPrefab, position, Quaternion.identity);
-        Debug.Log($"Spawned {randomPrefab.name} at {position}");
     }
 }

@@ -1,7 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class TransparencyControl : MonoBehaviour
 {
@@ -9,44 +8,45 @@ public class TransparencyControl : MonoBehaviour
     [SerializeField] private LayerMask translucent;
     [Range(0,1)]
     [SerializeField] private float transparencyLevel;
-    [SerializeField] private float CameraOffset = 5.0f;
-    [SerializeField] private float translucentRadious = 1;
+    [SerializeField] private float cameraOffset = 5.0f;
+    [SerializeField] private float translucentRadius = 1;
     [SerializeField] private float fadeTime;
 
     // ---- / Private Variables / ---- //
     private Transform _transform;
     private Material _material;
     private Renderer _hitRenderer;
+    private Camera _camera;
 
     private Dictionary<Renderer, Color> _originalColor = new Dictionary<Renderer, Color>();
     private List<Renderer> _currentHits = new List<Renderer>();
     private List<Renderer> _previousHits = new List<Renderer>();
 
-    void Start()
+    private void Start()
     {
         _transform = transform;
+        _camera = Camera.main;
     }
 
-    void Update()
+     private void Update()
     {
-        Vector3 screenPoint = Camera.main.WorldToViewportPoint(_transform.position);
-        //Vector3 worldPoint = Camera.main.
+        Vector3 screenPoint = _camera.WorldToViewportPoint(_transform.position);
+        //Vector3 worldPoint = _camera.
 
-        Ray ray = Camera.main.ViewportPointToRay(screenPoint);
+        Ray ray = _camera.ViewportPointToRay(screenPoint);
         Vector3 limit = _transform.position - 10 * ray.direction;
         Debug.DrawLine(ray.origin, limit, Color.red);
 
 
-        float distanceToPlayer = Vector3.Distance(Camera.main.transform.position, _transform.position);
-        float cameraDistance = distanceToPlayer - CameraOffset;
+        float distanceToPlayer = Vector3.Distance(_camera.transform.position, _transform.position);
+        float cameraDistance = distanceToPlayer - cameraOffset;
 
         if(cameraDistance > 0)
         {
-            RaycastHit[] hits = Physics.SphereCastAll(ray,translucentRadious, Vector3.Distance(limit, ray.origin), translucent);
+            RaycastHit[] hits = Physics.SphereCastAll(ray,translucentRadius, Vector3.Distance(limit, ray.origin), translucent);
             _currentHits.Clear();
             foreach (RaycastHit hit in hits)
             {
-                Debug.Log(hit.collider.name);
                 _hitRenderer = hit.collider.GetComponent<Renderer>();
                 if (_hitRenderer != null)
                 {
@@ -73,7 +73,6 @@ public class TransparencyControl : MonoBehaviour
             }   
             _previousHits.Clear();
             _previousHits.AddRange(_currentHits);
-            Debug.Log(_material);
         }
     }
 
@@ -84,11 +83,11 @@ public class TransparencyControl : MonoBehaviour
         material.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
 
         material.SetOverrideTag("RenderType", "Transparent");
-        material.SetFloat("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-        material.SetFloat("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        material.SetFloat("_SrcBlend", (int)BlendMode.SrcAlpha);
+        material.SetFloat("_DstBlend", (int)BlendMode.OneMinusSrcAlpha);
         material.SetFloat("_ZWrite", 0);
 
-        material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+        material.renderQueue = (int)RenderQueue.Transparent;
     }
     private void TransformToOpaque(Material material)
     {
@@ -97,10 +96,10 @@ public class TransparencyControl : MonoBehaviour
         material.EnableKeyword("_SURFACE_TYPE_OPAQUE");
         material.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
 
-        material.SetFloat("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
-        material.SetFloat("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+        material.SetFloat("_SrcBlend", (int)BlendMode.One);
+        material.SetFloat("_DstBlend", (int)BlendMode.Zero);
         material.SetFloat("_ZWrite", 1);
 
-        material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
+        material.renderQueue = (int)RenderQueue.Geometry;
     }
 }

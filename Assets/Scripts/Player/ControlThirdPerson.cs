@@ -44,7 +44,6 @@ public class ControlThirdPerson : MonoBehaviour
         foreach(RaycastHit hit in hits)
         {
             Vector3 dist = transform.position - hit.collider.transform.position;
-            Debug.Log(dist);
             if (InputManager.WasMousePressed)
             {
                 NavMeshPath path = new NavMeshPath();

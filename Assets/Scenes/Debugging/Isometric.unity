@@ -701,7 +701,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabs:
-  - {fileID: 4164546824895799839, guid: 91fe2c35af6c5344d8ded17ebc8964b8, type: 3}
+  - {fileID: 4164546824895799839, guid: dc6bbe7232d6e8e60801d3a7bd9003e7, type: 3}
   - {fileID: 4164546824895799839, guid: 82740cf2e81fdf1d0b9963dabbcafd3a, type: 3}
   spawnPoints:
   - {fileID: 232626112}
@@ -2038,6 +2038,16 @@ PrefabInstance:
       propertyPath: soldValueText
       value: 
       objectReference: {fileID: 2061033069}
+    - target: {fileID: 4635927293279850681, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
+        type: 3}
+      propertyPath: maxGrabbableWeight
+      value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635927293279850681, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
+        type: 3}
+      propertyPath: currentlyGrabbedLayer.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
     - target: {fileID: 4668913625995196669, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
         type: 3}
       propertyPath: m_LocalPosition.x
