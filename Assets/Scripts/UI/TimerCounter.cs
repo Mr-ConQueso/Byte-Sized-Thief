@@ -43,7 +43,15 @@ public class TimerCounter : MonoBehaviour
 
     private void OnGameStart()
     {
-        StartCoroutine(CountdownWithFade(fadeInOutTime, visibleNumberDuration, starterNumberText));
+        if (GameController.Instance.DEBUG_MODE)
+        {
+            starterNumberText.gameObject.SetActive(false);
+            StartTimer();
+        }
+        else
+        {
+            StartCoroutine(CountdownWithFade(fadeInOutTime, visibleNumberDuration, starterNumberText));
+        }
     }
     
     private void OnGameEnd()

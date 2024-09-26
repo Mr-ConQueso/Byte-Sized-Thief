@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour
     
     // ---- / Public Variables / ---- //
     [HideInInspector] public bool CanPauseGame = false;
+    public bool DEBUG_MODE = true;
     public int TimerInSeconds = 120;
     [HideInInspector] public bool IsPlayerFrozen { get; private set; } = true;
     [HideInInspector] public bool IsGamePaused { get; private set; }

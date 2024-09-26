@@ -540,6 +540,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16
   transparencyLevel: 0.5
+  CameraOffset: 5
+  translucentRadious: 2
+  fadeTime: 0
 --- !u!114 &6235781385438170705
 MonoBehaviour:
   m_ObjectHideFlags: 0

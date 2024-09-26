@@ -1,4 +1,7 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ObjectGrabber : MonoBehaviour
@@ -11,6 +14,14 @@ public class ObjectGrabber : MonoBehaviour
     [SerializeField] private float grabPointerDistance = 0.5f;
     [SerializeField] private LayerMask grabbableObjectLayer;
     [SerializeField] private Transform heldPoint;
+    
+    [Header("Selling Objects")]
+    [SerializeField] private Transform sellPoint;
+    [SerializeField] private float sellDistance = 12f;
+    
+    [Header("Debugging")]
+    [SerializeField] private TMP_Text weightText;
+    [SerializeField] private TMP_Text soldValueText;
 
     // ---- / Private Variables / ---- //
     private List<GameObject> _grabbedObjects = new List<GameObject>();
@@ -20,6 +31,11 @@ public class ObjectGrabber : MonoBehaviour
     private void Start()
     {
         _camera = Camera.main;
+        if (!GameController.Instance.DEBUG_MODE)
+        {
+            weightText.gameObject.SetActive(false);
+            soldValueText.gameObject.SetActive(false);
+        }
     }
 
     private void Update()
@@ -30,6 +46,16 @@ public class ObjectGrabber : MonoBehaviour
             {
                 TryGrabOrReleaseObject();
             }
+        }
+
+        if (!GameController.Instance.IsGamePaused)
+        {
+            CheckIfSellPointInBounds();
+        }
+
+        if (GameController.Instance.DEBUG_MODE)
+        {
+            UpdateDebugGUI();
         }
     }
     
@@ -85,8 +111,6 @@ public class ObjectGrabber : MonoBehaviour
             
             
             grabbableObject.OnGrab();
-            PointsCounter.Instance.AddPoints(grabbableObject.GetValue());
-            PointsCounter.Instance.AddOrUpdateItem(grabbableObject.GetName(), grabbableObject.GetValue());
 
             Debug.Log("Object grabbed: " + grabbedObject.name + " | Total Weight: " + _currentTotalWeight);
         }
@@ -134,7 +158,6 @@ public class ObjectGrabber : MonoBehaviour
             if (grabbableObject != null)
             {
                 grabbableObject.OnRelease();
-                PointsCounter.Instance.RemovePoints(grabbableObject.GetValue());
             }
 
             _grabbedObjects.RemoveAt(_grabbedObjects.Count - 1);
@@ -142,5 +165,56 @@ public class ObjectGrabber : MonoBehaviour
 
             Debug.Log("Last object released: " + lastObject.name);
         }
+    }
+
+    private void SellGrabbedObjects()
+    {
+        if (_grabbedObjects.Count > 0)
+        {
+            GameObject lastObject = _grabbedObjects[_grabbedObjects.Count - 1];
+
+            lastObject.transform.SetParent(null);
+
+            IGrabbable grabbableObject = lastObject.GetComponent<IGrabbable>();
+
+            _grabbedObjects.RemoveAt(_grabbedObjects.Count - 1);
+            _currentTotalWeight -= grabbableObject.GetWeight();
+            
+            PointsCounter.Instance.SellObject(grabbableObject, lastObject);
+        }
+    }
+
+    private Coroutine _sellCoroutine;
+
+    private void CheckIfSellPointInBounds()
+    {
+        if (Vector3.Distance(transform.position, sellPoint.position) <= sellDistance)
+        {
+            _sellCoroutine = StartCoroutine(SellItemsWithDelay(10f));
+        }
+        else
+        {
+            if (_sellCoroutine != null)
+            {
+                StopCoroutine(_sellCoroutine);
+            }
+            _sellCoroutine = null;
+        }
+    }
+
+    private IEnumerator SellItemsWithDelay(float interval)
+    {
+        while (_grabbedObjects.Count > 0)
+        {
+            SellGrabbedObjects();
+
+            yield return new WaitForSeconds(interval);
+        }
+    }
+
+    private void UpdateDebugGUI()
+    {
+        weightText.text = $"Weight: {_currentTotalWeight} / {maxGrabbableWeight}";
+        soldValueText.text = $"Sold Value: {PointsCounter.Instance.Value} $";
     }
 }
