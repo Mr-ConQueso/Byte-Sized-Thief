@@ -9,7 +9,9 @@ public class TransparencyControl : MonoBehaviour
     [SerializeField] private LayerMask translucent;
     [Range(0,1)]
     [SerializeField] private float transparencyLevel;
-    [SerializeField] private float CameraOffset = 1.0f;
+    [SerializeField] private float CameraOffset = 5.0f;
+    [SerializeField] private float translucentRadious = 1;
+    [SerializeField] private float fadeTime;
 
     // ---- / Private Variables / ---- //
     private Transform _transform;
@@ -40,7 +42,7 @@ public class TransparencyControl : MonoBehaviour
 
         if(cameraDistance > 0)
         {
-            RaycastHit[] hits = Physics.RaycastAll(ray, Vector3.Distance(limit, ray.origin), translucent);
+            RaycastHit[] hits = Physics.SphereCastAll(ray,translucentRadious, Vector3.Distance(limit, ray.origin), translucent);
             _currentHits.Clear();
             foreach (RaycastHit hit in hits)
             {
@@ -55,7 +57,7 @@ public class TransparencyControl : MonoBehaviour
                     }
                     TransformToTranslucent(_material);
                     Color color = _material.color;
-                    color.a = transparencyLevel;
+                    color.a = Mathf.Lerp(color.a, transparencyLevel, 1/fadeTime);
                     _material.color = color;
                     _currentHits.Add(_hitRenderer);                    
                 }

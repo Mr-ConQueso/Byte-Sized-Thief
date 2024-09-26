@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -32,22 +33,24 @@ public class ControlThirdPerson : MonoBehaviour
     private void TryMoveToPointer()
     {
         Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit[] hits = Physics.RaycastAll(ray, 1000f);
+        RaycastHit[] hits = Physics.RaycastAll(ray, 1000f,groundLayer);
 
 
         Debug.DrawRay(ray.origin, ray.direction * 100, Color.green);
 
+        hits = hits.OrderBy(hit => Mathf.Abs(transform.position.y - hit.collider.transform.position.y)).ToArray();
+
+
         foreach(RaycastHit hit in hits)
         {
-            if(((1 << hit.collider.gameObject.layer) & groundLayer) != 0)
+            Vector3 dist = transform.position - hit.collider.transform.position;
+            Debug.Log(dist);
+            if (InputManager.WasMousePressed)
             {
-
-                if (InputManager.WasMousePressed)
-                {
-                    NavMeshPath path = new NavMeshPath();
-                    _navAgent.CalculatePath(hit.point, path);
-                    _navAgent.SetPath(path);
-                }
+                NavMeshPath path = new NavMeshPath();
+                _navAgent.CalculatePath(hit.point, path);
+                _navAgent.SetPath(path);
+                break;
             }
             else
             {
