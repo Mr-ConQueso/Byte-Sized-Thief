@@ -28,10 +28,13 @@ public class ObjectGrabber : MonoBehaviour
     private List<GameObject> _grabbedObjects = new List<GameObject>();
     private float _currentTotalWeight = 0f;
     private Camera _camera;
+    private PlayerAudioController _playerAudioController;
 
     private void Start()
     {
         _camera = Camera.main;
+        _playerAudioController = GetComponent<PlayerAudioController>();
+        
         if (!GameController.Instance.DEBUG_MODE)
         {
             weightText.gameObject.SetActive(false);
@@ -100,6 +103,8 @@ public class ObjectGrabber : MonoBehaviour
 
     private void TryGrabObject(IGrabbable grabbableObject, GameObject grabbedObject)
     {
+        _playerAudioController.Play_GrabSound();
+        
         float distanceToPlayer = Vector3.Distance(transform.position, grabbedObject.transform.position);
         float objectWeight = grabbableObject.GetWeight();
 
@@ -150,6 +155,8 @@ public class ObjectGrabber : MonoBehaviour
     {
         if (_grabbedObjects.Count > 0)
         {
+            _playerAudioController.Play_DropSound();
+            
             GameObject lastObject = _grabbedObjects[_grabbedObjects.Count - 1];
 
             lastObject.transform.SetParent(null);
@@ -169,6 +176,8 @@ public class ObjectGrabber : MonoBehaviour
 
     private void SellGrabbedObjects()
     {
+        _playerAudioController.Play_SellSound();
+        
         GameObject lastObject = _grabbedObjects[_grabbedObjects.Count - 1];
 
         lastObject.transform.SetParent(null);
