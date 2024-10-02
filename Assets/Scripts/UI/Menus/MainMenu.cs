@@ -1,10 +1,11 @@
+using BaseGame;
 using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
     public void OnClick_StartGame()
     {
-        //Todo: Cargar la escena del juego
+        SceneSwapManager.SwapScene("Level0");
     }
 
     public void OnClick_Exit()

@@ -1,4 +1,5 @@
 using System.Collections;
+using BaseGame;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,12 +19,12 @@ public class PauseMenu : MonoBehaviour
 
     public void OnClick_Exit()
     {
-        MenuManager.OpenMenu(Menu.ExitMenu, gameObject);
+        SceneSwapManager.SwapScene("StartMenu");
     }
     
     public void OnClick_GoToEnd()
     {
-        SceneManager.LoadScene("EndMenu");
+        SceneSwapManager.SwapScene("EndMenu");
     }
 
     public void OnClick_Settings()

@@ -686,8 +686,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanPauseGame: 0
-  DEBUG_MODE: 1
-  TimerInSeconds: 120
+  DEBUG_MODE: 0
+  TimerInSeconds: 12
 --- !u!114 &464007097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1798,12 +1798,12 @@ PrefabInstance:
     - target: {fileID: 7851024955534681424, guid: f32312f04a19448a7847e9dfdb96fda2,
         type: 3}
       propertyPath: countDownTime
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7851024955534681424, guid: f32312f04a19448a7847e9dfdb96fda2,
         type: 3}
       propertyPath: visibleNumberDuration
-      value: 0
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 8496997679524730563, guid: f32312f04a19448a7847e9dfdb96fda2,
         type: 3}

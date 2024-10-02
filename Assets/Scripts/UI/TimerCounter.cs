@@ -100,6 +100,7 @@ public class TimerCounter : MonoBehaviour
         {
             timerText.text = "00:00:000";
             timerText.enabled = true;
+            GameController.Instance.InvokeOnGameEnd();
         }
     }
     

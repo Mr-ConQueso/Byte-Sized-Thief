@@ -1,3 +1,4 @@
+using BaseGame;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -29,6 +30,11 @@ public class GameController : MonoBehaviour
         IsPlayerFrozen = false;
         IsGamePaused = false;
         OnGameResumed?.Invoke();
+    }
+
+    public void InvokeOnGameEnd()
+    {
+        EndGame();
     }
     
     private void Awake()
@@ -97,5 +103,6 @@ public class GameController : MonoBehaviour
     {
         IsPlayerFrozen = true;
         OnGameEnd?.Invoke();
+        SceneSwapManager.SwapScene("EndMenu");
     }
 }
