@@ -25,11 +25,12 @@ public class PointsCounter : MonoBehaviour
     {
         AddOrUpdateItem(grabbedObject.GetName(), grabbedObject.GetValue());
 
-        soldObject.transform.SetParent(savedObjects);
-        soldObject.transform.localPosition = Vector3.zero;
-        soldObject.transform.localScale = Vector3.one;
+        GameObject soldObjectCopy = Instantiate(soldObject, savedObjects, false);
+
+        soldObjectCopy.transform.localPosition = Vector3.zero;
+        soldObjectCopy.transform.localScale = Vector3.zero;
         
-        AllGrabbedObjects.Add(soldObject);
+        AllGrabbedObjects.Add(soldObjectCopy);
 
         StartCoroutine(MoveAndShrink(soldObject.transform, targetPosition, sellDuration));
     }

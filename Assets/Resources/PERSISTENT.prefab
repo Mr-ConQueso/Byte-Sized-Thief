@@ -460,7 +460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15d9941b4ffafe3a38fc442d20a22630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sellDuration: 1
+  sellDuration: 0.25
   savedObjects: {fileID: 5431408373085179472}
 --- !u!1 &6425179034809472251
 GameObject:

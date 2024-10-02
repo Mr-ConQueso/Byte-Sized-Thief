@@ -809,7 +809,8 @@ MonoBehaviour:
   displaySpeed: 0.1
   creditsContainer: {fileID: 726954813}
   dropPoint: {fileID: 165175820}
-  dropDelay: 0.5
+  dropDelay: 0.25
+  dropSpeed: 5.05
 --- !u!1 &1142150724
 GameObject:
   m_ObjectHideFlags: 0

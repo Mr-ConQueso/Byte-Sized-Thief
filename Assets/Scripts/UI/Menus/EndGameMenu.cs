@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EndGameMenu : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class EndGameMenu : MonoBehaviour
     [SerializeField] private RectTransform creditsContainer;
     [SerializeField] private Transform dropPoint;
     [SerializeField] private float dropDelay = 0.5f; 
+    [SerializeField, Range(1, 8)] private float dropSpeed = 2f; 
     
     public void OnClick_Exit()
     {
@@ -42,7 +44,7 @@ public class EndGameMenu : MonoBehaviour
 
             if (rb != null)
             {
-                Vector3 dropForce = new Vector3(0f, -5f, 0f);
+                Vector3 dropForce = new Vector3(Random.Range(-dropSpeed, dropSpeed), -2f * dropSpeed, Random.Range(-dropSpeed, dropSpeed));
                 rb.AddForce(dropForce, ForceMode.Impulse);
             }
 
