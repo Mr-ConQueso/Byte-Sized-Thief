@@ -16,21 +16,24 @@ public class PointsCounter : MonoBehaviour
     
     // ---- / Serialized Variables / ---- //
     [SerializeField] private float sellDuration = 1;
+    [SerializeField] private Transform savedObjects;
     
     // ---- / Private Variables / ---- //
     private Vector3 targetPosition;
-
+    
     public void SellObject(IGrabbable grabbedObject, GameObject soldObject)
     {
         AddOrUpdateItem(grabbedObject.GetName(), grabbedObject.GetValue());
-        StartCoroutine(MoveAndShrink(soldObject.transform, targetPosition, sellDuration));
+
+        soldObject.transform.SetParent(savedObjects);
+        soldObject.transform.localPosition = Vector3.zero;
+        soldObject.transform.localScale = Vector3.one;
         
-        /*
-        PrefabUtility.FindPrefabRoot(soldObject);
-        string path = AssetDatabase.GetAssetPath(prefabParent);
-        AllGrabbedObjects.Add(go);
-        */
+        AllGrabbedObjects.Add(soldObject);
+
+        StartCoroutine(MoveAndShrink(soldObject.transform, targetPosition, sellDuration));
     }
+
     
     private void Awake()
     {

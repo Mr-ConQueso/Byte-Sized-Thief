@@ -31,6 +31,7 @@ public class EndGameMenu : MonoBehaviour
     {
         foreach (var obj in objectsToDrop)
         {
+            obj.transform.localScale = new Vector3(1, 1, 1);
             obj.transform.position = dropPoint.position;
 
             Rigidbody rb = obj.GetComponent<Rigidbody>();
