@@ -99,18 +99,46 @@ public class Outline : MonoBehaviour {
     needsUpdate = true;
   }
 
-  void OnEnable() {
-    foreach (var renderer in renderers) {
+  
+void OnEnable() {
+    // Comment out or remove adding outline materials at the start
+    // This prevents the object from being outlined when the script starts
+    // AddOutlineMaterials(); <-- Don't call this here
+}
 
-      // Append outline shaders
-      var materials = renderer.sharedMaterials.ToList();
-
-      materials.Add(outlineMaskMaterial);
-      materials.Add(outlineFillMaterial);
-
-      renderer.materials = materials.ToArray();
+public void EnableOutline(bool enable) {
+    if (enable) {
+        AddOutlineMaterials();
+    } else {
+        RemoveOutlineMaterials();
     }
-  }
+}
+
+private void AddOutlineMaterials() {
+    foreach (var renderer in renderers) {
+        var materials = renderer.sharedMaterials.ToList();
+        if (!materials.Contains(outlineMaskMaterial)) {
+            materials.Add(outlineMaskMaterial);
+        }
+        if (!materials.Contains(outlineFillMaterial)) {
+            materials.Add(outlineFillMaterial);
+        }
+        renderer.materials = materials.ToArray();
+    }
+}
+
+private void RemoveOutlineMaterials() {
+    foreach (var renderer in renderers) {
+        var materials = renderer.sharedMaterials.ToList();
+        if (materials.Contains(outlineMaskMaterial)) {
+            materials.Remove(outlineMaskMaterial);
+        }
+        if (materials.Contains(outlineFillMaterial)) {
+            materials.Remove(outlineFillMaterial);
+        }
+        renderer.materials = materials.ToArray();
+    }
+}
 
   void OnValidate() {
 

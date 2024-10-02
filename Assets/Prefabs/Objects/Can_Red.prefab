@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3236757397542893981}
   - component: {fileID: 7418667452528160642}
   - component: {fileID: 6989667196047791201}
+  - component: {fileID: -8088973439871167793}
   m_Layer: 6
   m_Name: Can_Red
   m_TagString: Untagged
@@ -100,6 +101,24 @@ CapsuleCollider:
   m_Height: 1.2
   m_Direction: 1
   m_Center: {x: 0, y: 0.21, z: 0}
+--- !u!114 &-8088973439871167793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4164546824895799839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 245c0eec6cf535b4ba6d3539f33c1137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0.4113207, g: 0, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &5816491548827199455
 GameObject:
   m_ObjectHideFlags: 0
