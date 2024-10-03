@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/StartMenu.unity
     guid: cfe6c3f02e8bae028b23a9a48ac203e1
   - enabled: 1
-    path: Assets/Scenes/Debugging/Isometric.unity
-    guid: fd7c52d626a1fec46916319a638b7f22
+    path: Assets/Scenes/Level0.unity
+    guid: f9960d95f9a6c65b5b1cdaee92f13338
   - enabled: 1
     path: Assets/Scenes/EndMenu.unity
     guid: 7eabfcde002660ab2b6356abc323ee7f

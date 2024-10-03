@@ -1,16 +1,28 @@
 using UnityEngine;
 using UnityEngine.Rendering;
-using Image = UnityEngine.UI.Image;
+using UnityEngine.UI;
 
-public class CircleMaskAnimation : Image
+public class StencilMaterialModifier : Image
 {
+    private static readonly int StencilComp = Shader.PropertyToID("_StencilComp");
+    private Material maskMaterial;
+
     public override Material materialForRendering
     {
         get
         {
-            Material material = new Material(base.materialForRendering);
-            material.SetInt("_StencilComp", (int)CompareFunction.NotEqual);
-            return material;
+            if (maskMaterial == null)
+            {
+                maskMaterial = new Material(base.materialForRendering);
+                maskMaterial.SetInt(StencilComp, (int)CompareFunction.NotEqual);
+            }
+            return maskMaterial;
         }
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        maskMaterial = null;
     }
 }

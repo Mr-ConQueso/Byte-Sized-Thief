@@ -14,7 +14,15 @@ namespace BaseGame
         
         // ---- / Private Variables / ---- //
         private Animator _transitionAnimator;
-        
+
+        private void Update()
+        {
+            if (Input.GetKeyDown("2"))
+            {
+                EndAnimation();
+            }
+        }
+
         private void Awake()
         {
             if (Instance == null)
@@ -22,11 +30,6 @@ namespace BaseGame
                 Instance = this;
             }
             _transitionAnimator = GetComponent<Animator>();
-        }
-
-        private void Start()
-        {
-            _transitionAnimator.SetTrigger("triggerEnd");
         }
 
         public void EndLoadIn()

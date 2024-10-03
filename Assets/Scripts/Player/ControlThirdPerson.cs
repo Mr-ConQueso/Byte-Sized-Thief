@@ -56,5 +56,19 @@ public class ControlThirdPerson : MonoBehaviour
                 //Debug.Log("No la misma capa");
             }
         }
+        
+        /*
+        RaycastHit hit;
+        if(Physics.Raycast(ray, out hit,1000, groundLayer))
+        {
+            if(InputManager.WasMousePressed)
+            {
+                NavMeshPath path = new NavMeshPath();
+                _navAgent.CalculatePath(hit.point, path);
+                _navAgent.SetPath(path);
+                Debug.Log("Hola");
+            }
+        }
+        */
     }
 }

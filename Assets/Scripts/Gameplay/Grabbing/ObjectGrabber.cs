@@ -72,12 +72,12 @@ public class ObjectGrabber : MonoBehaviour
         if (Physics.SphereCast(ray, grabPointerDistance, out hit, Mathf.Infinity, grabbableObjectLayer))
         {
             // Check if the object hit has an IGrabbable component
-            IGrabbable grabbableObject = hit.collider.GetComponent<IGrabbable>();
+            IGrabbable grabbableObject = hit.collider.GetComponentInParent<IGrabbable>();
 
             if (grabbableObject != null)
             {
                 // Check if the hit object is already in the grabbed list
-                GameObject hitObject = hit.collider.gameObject;
+                GameObject hitObject = hit.collider.transform.root.gameObject;
                 if (!_grabbedObjects.Contains(hitObject))
                 {
                     // If the object is not in the grabbed list, attempt to grab it
@@ -103,13 +103,13 @@ public class ObjectGrabber : MonoBehaviour
 
     private void TryGrabObject(IGrabbable grabbableObject, GameObject grabbedObject)
     {
-        _playerAudioController.Play_GrabSound();
-        
         float distanceToPlayer = Vector3.Distance(transform.position, grabbedObject.transform.position);
         float objectWeight = grabbableObject.GetWeight();
 
         if (distanceToPlayer <= grabDistance && (_currentTotalWeight + objectWeight) <= maxGrabbableWeight)
         {
+            _playerAudioController.Play_GrabSound();
+
             _grabbedObjects.Add(grabbedObject);
             _currentTotalWeight += objectWeight;
 

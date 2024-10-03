@@ -687,7 +687,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CanPauseGame: 0
   DEBUG_MODE: 1
-  TimerInSeconds: 120
+  TimerInSeconds: 100
 --- !u!114 &464007097
 MonoBehaviour:
   m_ObjectHideFlags: 0
