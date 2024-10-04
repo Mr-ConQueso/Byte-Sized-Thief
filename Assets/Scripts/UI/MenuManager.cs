@@ -3,13 +3,12 @@ using UnityEngine;
 public class MenuManager : MonoBehaviour
 {
     // ---- / Public Variables / ---- //
-    public static GameObject MainMenu, SettingsMenu, ExitMenu, PauseMenu, CreditsMenu, ControlsMenu;
+    public static GameObject MainMenu, SettingsMenu, PauseMenu, CreditsMenu, ControlsMenu;
 
     private void Awake()
     {
         MainMenu = transform.Find("MainMenu")?.gameObject;
         SettingsMenu = transform.Find("SettingsMenu")?.gameObject;
-        ExitMenu = transform.Find("ExitConfirmationMenu")?.gameObject;
         PauseMenu = transform.Find("PauseMenu")?.gameObject;
         CreditsMenu = transform.Find("CreditsMenu")?.gameObject;
         ControlsMenu = transform.Find("ControlsMenu")?.gameObject;
@@ -26,9 +25,6 @@ public class MenuManager : MonoBehaviour
         {
             case Menu.MainMenu:
                 MainMenu.SetActive(true);
-                break;
-            case Menu.ExitMenu:
-                ExitMenu.SetActive(true);
                 break;
             case Menu.SettingsMenu:
                 SettingsMenu.SetActive(true);

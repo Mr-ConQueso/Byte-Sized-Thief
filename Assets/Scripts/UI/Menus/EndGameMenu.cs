@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BaseGame;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class EndGameMenu : MonoBehaviour
@@ -12,15 +14,18 @@ public class EndGameMenu : MonoBehaviour
     
     // ---- / Serialized Variables / ---- //
     [SerializeField] private TMP_Text obtainedItemsText;
-    [SerializeField] private float displaySpeed = 0.1f;
-    [SerializeField] private RectTransform creditsContainer;
+    [SerializeField] private float dropDelay = 0.1f;
     [SerializeField] private Transform dropPoint;
-    [SerializeField] private float dropDelay = 0.5f; 
     [SerializeField, Range(1, 8)] private float dropSpeed = 2f; 
     
     public void OnClick_Exit()
     {
-        MenuManager.OpenMenu(Menu.ExitMenu, gameObject);
+        SceneSwapManager.SwapScene("StartMenu");
+    }
+    
+    public void OnClick_Credits()
+    {
+        SceneSwapManager.SwapScene("CreditsMenu");
     }
 
     private void Start()
@@ -58,25 +63,17 @@ public class EndGameMenu : MonoBehaviour
     {
         obtainedItemsText.text = string.Empty;
 
-        Vector2 initialSize = creditsContainer.sizeDelta;
-        initialSize.y = 0;
-        creditsContainer.sizeDelta = initialSize;
-
         foreach (var item in items)
         {
             string name = item.Item1;
             float value = item.Item2;
             int amount = item.Item3;
 
-            string formattedLine = string.Format("{0,-60} {1,8:F2}{2} X{3}", name, value, _moneySuffix, amount);
+            string formattedLine = string.Format("{0} {1:F2}{2} X{3}", name, value, _moneySuffix, amount);
         
             obtainedItemsText.text += formattedLine + "\n";
-
-            Vector2 newSize = creditsContainer.sizeDelta;
-            newSize.y += obtainedItemsText.fontSize;
-            creditsContainer.sizeDelta = newSize;
-
-            yield return new WaitForSeconds(displaySpeed);
+            
+            yield return new WaitForSeconds(dropDelay);
         }
     }
 }

@@ -10,7 +10,7 @@ public class MainMenu : MonoBehaviour
 
     public void OnClick_Exit()
     {
-        MenuManager.OpenMenu(Menu.ExitMenu, gameObject);
+        Application.Quit();
     }
 
     public void OnClick_Settings()
@@ -20,7 +20,7 @@ public class MainMenu : MonoBehaviour
     
     public void OnClick_Credits()
     {
-        MenuManager.OpenMenu(Menu.CreditsMenu, gameObject);
+        SceneSwapManager.SwapScene("CreditsMenu");
     }
     
     private void Start()

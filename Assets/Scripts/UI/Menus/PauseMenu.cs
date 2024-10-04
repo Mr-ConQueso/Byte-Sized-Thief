@@ -14,7 +14,6 @@ public class PauseMenu : MonoBehaviour
     public void OnClick_ResumeGame()
     {
         GameController.Instance.InvokeOnGameResumed();
-        Debug.Log("You clicked!");
     }
 
     public void OnClick_Exit()
