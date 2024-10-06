@@ -729,18 +729,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
---- !u!114 &428114426 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7752175258258435835, guid: ad01c95525bea660f82155e6c7060607,
-    type: 3}
-  m_PrefabInstance: {fileID: 930449238021976042}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &464007094
 GameObject:
   m_ObjectHideFlags: 0
@@ -1850,7 +1838,7 @@ MonoBehaviour:
   m_OverrideTileSize: 1
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 1
+  m_VoxelSize: 0.6666667
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 90d9c2ab94d7f104fbb5f72d91ffe013, type: 2}
   m_BuildHeightMesh: 1
@@ -2012,18 +2000,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 261393059}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2061033069 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4963339688929276259, guid: ad01c95525bea660f82155e6c7060607,
-    type: 3}
-  m_PrefabInstance: {fileID: 930449238021976042}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2086706835
 GameObject:
   m_ObjectHideFlags: 0
@@ -2380,7 +2356,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -2460,26 +2436,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 155357573}
     m_Modifications:
-    - target: {fileID: 1102821163651098693, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
-        type: 3}
-      propertyPath: ceilingLayer.m_Bits
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 4635927293279850681, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
-        type: 3}
-      propertyPath: sellPoint
-      value: 
-      objectReference: {fileID: 310774055}
-    - target: {fileID: 4635927293279850681, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
-        type: 3}
-      propertyPath: weightText
-      value: 
-      objectReference: {fileID: 428114426}
-    - target: {fileID: 4635927293279850681, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
-        type: 3}
-      propertyPath: soldValueText
-      value: 
-      objectReference: {fileID: 2061033069}
     - target: {fileID: 4668913625995196669, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2534,21 +2490,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4838916716845314026, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5618909916889524838, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
-        type: 3}
-      propertyPath: m_Height
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6906992122739895747, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
-        type: 3}
-      propertyPath: fadeTime
-      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
