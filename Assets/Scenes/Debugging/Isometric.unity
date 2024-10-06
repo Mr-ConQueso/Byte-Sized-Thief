@@ -2164,21 +2164,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 155357573}
     m_Modifications:
-    - target: {fileID: 4253785301499696522, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
+    - target: {fileID: 1102821163651098693, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
         type: 3}
-      propertyPath: dropSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 65483219ebdd5870fb38105ace9d8478, type: 3}
-    - target: {fileID: 4253785301499696522, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
-        type: 3}
-      propertyPath: grabSound
-      value: 
-      objectReference: {fileID: 8300000, guid: fafba9d29899f797383a248bea1de984, type: 3}
-    - target: {fileID: 4253785301499696522, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
-        type: 3}
-      propertyPath: sellSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 9ad45567b45227c2d948d8a1bc490e78, type: 3}
+      propertyPath: ceilingLayer.m_Bits
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 4635927293279850681, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
         type: 3}
       propertyPath: sellPoint

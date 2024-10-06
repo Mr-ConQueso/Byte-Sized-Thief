@@ -6,14 +6,17 @@ public class ControlThirdPerson : MonoBehaviour
 {
     // ---- / Serialized Variables / ---- //
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask ceilingLayer;
 
     // ---- / Private Variables / ---- //
     private NavMeshAgent _navAgent;
     private Camera _camera;
+    private ObjectGrabber _objectGrabber;
 
     private void Start()
     {
         _navAgent = GetComponent<NavMeshAgent>();
+        _objectGrabber = GetComponent<ObjectGrabber>();
         _camera = Camera.main;
     }
 
@@ -44,31 +47,27 @@ public class ControlThirdPerson : MonoBehaviour
         foreach(RaycastHit hit in hits)
         {
             Vector3 dist = transform.position - hit.collider.transform.position;
-            if (InputManager.WasMousePressed)
+            if (InputManager.WasMousePressed && _objectGrabber.MaxTraversableHeight <= CheckDistanceToFloor(transform.position))
             {
                 NavMeshPath path = new NavMeshPath();
                 _navAgent.CalculatePath(hit.point, path);
                 _navAgent.SetPath(path);
                 break;
             }
-            else
-            {
-                //Debug.Log("No la misma capa");
-            }
         }
-        
-        /*
+    }
+    
+    public float CheckDistanceToFloor(Vector3 origin)
+    {
         RaycastHit hit;
-        if(Physics.Raycast(ray, out hit,1000, groundLayer))
+        if (Physics.Raycast(origin, Vector3.up, out hit, Mathf.Infinity, ceilingLayer))
         {
-            if(InputManager.WasMousePressed)
-            {
-                NavMeshPath path = new NavMeshPath();
-                _navAgent.CalculatePath(hit.point, path);
-                _navAgent.SetPath(path);
-                Debug.Log("Hola");
-            }
+            Debug.Log(hit.distance);
+            return hit.distance;
         }
-        */
+        else
+        {
+            return 10000000;
+        }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,6 +5,9 @@ using UnityEngine;
 
 public class ObjectGrabber : MonoBehaviour
 {
+    // ---- / Public Variables / ---- //
+    [HideInInspector] public float MaxTraversableHeight { get; private set; }
+    
     // ---- / Serialized Variables / ---- //
     [SerializeField] private float maxGrabbableWeight = 50f;
     
@@ -145,6 +147,8 @@ public class ObjectGrabber : MonoBehaviour
                 newObject.transform.SetParent(heldPoint);
                 newObject.transform.position = hit.point;
                 newObject.transform.localRotation = Quaternion.identity;
+
+                MaxTraversableHeight = hit.point.y - transform.position.y;
 
                 Debug.Log("Object stacked on top: " + newObject.name);
             }
