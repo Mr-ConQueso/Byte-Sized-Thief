@@ -79,7 +79,7 @@ public class ObjectGrabber : MonoBehaviour
             if (grabbableObject != null)
             {
                 // Check if the hit object is already in the grabbed list
-                GameObject hitObject = hit.collider.transform.root.gameObject;
+                GameObject hitObject = hit.collider.transform.parent.gameObject;
                 if (!_grabbedObjects.Contains(hitObject))
                 {
                     // If the object is not in the grabbed list, attempt to grab it

@@ -31,6 +31,8 @@ public class ControlThirdPerson : MonoBehaviour
         {
             _navAgent.isStopped = true;
         }
+
+        UpdateAgentHeight();
     }
 
     private void TryMoveToPointer()
@@ -47,7 +49,7 @@ public class ControlThirdPerson : MonoBehaviour
         foreach(RaycastHit hit in hits)
         {
             Vector3 dist = transform.position - hit.collider.transform.position;
-            if (InputManager.WasMousePressed && _objectGrabber.MaxTraversableHeight <= CheckDistanceToFloor(transform.position))
+            if (InputManager.WasMousePressed)
             {
                 NavMeshPath path = new NavMeshPath();
                 _navAgent.CalculatePath(hit.point, path);
@@ -56,18 +58,12 @@ public class ControlThirdPerson : MonoBehaviour
             }
         }
     }
-    
-    public float CheckDistanceToFloor(Vector3 origin)
+
+    private void UpdateAgentHeight()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(origin, Vector3.up, out hit, Mathf.Infinity, ceilingLayer))
+        if (_objectGrabber.MaxTraversableHeight > 1)
         {
-            Debug.Log(hit.distance);
-            return hit.distance;
-        }
-        else
-        {
-            return 10000000;
+            _navAgent.height = _objectGrabber.MaxTraversableHeight;
         }
     }
 }
