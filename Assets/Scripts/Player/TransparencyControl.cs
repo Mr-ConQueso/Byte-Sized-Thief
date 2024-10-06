@@ -8,9 +8,10 @@ public class TransparencyControl : MonoBehaviour
     [SerializeField] private LayerMask translucent;
     [Range(0,1)]
     [SerializeField] private float transparencyLevel;
+    [Range(0, 100)]
+    [SerializeField] private float fadeTime;
     [SerializeField] private float cameraOffset = 5.0f;
     [SerializeField] private float translucentRadius = 1;
-    [SerializeField] private float fadeTime;
 
     // ---- / Private Variables / ---- //
     private Transform _transform;
