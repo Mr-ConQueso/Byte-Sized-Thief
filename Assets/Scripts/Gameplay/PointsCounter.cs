@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BaseGame;
 using UnityEditor;
 using UnityEngine;
 
@@ -46,28 +47,13 @@ public class PointsCounter : MonoBehaviour
 
     private void Start()
     {
-        if (TryGetObjectWithTag("SellPlace", out Transform targetTransform))
+        if (CustomFunctions.TryGetObjectWithTag("SellPlace", out Transform targetTransform))
         {
             targetPosition = targetTransform.position;
         }
         else
         {
             targetPosition = Vector3.zero;
-        }
-    }
-    
-    private bool TryGetObjectWithTag(string tag, out Transform transform)
-    {
-        GameObject obj = GameObject.FindWithTag(tag);
-        if (obj != null)
-        {
-            transform = obj.transform;
-            return true;
-        }
-        else
-        {
-            transform = null;
-            return false;
         }
     }
 

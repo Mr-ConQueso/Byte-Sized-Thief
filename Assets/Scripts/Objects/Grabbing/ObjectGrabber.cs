@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BaseGame;
 using TMPro;
 using UnityEngine;
 
@@ -24,7 +25,6 @@ public class ObjectGrabber : MonoBehaviour
     [SerializeField] private Transform heldPoint;
     
     [Header("Selling Objects")]
-    [SerializeField] private Transform sellPoint;
     [SerializeField] private float sellDistance = 12f;
     
     [Header("Debugging")]
@@ -32,6 +32,7 @@ public class ObjectGrabber : MonoBehaviour
     [SerializeField] private TMP_Text soldValueText;
 
     // ---- / Private Variables / ---- //
+    private Vector3 _sellPoint;
     private List<GameObject> _grabbedObjects = new List<GameObject>();
     private float _currentTotalWeight = 0f;
     private Camera _camera;
@@ -44,6 +45,15 @@ public class ObjectGrabber : MonoBehaviour
         {
             weightText.gameObject.SetActive(false);
             soldValueText.gameObject.SetActive(false);
+        }
+        
+        if (CustomFunctions.TryGetObjectWithTag("SellPlace", out Transform targetTransform))
+        {
+            _sellPoint = targetTransform.position;
+        }
+        else
+        {
+            _sellPoint = Vector3.zero;
         }
     }
 
@@ -212,7 +222,7 @@ public class ObjectGrabber : MonoBehaviour
     
     private void CheckIfSellPointInBounds()
     {
-        if (Vector3.Distance(transform.position, sellPoint.position) <= sellDistance)
+        if (Vector3.Distance(transform.position, _sellPoint) <= sellDistance)
         {
             if (_sellCoroutine == null)
             {
