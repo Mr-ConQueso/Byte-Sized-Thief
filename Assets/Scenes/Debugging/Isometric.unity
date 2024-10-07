@@ -2436,6 +2436,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 155357573}
     m_Modifications:
+    - target: {fileID: 4635927293279850681, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
+        type: 3}
+      propertyPath: maxGrabbableWeight
+      value: 5000
+      objectReference: {fileID: 0}
     - target: {fileID: 4668913625995196669, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
         type: 3}
       propertyPath: m_LocalPosition.x
