@@ -129,7 +129,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.025
-  m_Center: {x: 0, y: 0.02, z: 0.004}
+  m_Center: {x: 0, y: 0.02, z: 0}
 --- !u!1001 &7639020747360273579
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -141,17 +141,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: dbfaff66ac87520ea9dc69ce5447422c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.000018249957
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dbfaff66ac87520ea9dc69ce5447422c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.016740885
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dbfaff66ac87520ea9dc69ce5447422c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0001082479
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dbfaff66ac87520ea9dc69ce5447422c,
         type: 3}
@@ -166,12 +166,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: dbfaff66ac87520ea9dc69ce5447422c,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dbfaff66ac87520ea9dc69ce5447422c,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dbfaff66ac87520ea9dc69ce5447422c,
         type: 3}
