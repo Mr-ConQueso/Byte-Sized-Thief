@@ -11,7 +11,9 @@ public class ObjectGrabber : MonoBehaviour
     
     // ---- / Serialized Variables / ---- //
     [Header("Sounds")]
-    [SerializeField] private SoundData SoundData;
+    [SerializeField] private SoundData grabSoundData;
+    [SerializeField] private SoundData releaseSoundData;
+    [SerializeField] private SoundData sellSoundData;
     
     [Header("Grabbing Objects")]
     [SerializeField] private float maxGrabbableWeight = 50f;
@@ -112,9 +114,9 @@ public class ObjectGrabber : MonoBehaviour
         if (distanceToPlayer <= grabDistance && (_currentTotalWeight + objectWeight) <= maxGrabbableWeight)
         {
             AudioController.Instance.CreateSound()
-                .WithSoundData(SoundData)
+                .WithSoundData(grabSoundData)
                 .WithRandomPitch()
-                .WithPosition(transform.position)
+                .WithPosition(this.transform.position)
                 .Play();
 
             _grabbedObjects.Add(grabbedObject);
@@ -145,9 +147,8 @@ public class ObjectGrabber : MonoBehaviour
         }
         else
         {
-            RaycastHit hit;
             Vector3 origin = new Vector3(heldPoint.position.x, heldPoint.position.y + 100f, heldPoint.position.z);
-            if (Physics.Raycast(origin, Vector3.down, out hit, Mathf.Infinity, currentlyGrabbedLayer))
+            if (Physics.Raycast(origin, Vector3.down, out var hit, Mathf.Infinity, currentlyGrabbedLayer))
             {
                 newObject.transform.SetParent(heldPoint);
                 newObject.transform.position = hit.point;
@@ -164,9 +165,13 @@ public class ObjectGrabber : MonoBehaviour
     {
         if (_grabbedObjects.Count > 0)
         {
-            //Todo: AudioController.Instance.
+            AudioController.Instance.CreateSound()
+                .WithSoundData(releaseSoundData)
+                .WithRandomPitch()
+                .WithPosition(this.transform.position)
+                .Play();
             
-            GameObject lastObject = _grabbedObjects[_grabbedObjects.Count - 1];
+            GameObject lastObject = _grabbedObjects[^1];
 
             lastObject.transform.SetParent(null);
 
@@ -185,9 +190,13 @@ public class ObjectGrabber : MonoBehaviour
 
     private void SellGrabbedObjects()
     {
-        //Todo: AudioController.Instance.
+        AudioController.Instance.CreateSound()
+            .WithSoundData(sellSoundData)
+            .WithRandomPitch()
+            .WithPosition(this.transform.position)
+            .Play();
         
-        GameObject lastObject = _grabbedObjects[_grabbedObjects.Count - 1];
+        GameObject lastObject = _grabbedObjects[^1];
 
         lastObject.transform.SetParent(null);
 

@@ -28,8 +28,8 @@ public class SoundEmitter : MonoBehaviour
     public void Initialize(SoundData data)
     {
         Data = data;
-        _audioSource.clip = data.Clip;
-        _audioSource.outputAudioMixerGroup = data.MixerGroup;
+        _audioSource.clip = data.clip;
+        _audioSource.outputAudioMixerGroup = data.mixerGroup;
         _audioSource.loop = data.loop;
         _audioSource.playOnAwake = data.playOnAwake;
     }
