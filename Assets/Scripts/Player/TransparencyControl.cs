@@ -16,7 +16,7 @@ public class TransparencyControl : MonoBehaviour
     // ---- / Private Variables / ---- //
     private Transform _transform;
     private Material _material;
-    private Renderer _hitRenderer;
+    private Renderer[] _hitRenderer ;
     private Camera _camera;
 
     private Dictionary<Renderer, Color> _originalColor = new Dictionary<Renderer, Color>();
@@ -48,19 +48,22 @@ public class TransparencyControl : MonoBehaviour
             _currentHits.Clear();
             foreach (RaycastHit hit in hits)
             {
-                _hitRenderer = hit.collider.GetComponent<Renderer>();
-                if (_hitRenderer != null)
+                _hitRenderer = hit.collider.GetComponentsInChildren<Renderer>();
+                foreach (var renderer in _hitRenderer)
                 {
-                    _material = _hitRenderer.material;
-                    if(!_originalColor.ContainsKey(_hitRenderer))
+                    if (renderer != null)
                     {
-                        _originalColor[_hitRenderer] = _material.color;
+                        _material = renderer.material;
+                        if(!_originalColor.ContainsKey(renderer))
+                        {
+                            _originalColor[renderer] = _material.color;
+                        }
+                        TransformToTranslucent(_material);
+                        Color color = _material.color;
+                        color.a = Mathf.Lerp(color.a, transparencyLevel, 1/fadeTime);
+                        _material.color = color;
+                        _currentHits.Add(renderer);                    
                     }
-                    TransformToTranslucent(_material);
-                    Color color = _material.color;
-                    color.a = Mathf.Lerp(color.a, transparencyLevel, 1/fadeTime);
-                    _material.color = color;
-                    _currentHits.Add(_hitRenderer);                    
                 }
             }
             foreach(Renderer renderer in _previousHits)
