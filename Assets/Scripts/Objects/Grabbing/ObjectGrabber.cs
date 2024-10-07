@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,9 +10,11 @@ public class ObjectGrabber : MonoBehaviour
     [HideInInspector] public float MaxTraversableHeight { get; private set; }
     
     // ---- / Serialized Variables / ---- //
-    [SerializeField] private float maxGrabbableWeight = 50f;
+    [Header("Sounds")]
+    [SerializeField] private SoundData SoundData;
     
     [Header("Grabbing Objects")]
+    [SerializeField] private float maxGrabbableWeight = 50f;
     [SerializeField] private float grabDistance = 3f;
     [SerializeField] private float grabPointerDistance = 0.5f;
     [SerializeField] private LayerMask grabbableObjectLayer;
@@ -108,7 +111,11 @@ public class ObjectGrabber : MonoBehaviour
 
         if (distanceToPlayer <= grabDistance && (_currentTotalWeight + objectWeight) <= maxGrabbableWeight)
         {
-            //Todo: AudioController.Instance.
+            AudioController.Instance.CreateSound()
+                .WithSoundData(SoundData)
+                .WithRandomPitch()
+                .WithPosition(transform.position)
+                .Play();
 
             _grabbedObjects.Add(grabbedObject);
             _currentTotalWeight += objectWeight;
