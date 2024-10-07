@@ -5,56 +5,54 @@ namespace Audio
 {
     public class SoundBuilder
     {
-        public readonly AudioController AudioController;
-        private SoundData SoundData;
-        private Vector3 position = Vector3.zero;
-        private bool randomPitch;
+        // ---- / Private Variables / ---- //
+        private readonly AudioController _audioController;
+        private SoundData _soundData;
+        private Vector3 _position = Vector3.zero;
+        private bool _randomPitch;
 
         public SoundBuilder(AudioController audioController)
         {
-            this.AudioController = audioController;
+            this._audioController = audioController;
         }
 
         public SoundBuilder WithSoundData(SoundData soundData)
         {
-            this.SoundData = soundData;
+            this._soundData = soundData;
             return this;
         }
         
         public SoundBuilder WithRandomPitch()
         {
-            this.randomPitch = true;
+            this._randomPitch = true;
             return this;
         }
         
         public SoundBuilder WithPosition(Vector3 position)
         {
-            this.position = position;
+            this._position = position;
             return this;
         }
 
         public void Play()
         {
-            if (!AudioController.CanPlaySound(SoundData)) return;
+            if (!_audioController.CanPlaySound(_soundData)) return;
 
-            SoundEmitter soundEmitter = AudioController.Get();
-            soundEmitter.Initialize(SoundData);
-            soundEmitter.transform.position = position;
+            SoundEmitter soundEmitter = _audioController.Get();
+            soundEmitter.Initialize(_soundData);
+            soundEmitter.transform.position = _position;
             soundEmitter.transform.parent = AudioController.Instance.transform;
 
-            if (randomPitch)
+            if (_randomPitch)
             {
                 soundEmitter.WithRandomPitch();
             }
 
-            if (AudioController.Counts.TryGetValue(SoundData, out var count))
+            if (_soundData.frequentSound)
             {
-                AudioController.Counts[SoundData] = count + 1;
+                _audioController.FrequentSoundEmitters.Enqueue(soundEmitter);
             }
-            else
-            {
-                AudioController.Counts[SoundData] = 1;
-            }
+            
             soundEmitter.Play();
         }
     }

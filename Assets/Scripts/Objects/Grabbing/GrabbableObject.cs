@@ -50,7 +50,7 @@ public class GrabbableObject : MonoBehaviour, IGrabbable
         return objectName;
     }
     
-    private void ChangeLayerRecursively(GameObject obj, int newLayer)
+    private static void ChangeLayerRecursively(GameObject obj, int newLayer)
     {
         obj.layer = newLayer;
         foreach (Transform child in obj.transform)

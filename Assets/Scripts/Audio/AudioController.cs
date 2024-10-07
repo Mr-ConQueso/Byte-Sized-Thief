@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Audio;
 using UnityEngine;
@@ -10,8 +11,7 @@ public class AudioController : MonoBehaviour
     
     // ---- / Public Variables / ---- //
     public IObjectPool<SoundEmitter> SoundEmitterPool;
-    public readonly List<SoundEmitter> activeSoundEmitter = new();
-    public readonly Dictionary<SoundData, int> Counts = new();
+    public readonly List<SoundEmitter> ActiveSoundEmitter = new();
     public readonly Queue<SoundEmitter> FrequentSoundEmitters = new();
     
     // ---- / Serialized Variables / ---- //
@@ -20,37 +20,29 @@ public class AudioController : MonoBehaviour
     [SerializeField] private int defaultCapacity = 10;
     [SerializeField] private int maxPoolSize = 100;
     [SerializeField] private int maxSoundInstances = 30;
-    
-    // ---- / Private Variables / ---- //
-    private AudioSource _audioSource;
-    private float _lastPlayedTime;
 
     public SoundBuilder CreateSound() => new SoundBuilder(this);
-    
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-    }
-    
-    private void Start()
-    {
-        _audioSource = GetComponent<AudioSource>();
-    }
 
     public bool CanPlaySound(SoundData data)
     {
-        if (Counts.TryGetValue(data, out var count))
+        if (!data.frequentSound) return true;
+
+        if (FrequentSoundEmitters.Count >= maxSoundInstances && FrequentSoundEmitters.TryDequeue(out var soundEmitter))
         {
+            try
+            {
+                soundEmitter.Stop();
+                return true;
+            }
+            catch
+            {
+                Debug.Log("SoundEmitter is already released");
+            }
+
             return false;
         }
-        return true;
 
-        if (!data.frequentSound) return true;
-        
-        
+        return true;
     }
 
     public SoundEmitter Get()
@@ -62,6 +54,19 @@ public class AudioController : MonoBehaviour
     {
         SoundEmitterPool.Release(soundEmitter);
     }
+    
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
+
+    private void Start()
+    {
+        InitializePool();
+    }
 
     private void OnDestroyPoolObject(SoundEmitter soundEmitter)
     {
@@ -70,18 +75,14 @@ public class AudioController : MonoBehaviour
 
     private void OnReturnedToPool(SoundEmitter soundEmitter)
     {
-        if (Counts.TryGetValue(soundEmitter.Data, out var count))
-        {
-            Counts[soundEmitter.Data] -= count > 0 ? 1 : 0;
-        }
         soundEmitter.gameObject.SetActive(false);
-        activeSoundEmitter.Remove(soundEmitter);
+        ActiveSoundEmitter.Remove(soundEmitter);
     }
 
     private void OnTakeFromPool(SoundEmitter soundEmitter)
     {
         soundEmitter.gameObject.SetActive(true);
-        activeSoundEmitter.Add(soundEmitter);
+        ActiveSoundEmitter.Add(soundEmitter);
     }
 
     private SoundEmitter CreateSoundEmitter()

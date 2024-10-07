@@ -185,6 +185,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b73dd3e7b81f65f4ac63bf7d754984b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grabSoundData:
+    clip: {fileID: 8300000, guid: fafba9d29899f797383a248bea1de984, type: 3}
+    mixerGroup: {fileID: -6039386389834318509, guid: 6a0c7f6122af57ad9bf760fc1daae901,
+      type: 2}
+    loop: 0
+    playOnAwake: 0
+    frequentSound: 1
+  releaseSoundData:
+    clip: {fileID: 8300000, guid: 65483219ebdd5870fb38105ace9d8478, type: 3}
+    mixerGroup: {fileID: -6039386389834318509, guid: 6a0c7f6122af57ad9bf760fc1daae901,
+      type: 2}
+    loop: 0
+    playOnAwake: 0
+    frequentSound: 1
+  sellSoundData:
+    clip: {fileID: 8300000, guid: 9ad45567b45227c2d948d8a1bc490e78, type: 3}
+    mixerGroup: {fileID: -6039386389834318509, guid: 6a0c7f6122af57ad9bf760fc1daae901,
+      type: 2}
+    loop: 0
+    playOnAwake: 0
+    frequentSound: 1
   maxGrabbableWeight: 5000
   grabDistance: 10
   grabPointerDistance: 2
@@ -195,8 +216,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   heldPoint: {fileID: 3848556084687223332}
-  sellPoint: {fileID: 0}
-  sellDistance: 3
+  sellDistance: 8
   weightText: {fileID: 0}
   soldValueText: {fileID: 0}
 --- !u!114 &6906992122739895747
