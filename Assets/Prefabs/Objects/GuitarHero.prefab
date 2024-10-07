@@ -73,7 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c3ca418efe49409f15a042871e9882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: CHANGE_ME
+  objectName: GuitarHero Controller
   objectWeight: 0
   objectValue: 0
 --- !u!1 &7483123785024604477

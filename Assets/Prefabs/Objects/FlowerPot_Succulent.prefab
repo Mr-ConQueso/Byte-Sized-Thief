@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7418667452528160642}
   - component: {fileID: 3236757397542893981}
   m_Layer: 6
-  m_Name: Headphones_Kawaii
+  m_Name: FlowerPot_Succulent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,9 +73,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c3ca418efe49409f15a042871e9882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: Kawaii Headphones
-  objectWeight: 150
-  objectValue: 40
+  objectName: Potted Succulent
+  objectWeight: 300
+  objectValue: 20
 --- !u!1 &7483123785024604477
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,7 +85,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5289174475311191845}
-  - component: {fileID: 7472737859341493479}
+  - component: {fileID: 6205695800096240010}
   m_Layer: 6
   m_Name: Mesh
   m_TagString: Untagged
@@ -103,14 +103,14 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 13.982169, y: 13.982169, z: 13.982169}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 30, y: 30, z: 30}
+  m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 9042402958512277181}
+  - {fileID: 8050624146979575685}
   m_Father: {fileID: 3505460452270812238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &7472737859341493479
-SphereCollider:
+--- !u!136 &6205695800096240010
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -127,10 +127,12 @@ SphereCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.14
-  m_Center: {x: 0, y: 0.1, z: 0}
---- !u!1001 &8860736508352373078
+  serializedVersion: 2
+  m_Radius: 0.015
+  m_Height: 0.05
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.025, z: 0}
+--- !u!1001 &7508390618630664302
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -138,89 +140,69 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5289174475311191845}
     m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 30f9ea6cdbce905879be994457466ac6,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 30f9ea6cdbce905879be994457466ac6,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 5.4545455
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 30f9ea6cdbce905879be994457466ac6,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.0909091
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 30f9ea6cdbce905879be994457466ac6,
+    - target: {fileID: -8679921383154817045, guid: f9a093bab4d1f0620868a2646224ea54,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 30f9ea6cdbce905879be994457466ac6,
+    - target: {fileID: -8679921383154817045, guid: f9a093bab4d1f0620868a2646224ea54,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 30f9ea6cdbce905879be994457466ac6,
+    - target: {fileID: -8679921383154817045, guid: f9a093bab4d1f0620868a2646224ea54,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 30f9ea6cdbce905879be994457466ac6,
+    - target: {fileID: -8679921383154817045, guid: f9a093bab4d1f0620868a2646224ea54,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 30f9ea6cdbce905879be994457466ac6,
+    - target: {fileID: -8679921383154817045, guid: f9a093bab4d1f0620868a2646224ea54,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.7071068
+      value: -0.000000037748947
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 30f9ea6cdbce905879be994457466ac6,
+    - target: {fileID: -8679921383154817045, guid: f9a093bab4d1f0620868a2646224ea54,
         type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 30f9ea6cdbce905879be994457466ac6,
+    - target: {fileID: -8679921383154817045, guid: f9a093bab4d1f0620868a2646224ea54,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 30f9ea6cdbce905879be994457466ac6,
+    - target: {fileID: -8679921383154817045, guid: f9a093bab4d1f0620868a2646224ea54,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 30f9ea6cdbce905879be994457466ac6,
+    - target: {fileID: -8679921383154817045, guid: f9a093bab4d1f0620868a2646224ea54,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 30f9ea6cdbce905879be994457466ac6,
+    - target: {fileID: -8679921383154817045, guid: f9a093bab4d1f0620868a2646224ea54,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 30f9ea6cdbce905879be994457466ac6,
-        type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 30f9ea6cdbce905879be994457466ac6,
+    - target: {fileID: 919132149155446097, guid: f9a093bab4d1f0620868a2646224ea54,
         type: 3}
       propertyPath: m_Name
-      value: SM_Headphones_Kawaii
+      value: SM_FlowerPot_Succulent
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 30f9ea6cdbce905879be994457466ac6, type: 3}
---- !u!4 &9042402958512277181 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: f9a093bab4d1f0620868a2646224ea54, type: 3}
+--- !u!4 &8050624146979575685 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 30f9ea6cdbce905879be994457466ac6,
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f9a093bab4d1f0620868a2646224ea54,
     type: 3}
-  m_PrefabInstance: {fileID: 8860736508352373078}
+  m_PrefabInstance: {fileID: 7508390618630664302}
   m_PrefabAsset: {fileID: 0}

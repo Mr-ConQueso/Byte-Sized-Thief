@@ -12,7 +12,17 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: phongE2.002
+    second: {fileID: 2100000, guid: 7a52023c45cc1700e87cd3e371e13dbe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: phongE3
+    second: {fileID: 2100000, guid: 05367ff6a19ab46c19a0c787d1ebb368, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: phongE3.001
     second: {fileID: 2100000, guid: 05367ff6a19ab46c19a0c787d1ebb368, type: 2}
   - first:
       type: UnityEngine:Material
@@ -22,12 +32,27 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: phongE4.001
+    second: {fileID: 2100000, guid: e0b684584e7960aee939e209781be1bf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: standardSurface1
     second: {fileID: 2100000, guid: 8b4ce2a75b5e8b0f4bf418da9c389d63, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: standardSurface1.016
+    second: {fileID: 2100000, guid: 8b4ce2a75b5e8b0f4bf418da9c389d63, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: standardSurface4
+    second: {fileID: 2100000, guid: 19c5b55d5eb0e2b34bd368500786b6dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: standardSurface4.001
     second: {fileID: 2100000, guid: 19c5b55d5eb0e2b34bd368500786b6dc, type: 2}
   materials:
     materialImportMode: 2
