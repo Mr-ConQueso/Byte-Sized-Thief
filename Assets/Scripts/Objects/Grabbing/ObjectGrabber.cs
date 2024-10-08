@@ -95,28 +95,20 @@ public class ObjectGrabber : MonoBehaviour
                 .WithRandomPitch()
                 .WithPosition(this.transform.position)
                 .Play();
-
             
-
             GetLastObject().transform.SetParent(newParent);
             StartCoroutine(MoveAndShrink(GetLastObject().transform, newParent, GameController.Instance.sellShrinkDuration));
 
-
-            _grabbedObjects.RemoveAt(_grabbedObjects.Count - 1);
             CurrentTotalWeight -= GetLastGrabbableInterface().GetWeight();
+            _grabbedObjects.RemoveAt(_grabbedObjects.Count - 1);
         }
     }
 
     protected GameObject GetLastObject()
     {
-        GameObject lastObject = null;
-            
-        if (_grabbedObjects.Count == 1)
-        {
-            return lastObject = _grabbedObjects[0];
-        }
-        
-        return lastObject = _grabbedObjects[^1];
+        if (_grabbedObjects.Count == 1) return _grabbedObjects[0];
+        if (_grabbedObjects.Count > 1) return _grabbedObjects[^1];
+        return null;
     }
     
     protected IGrabbable GetLastGrabbableInterface()

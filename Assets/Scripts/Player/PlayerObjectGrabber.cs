@@ -207,8 +207,9 @@ public class PlayerObjectGrabber : ObjectGrabber
     {
         while (_grabbedObjects.Count > 0)
         {
-            TransferLastGrabbedObject(sellSoundData, _sellPoint);
             PointsCounter.Instance.SellObject(GetLastGrabbableInterface(), GetLastObject());
+            TransferLastGrabbedObject(sellSoundData, _sellPoint);
+            
             yield return new WaitForSeconds(interval);
         }
 

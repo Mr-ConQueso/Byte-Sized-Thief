@@ -1158,8 +1158,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DEBUG_MODE: 1
   TimerInSeconds: 60
-  sellShrinkDuration: 0.01
-  sellDelayDuration: 0.01
+  sellShrinkDuration: 0.2
+  sellDelayDuration: 0.1
   CanPauseGame: 0
 --- !u!114 &475028341 stripped
 MonoBehaviour:
