@@ -1156,9 +1156,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 480472fcf1ed75394b693d4774417546, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanPauseGame: 0
   DEBUG_MODE: 1
   TimerInSeconds: 60
+  sellShrinkDuration: 0.2
+  sellDelayDuration: 0.1
+  CanPauseGame: 0
 --- !u!114 &475028341 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7752175258258435835, guid: ad01c95525bea660f82155e6c7060607,
@@ -3933,17 +3935,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 155357573}
     m_Modifications:
-    - target: {fileID: 1102821163651098693, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
-        type: 3}
-      propertyPath: speedMinMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4635927293279850681, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
+    - target: {fileID: 1606237359596611547, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
         type: 3}
       propertyPath: weightText
       value: 
       objectReference: {fileID: 475028341}
-    - target: {fileID: 4635927293279850681, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
+    - target: {fileID: 1606237359596611547, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
         type: 3}
       propertyPath: soldValueText
       value: 

@@ -43,6 +43,10 @@ public class ControlThirdPerson : MonoBehaviour
             float weightRatio = Mathf.Clamp01(_objectGrabber.CurrentTotalWeight / _objectGrabber.maxGrabbableWeight);
             _navAgent.speed = Mathf.Lerp(speedMinMax.y, speedMinMax.x, weightRatio);
         }
+        else
+        {
+            _navAgent.speed = speedMinMax.y;
+        }
     }
 
     private void TryMoveToPointer()
