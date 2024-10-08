@@ -33,12 +33,12 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ReleaseAll",
+                    "name": "Jump",
                     "type": "Button",
                     "id": "bc31b002-11d9-4474-a5f2-d92f0fb3d34d",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -67,23 +67,12 @@
                 },
                 {
                     "name": "",
-                    "id": "5b78a8f7-1cfb-4d35-a998-9718d6fb4a9a",
+                    "id": "78c698cb-49a5-4613-b757-150abd0f6bdc",
                     "path": "<Mouse>/middleButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "78c698cb-49a5-4613-b757-150abd0f6bdc",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ReleaseAll",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

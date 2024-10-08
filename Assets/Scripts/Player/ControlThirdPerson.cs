@@ -23,7 +23,7 @@ public class ControlThirdPerson : MonoBehaviour
 
     private void Update()
     {
-        /*
+        
         if (!GameController.Instance.IsPlayerFrozen)
         {
             _navAgent.isStopped = false;
@@ -33,7 +33,7 @@ public class ControlThirdPerson : MonoBehaviour
         {
             _navAgent.isStopped = true;
         }
-        */
+        
         TryMoveToPointer();
         UpdateSpeedWithWeight();
     }

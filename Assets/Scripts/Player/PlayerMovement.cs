@@ -1,4 +1,5 @@
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -34,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
             _navAgent.isStopped = true;
         }
         
-        TryMoveToPointer();
+        //TryMoveToPointer();
         UpdateSpeedWithWeight();
         UpdateObjectStackHeight();
     }
@@ -73,10 +74,31 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Hit object: " + hit.collider.name + " at distance: " + Vector3.Distance(transform.position, dist));
             if (InputManager.WasMousePressed)
             {
+                
+                if(_navAgent.autoTraverseOffMeshLink)
+                {
+                    _navAgent.autoTraverseOffMeshLink = false;
+                }
+                
                 NavMeshPath path = new NavMeshPath();
                 _navAgent.CalculatePath(hit.point, path);
                 _navAgent.SetPath(path);
                 break;
+            }
+        }
+        RaycastHit jumpHit;
+        if(Physics.Raycast(ray,out jumpHit, 1000f, groundLayer))
+        {
+            if(InputManager.WasCenterPressed)
+            {
+                
+                if(!_navAgent.autoTraverseOffMeshLink)
+                {
+                    _navAgent.autoTraverseOffMeshLink = true;
+                }
+                NavMeshPath path = new NavMeshPath();
+                _navAgent.CalculatePath(jumpHit.point, path);
+                _navAgent.SetPath(path);
             }
         }
     }
