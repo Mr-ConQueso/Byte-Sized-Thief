@@ -76,7 +76,7 @@ MonoBehaviour:
   objectName: Figurine
   isVertical: 0
   objectWeight: 300
-  objectValue: 20
+  objectValue: 1000
 --- !u!1 &7483123785024604477
 GameObject:
   m_ObjectHideFlags: 0

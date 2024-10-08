@@ -89,6 +89,7 @@ public class GameController : MonoBehaviour
     private void StartGame()
     {
         OnGameStart?.Invoke();
+        
     }
 
     private void PauseGame()

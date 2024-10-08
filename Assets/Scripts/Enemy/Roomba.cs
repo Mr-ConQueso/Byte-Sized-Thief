@@ -18,6 +18,7 @@ public class Roomba : MonoBehaviour
     private int _currentPath;
     private bool isMoving = false;
     private Vector3 _directionToTarget;
+    private Vector3 _lastSeenPosition;
     private bool _charge = false;
     private Rigidbody _rb;
     public float _speed = 1f;
@@ -52,10 +53,9 @@ public class Roomba : MonoBehaviour
         else
         {
             _playerDetected = false;
-
             _timeSinceLastSeen += Time.deltaTime;
 
-            if (_timeSinceLastSeen >= _timeToResumePatrol)
+            if (_timeSinceLastSeen >= _timeToResumePatrol && !isCharging)
             {
                 Patroling();
             }
@@ -71,6 +71,7 @@ public class Roomba : MonoBehaviour
             _speed = 1;
             _enemy.enabled = true;
             _enemy.SetDestination(_directionToTarget);
+            
         }
     }
 
@@ -87,26 +88,6 @@ public class Roomba : MonoBehaviour
         }
     }
 
-    private void Attacking()
-    {
-        StopCoroutine(patrolCoroutine);
-        if (_enemy.enabled)
-        {
-            _enemy.isStopped = true;
-        }
-        if (!isCharging)
-        {
-            StartCoroutine(Charge());
-        }
-
-        if (!_charge)
-        {
-            _directionToTarget = player.transform.position - transform.position;
-            Quaternion targetRotation = Quaternion.LookRotation(_directionToTarget);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 360);
-        }
-    }
-
     private void SetPath()
     {
         if (!isMoving)
@@ -120,7 +101,12 @@ public class Roomba : MonoBehaviour
     {
         if (nodes.Length == 0) return;
 
-        isMoving = true;
+        isMoving = true;  // Start moving
+
+        if (patrolCoroutine != null)
+        {
+            StopCoroutine(patrolCoroutine);  // Stop any previous coroutine before starting a new one
+        }
 
         patrolCoroutine = StartCoroutine(RotateToAndMove());
     }
@@ -143,12 +129,41 @@ public class Roomba : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
 
         _enemy.SetDestination(nodes[_currentPath].position);
+
+        // Wait until Roomba has reached the destination
         while (_enemy.pathPending || _enemy.remainingDistance > _enemy.stoppingDistance)
         {
             yield return null;
         }
 
-        isMoving = false;
+        // Once it reaches the target, reset isMoving to false
+        isMoving = false;  // End of movement
+    }
+
+    private void Attacking()
+    {
+        if (patrolCoroutine != null)
+        {
+            StopCoroutine(patrolCoroutine);
+        }
+
+        if (_enemy.enabled)
+        {
+            _enemy.isStopped = true;
+            isMoving = false;
+        }
+
+        if (!isCharging)
+        {
+            StartCoroutine(Charge());
+        }
+
+        if (!_charge)
+        {
+            _lastSeenPosition = player.transform.position - transform.position;
+            Quaternion targetRotation = Quaternion.LookRotation(_lastSeenPosition);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 360);
+        }
     }
 
     private IEnumerator Charge()
@@ -157,7 +172,6 @@ public class Roomba : MonoBehaviour
 
         yield return new WaitForSeconds(3);
         _charge = true;
-
         _enemy.enabled = false;
 
         while (_charge)
@@ -171,6 +185,12 @@ public class Roomba : MonoBehaviour
 
         _enemy.enabled = true;
         isCharging = false;
+
+        // Resume patrol after charging
+        if (!_playerDetected)
+        {
+            Patroling();
+        }
     }
 
     void OnDrawGizmos()

@@ -1,4 +1,5 @@
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -23,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        
         if (!GameController.Instance.IsPlayerFrozen)
         {
             _navAgent.isStopped = false;
@@ -32,7 +34,8 @@ public class PlayerMovement : MonoBehaviour
         {
             _navAgent.isStopped = true;
         }
-
+        
+        //TryMoveToPointer();
         UpdateSpeedWithWeight();
         UpdateObjectStackHeight();
     }
@@ -55,26 +58,47 @@ public class PlayerMovement : MonoBehaviour
         _navAgent.height = _objectGrabber.MaxTraversableHeight;
     }
 
-    private void TryMoveToPointer()
+     private void TryMoveToPointer()
     {
         Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit[] hits = Physics.RaycastAll(ray, 1000f,groundLayer);
-
+        RaycastHit[] hits = Physics.RaycastAll(ray, 1000f, groundLayer);
 
         Debug.DrawRay(ray.origin, ray.direction * 100, Color.green);
 
         hits = hits.OrderBy(hit => Mathf.Abs(transform.position.y - hit.collider.transform.position.y)).ToArray();
 
-
-        foreach(RaycastHit hit in hits)
+        foreach (RaycastHit hit in hits)
         {
             Vector3 dist = transform.position - hit.collider.transform.position;
+            //Debug.Log(hit.collider.name);
+            Debug.Log("Hit object: " + hit.collider.name + " at distance: " + Vector3.Distance(transform.position, dist));
             if (InputManager.WasMousePressed)
             {
+                
+                if(_navAgent.autoTraverseOffMeshLink)
+                {
+                    _navAgent.autoTraverseOffMeshLink = false;
+                }
+                
                 NavMeshPath path = new NavMeshPath();
                 _navAgent.CalculatePath(hit.point, path);
                 _navAgent.SetPath(path);
                 break;
+            }
+        }
+        RaycastHit jumpHit;
+        if(Physics.Raycast(ray,out jumpHit, 1000f, groundLayer))
+        {
+            if(InputManager.WasCenterPressed)
+            {
+                
+                if(!_navAgent.autoTraverseOffMeshLink)
+                {
+                    _navAgent.autoTraverseOffMeshLink = true;
+                }
+                NavMeshPath path = new NavMeshPath();
+                _navAgent.CalculatePath(jumpHit.point, path);
+                _navAgent.SetPath(path);
             }
         }
     }

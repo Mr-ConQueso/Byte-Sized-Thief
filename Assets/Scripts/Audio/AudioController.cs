@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Audio;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.SceneManagement;
 
 public class AudioController : MonoBehaviour
 {
@@ -62,10 +64,28 @@ public class AudioController : MonoBehaviour
             Instance = this;
         }
     }
+    
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
 
     private void Start()
     {
         InitializePool();
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
+    {
+        for (int i = 0; i < ActiveSoundEmitter.Count; i++)
+        {
+            Destroy(ActiveSoundEmitter[i].gameObject);
+        }
     }
 
     private void OnDestroyPoolObject(SoundEmitter soundEmitter)

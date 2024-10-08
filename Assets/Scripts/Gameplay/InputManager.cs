@@ -13,7 +13,7 @@ public class InputManager : MonoBehaviour
     public static bool WasGrabOrReleasePressed;
     public static bool WasReleaseAllPressed;
     public static bool WasMousePressed;
-    public static bool WasCenterPresed;
+    public static bool WasCenterPressed;
     
     // ---- / Private Variables / ---- //
     private static PlayerInput _playerInput;
@@ -23,10 +23,10 @@ public class InputManager : MonoBehaviour
     private InputAction _moveAction;
 
     private InputAction _grabReleaseAction;
-    private InputAction _releaseAllAction;
+
     
     private InputAction _escapeAction;
-    private InputAction _pressJump;
+    private InputAction _pressJumpAction;
 
     private void Awake()
     {
@@ -40,9 +40,9 @@ public class InputManager : MonoBehaviour
         _navigationAction = _playerInput.actions["Navigate"];
         
         _moveAction = _playerInput.actions["Move"];
+        _pressJumpAction = _playerInput.actions["Jump"];
 
         _grabReleaseAction = _playerInput.actions["GrabRelease"];
-        _releaseAllAction = _playerInput.actions["ReleaseAll"];
         
         _escapeAction = _playerInput.actions["Escape"];
     }
@@ -54,8 +54,8 @@ public class InputManager : MonoBehaviour
         WasMousePressed = _moveAction.IsPressed();
         
         WasGrabOrReleasePressed = _grabReleaseAction.WasPressedThisFrame();
-        WasReleaseAllPressed = _releaseAllAction.WasPressedThisFrame();
-        
+
+        WasCenterPressed = _pressJumpAction.WasPressedThisFrame();
         WasEscapePressed = _escapeAction.WasPressedThisFrame();
     }
 }
