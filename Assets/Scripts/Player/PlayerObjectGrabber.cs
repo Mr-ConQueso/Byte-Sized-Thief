@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerObjectGrabber : ObjectGrabber
 {
     // ---- / Public Variables / ---- //
-    [HideInInspector] public float MaxTraversableHeight { get; private set; }
     
     // ---- / Serialized Variables / ---- //
     [SerializeField] private SoundData sellSoundData;
@@ -74,6 +73,8 @@ public class PlayerObjectGrabber : ObjectGrabber
         {
             UpdateDebugGUI();
         }
+
+        UpdateMaxHeight();
     }
     
     protected override void PositionObject(GameObject newObject)
@@ -86,16 +87,12 @@ public class PlayerObjectGrabber : ObjectGrabber
         }
         else
         {
-            Vector3 origin = new Vector3(heldPoint.position.x, heldPoint.position.y + 100f, heldPoint.position.z);
+            Vector3 origin = new Vector3(heldPoint.position.x, heldPoint.position.y + 500f, heldPoint.position.z);
             if (Physics.Raycast(origin, Vector3.down, out var hit, Mathf.Infinity, currentlyGrabbedLayer))
             {
                 newObject.transform.SetParent(heldPoint);
                 newObject.transform.position = hit.point;
                 newObject.transform.localRotation = Quaternion.identity;
-
-                MaxTraversableHeight = hit.point.y - transform.position.y;
-
-                Debug.Log("Object stacked on top: " + newObject.name);
             }
         }
     }
@@ -137,7 +134,7 @@ public class PlayerObjectGrabber : ObjectGrabber
             ReleaseLastObject();
         }
     }
-    
+
     private void ReleaseAllObjects()
     {
         if (_grabbedObjects.Count > 0)

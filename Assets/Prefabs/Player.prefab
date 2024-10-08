@@ -104,10 +104,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4668913625995196669}
   - component: {fileID: 5618909916889524838}
-  - component: {fileID: 1102821163651098693}
   - component: {fileID: 6906992122739895747}
   - component: {fileID: 6235781385438170705}
   - component: {fileID: 1606237359596611547}
+  - component: {fileID: 5798348151356611385}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -155,25 +155,6 @@ NavMeshAgent:
   m_BaseOffset: 0.34
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1102821163651098693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4838916716845314026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 044ad53cfe520454fbc39a9c29e237c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  ceilingLayer:
-    serializedVersion: 2
-    m_Bits: 16
-  speedMinMax: {x: 5, y: 30}
 --- !u!114 &6906992122739895747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,6 +237,25 @@ MonoBehaviour:
   sellDistance: 12
   weightText: {fileID: 0}
   soldValueText: {fileID: 0}
+--- !u!114 &5798348151356611385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4838916716845314026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01f6dc73fb704e00a220377a0af85881, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  ceilingLayer:
+    serializedVersion: 2
+    m_Bits: 16
+  speedMinMax: {x: 5, y: 30}
 --- !u!1001 &3397369594843660881
 PrefabInstance:
   m_ObjectHideFlags: 0
