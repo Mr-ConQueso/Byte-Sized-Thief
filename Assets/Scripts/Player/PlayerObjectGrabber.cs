@@ -36,8 +36,11 @@ public class PlayerObjectGrabber : ObjectGrabber
         
         if (!GameController.Instance.DEBUG_MODE)
         {
-            weightText.gameObject.SetActive(false);
-            soldValueText.gameObject.SetActive(false);
+            if (weightText != null && soldValueText != null)
+            {
+                weightText.gameObject.SetActive(false);
+                soldValueText.gameObject.SetActive(false);   
+            }
         }
         
         if (CustomFunctions.TryGetTransformWithTag("SellPlace", out Transform targetTransform))

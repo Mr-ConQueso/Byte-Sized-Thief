@@ -181,7 +181,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Pablo: dise\xF1o de arte, modelos e interfaces\nXabi: programador\nJaime:
     dise\xF1o de mec\xE1nicas y niveles\nNano: dise\xF1o de arte, modelos e interfaces\nNacho:
-    programador"
+    programador\nJuli\xE1n: Dise\xF1o de niveles"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 42459f228fa51724dbf28ad367c5a540, type: 2}
   m_sharedMaterial: {fileID: -8635348305307982539, guid: 42459f228fa51724dbf28ad367c5a540,
