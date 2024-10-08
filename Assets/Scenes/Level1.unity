@@ -4168,8 +4168,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 934152946a42649468a4277deb50efca, type: 3}
-<<<<<<< HEAD:Assets/Scenes/Level1.unity
-=======
 --- !u!1001 &985392307
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4349,7 +4347,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 994711099}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
->>>>>>> 55b9d2169fc7851586e201d35f7baa075449c8b4:Assets/Scenes/Debugging/Level1(test).unity
 --- !u!4 &1002754482 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3505460452270812238, guid: a28f4e51a35934344ae80485f5c7cb45,
