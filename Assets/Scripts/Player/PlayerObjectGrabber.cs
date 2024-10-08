@@ -175,8 +175,11 @@ public class PlayerObjectGrabber : ObjectGrabber
     
     private void UpdateDebugGUI()
     {
-        weightText.text = $"Weight: {CurrentTotalWeight} / {maxGrabbableWeight}";
-        soldValueText.text = $"Sold Value: {PointsCounter.Instance.Value} $";
+        if (weightText != null && soldValueText != null)
+        {
+            weightText.text = $"Weight: {CurrentTotalWeight} / {maxGrabbableWeight}";
+            soldValueText.text = $"Sold Value: {PointsCounter.Instance.Value} $";
+        }
     }
     
     private Coroutine _sellCoroutine;

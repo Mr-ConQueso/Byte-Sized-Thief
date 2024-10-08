@@ -5,7 +5,7 @@ public class MainMenu : MonoBehaviour
 {
     public void OnClick_StartGame()
     {
-        SceneSwapManager.SwapScene("Level0");
+        SceneSwapManager.SwapScene("Level2");
     }
 
     public void OnClick_Exit()
