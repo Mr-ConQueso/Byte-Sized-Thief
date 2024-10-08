@@ -1,11 +1,13 @@
+using BaseGame;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class GrabbableObject : MonoBehaviour, IGrabbable
 {
     // ---- / Serialized Variables / ---- //
     [Header("Object Properties")]
     [SerializeField] private string objectName;
-    [SerializeField] private bool isVertical = false;
+    [SerializeField] private bool isVertical;
     [SerializeField] private float objectWeight = 5f;
     [SerializeField] private float objectValue = 5f;
     
@@ -16,13 +18,18 @@ public class GrabbableObject : MonoBehaviour, IGrabbable
     {
         _rigidbody = GetComponent<Rigidbody>();
     }
-
+    
     public void OnGrab()
     {
         Debug.Log(gameObject.name + " has been grabbed!");
         _rigidbody.isKinematic = true;
 
-        ChangeLayerRecursively(gameObject, LayerMask.NameToLayer("CurrentlyGrabbed"));
+        if (isVertical)
+        {
+            transform.Rotate(90f, 0f, 0f);
+        }
+
+        CustomFunctions.ChangeLayerRecursively(gameObject, LayerMask.NameToLayer("CurrentlyGrabbed"));
     }
 
     public void OnRelease()
@@ -33,7 +40,12 @@ public class GrabbableObject : MonoBehaviour, IGrabbable
         Vector3 forwardPush = transform.forward * 5f;
         _rigidbody.AddForce(forwardPush, ForceMode.Impulse);
 
-        ChangeLayerRecursively(gameObject, LayerMask.NameToLayer("Grabbable"));
+        if (isVertical)
+        {
+            transform.Rotate(-90f, 0f, 0f);
+        }
+
+        CustomFunctions.ChangeLayerRecursively(gameObject, LayerMask.NameToLayer("Grabbable"));
     }
 
     public float GetWeight()
@@ -49,14 +61,5 @@ public class GrabbableObject : MonoBehaviour, IGrabbable
     public string GetName()
     {
         return objectName;
-    }
-    
-    private static void ChangeLayerRecursively(GameObject obj, int newLayer)
-    {
-        obj.layer = newLayer;
-        foreach (Transform child in obj.transform)
-        {
-            ChangeLayerRecursively(child.gameObject, newLayer);
-        }
     }
 }

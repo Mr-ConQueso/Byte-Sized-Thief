@@ -152,7 +152,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1
-  m_BaseOffset: -0.4
+  m_BaseOffset: 0.34
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &1102821163651098693
@@ -173,6 +173,7 @@ MonoBehaviour:
   ceilingLayer:
     serializedVersion: 2
     m_Bits: 16
+  speedMinMax: {x: 8, y: 30}
 --- !u!114 &4635927293279850681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,6 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b73dd3e7b81f65f4ac63bf7d754984b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxGrabbableWeight: 5000
   grabSoundData:
     clip: {fileID: 8300000, guid: fafba9d29899f797383a248bea1de984, type: 3}
     mixerGroup: {fileID: -6039386389834318509, guid: 6a0c7f6122af57ad9bf760fc1daae901,
@@ -206,7 +208,6 @@ MonoBehaviour:
     loop: 0
     playOnAwake: 0
     frequentSound: 1
-  maxGrabbableWeight: 5000
   grabDistance: 10
   grabPointerDistance: 2
   grabbableObjectLayer:

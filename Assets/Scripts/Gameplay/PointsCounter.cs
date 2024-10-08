@@ -47,7 +47,7 @@ public class PointsCounter : MonoBehaviour
 
     private void Start()
     {
-        if (CustomFunctions.TryGetObjectWithTag("SellPlace", out Transform targetTransform))
+        if (CustomFunctions.TryGetTransformWithTag("SellPlace", out Transform targetTransform))
         {
             targetPosition = targetTransform.position;
         }
@@ -77,8 +77,7 @@ public class PointsCounter : MonoBehaviour
             yield return null;
         }
 
-        objectTransform.position = targetPosition;
-        objectTransform.localScale = finalScale;
+        Destroy(objectTransform.gameObject);
     }
 
     

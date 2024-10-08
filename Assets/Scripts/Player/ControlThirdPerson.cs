@@ -7,6 +7,7 @@ public class ControlThirdPerson : MonoBehaviour
     // ---- / Serialized Variables / ---- //
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask ceilingLayer;
+    [SerializeField] private Vector2 speedMinMax = new Vector2(2f, 10f);
 
     // ---- / Private Variables / ---- //
     private NavMeshAgent _navAgent;
@@ -32,7 +33,16 @@ public class ControlThirdPerson : MonoBehaviour
             _navAgent.isStopped = true;
         }
 
-        UpdateAgentHeight();
+        UpdateSpeedWithWeight();
+    }
+
+    private void UpdateSpeedWithWeight()
+    {
+        if (_objectGrabber.CurrentTotalWeight > 0)
+        {
+            float weightRatio = Mathf.Clamp01(_objectGrabber.CurrentTotalWeight / _objectGrabber.maxGrabbableWeight);
+            _navAgent.speed = Mathf.Lerp(speedMinMax.y, speedMinMax.x, weightRatio);
+        }
     }
 
     private void TryMoveToPointer()
@@ -56,14 +66,6 @@ public class ControlThirdPerson : MonoBehaviour
                 _navAgent.SetPath(path);
                 break;
             }
-        }
-    }
-
-    private void UpdateAgentHeight()
-    {
-        if (_objectGrabber.MaxTraversableHeight > 1)
-        {
-            _navAgent.height = _objectGrabber.MaxTraversableHeight;
         }
     }
 }

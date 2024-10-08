@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using BaseGame;
@@ -9,6 +8,9 @@ public class ObjectGrabber : MonoBehaviour
 {
     // ---- / Public Variables / ---- //
     [HideInInspector] public float MaxTraversableHeight { get; private set; }
+    [HideInInspector] public float CurrentTotalWeight { get; private set; }
+    
+    public float maxGrabbableWeight = 50f;
     
     // ---- / Serialized Variables / ---- //
     [Header("Sounds")]
@@ -17,7 +19,6 @@ public class ObjectGrabber : MonoBehaviour
     [SerializeField] private SoundData sellSoundData;
     
     [Header("Grabbing Objects")]
-    [SerializeField] private float maxGrabbableWeight = 50f;
     [SerializeField] private float grabDistance = 3f;
     [SerializeField] private float grabPointerDistance = 0.5f;
     [SerializeField] private LayerMask grabbableObjectLayer;
@@ -34,7 +35,6 @@ public class ObjectGrabber : MonoBehaviour
     // ---- / Private Variables / ---- //
     private Vector3 _sellPoint;
     private List<GameObject> _grabbedObjects = new List<GameObject>();
-    private float _currentTotalWeight = 0f;
     private Camera _camera;
 
     private void Start()
@@ -47,7 +47,7 @@ public class ObjectGrabber : MonoBehaviour
             soldValueText.gameObject.SetActive(false);
         }
         
-        if (CustomFunctions.TryGetObjectWithTag("SellPlace", out Transform targetTransform))
+        if (CustomFunctions.TryGetTransformWithTag("SellPlace", out Transform targetTransform))
         {
             _sellPoint = targetTransform.position;
         }
@@ -121,7 +121,7 @@ public class ObjectGrabber : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(transform.position, grabbedObject.transform.position);
         float objectWeight = grabbableObject.GetWeight();
 
-        if (distanceToPlayer <= grabDistance && (_currentTotalWeight + objectWeight) <= maxGrabbableWeight)
+        if (distanceToPlayer <= grabDistance && (CurrentTotalWeight + objectWeight) <= maxGrabbableWeight)
         {
             AudioController.Instance.CreateSound()
                 .WithSoundData(grabSoundData)
@@ -130,20 +130,20 @@ public class ObjectGrabber : MonoBehaviour
                 .Play();
 
             _grabbedObjects.Add(grabbedObject);
-            _currentTotalWeight += objectWeight;
+            CurrentTotalWeight += objectWeight;
 
             PositionObject(grabbedObject);
             
             grabbableObject.OnGrab();
 
-            Debug.Log("Object grabbed: " + grabbedObject.name + " | Total Weight: " + _currentTotalWeight);
+            Debug.Log("Object grabbed: " + grabbedObject.name + " | Total Weight: " + CurrentTotalWeight);
         }
         else
         {
             if (distanceToPlayer > grabDistance)
                 Debug.Log("Object is too far to grab. Distance: " + distanceToPlayer);
-            if (_currentTotalWeight + objectWeight > maxGrabbableWeight)
-                Debug.Log("Total weight exceeds limit. Current: " + _currentTotalWeight + ", Max: " + maxGrabbableWeight);
+            if (CurrentTotalWeight + objectWeight > maxGrabbableWeight)
+                Debug.Log("Total weight exceeds limit. Current: " + CurrentTotalWeight + ", Max: " + maxGrabbableWeight);
         }
     }
 
@@ -192,7 +192,7 @@ public class ObjectGrabber : MonoBehaviour
             }
 
             _grabbedObjects.RemoveAt(_grabbedObjects.Count - 1);
-            _currentTotalWeight -= grabbableObject.GetWeight();
+            CurrentTotalWeight -= grabbableObject.GetWeight();
 
             Debug.Log("Last object released: " + lastObject.name);
         }
@@ -213,7 +213,7 @@ public class ObjectGrabber : MonoBehaviour
         IGrabbable grabbableObject = lastObject.GetComponent<IGrabbable>();
 
         _grabbedObjects.RemoveAt(_grabbedObjects.Count - 1);
-        _currentTotalWeight -= grabbableObject.GetWeight();
+        CurrentTotalWeight -= grabbableObject.GetWeight();
         
         PointsCounter.Instance.SellObject(grabbableObject, lastObject);
     }
@@ -252,7 +252,7 @@ public class ObjectGrabber : MonoBehaviour
 
     private void UpdateDebugGUI()
     {
-        weightText.text = $"Weight: {_currentTotalWeight} / {maxGrabbableWeight}";
+        weightText.text = $"Weight: {CurrentTotalWeight} / {maxGrabbableWeight}";
         soldValueText.text = $"Sold Value: {PointsCounter.Instance.Value} $";
     }
 }
