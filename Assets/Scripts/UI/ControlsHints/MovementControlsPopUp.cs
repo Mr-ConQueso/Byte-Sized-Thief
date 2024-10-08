@@ -40,7 +40,12 @@ public class MovementControlsPopUp : MonoBehaviour
         {
             _animator.SetTrigger("hidePopUp");
             _hasSeenMovementTutorial = 2;
-            OnFirstTutorialFinished?.Invoke();
+            Invoke(nameof(StartSecondTutorial), 0.5f);
         }
+    }
+
+    private void StartSecondTutorial()
+    {
+        OnFirstTutorialFinished?.Invoke();
     }
 }

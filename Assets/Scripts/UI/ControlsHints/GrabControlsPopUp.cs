@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class GrabControlsPopUp : MonoBehaviour
 {
+    // ---- / Events / ---- //
+    public delegate void SecondTutorialFinishedEventHandler();
+    public static event SecondTutorialFinishedEventHandler OnSecondTutorialFinished;
+    
     // ---- / Private Variables / ---- //
     private Animator _animator;
     private int _hasSeenGrabTutorial;
@@ -9,7 +13,6 @@ public class GrabControlsPopUp : MonoBehaviour
     private void OnEnable()
     {
         MovementControlsPopUp.OnFirstTutorialFinished += OnFirstTutorialFinished;
-        Debug.Log("Subscribed");
     }
 
     private void OnDisable()
@@ -24,7 +27,6 @@ public class GrabControlsPopUp : MonoBehaviour
 
     private void OnFirstTutorialFinished()
     {
-        Debug.Log("Start Second tutorial");
         _hasSeenGrabTutorial = 1;
         if (_hasSeenGrabTutorial == 1)
         {
@@ -39,6 +41,12 @@ public class GrabControlsPopUp : MonoBehaviour
         {
             _animator.SetTrigger("hidePopUp");
             _hasSeenGrabTutorial = 3;
+            Invoke(nameof(StartThirdTutorial), 0.5f);
         }
+    }
+    
+    private void StartThirdTutorial()
+    {
+        OnSecondTutorialFinished?.Invoke();
     }
 }
