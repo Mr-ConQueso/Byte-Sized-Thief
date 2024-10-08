@@ -71,7 +71,6 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 dist = transform.position - hit.collider.transform.position;
             //Debug.Log(hit.collider.name);
-            Debug.Log("Hit object: " + hit.collider.name + " at distance: " + Vector3.Distance(transform.position, dist));
             if (InputManager.WasMousePressed)
             {
                 

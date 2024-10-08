@@ -279,8 +279,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3941914795590098472}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.05116158, y: -0.08056222, z: 0.06039539, w: 0.9936019}
-  m_LocalPosition: {x: 0.6010523, y: 0.43502986, z: 6.166009}
+  m_LocalRotation: {x: 0.037028342, y: -0.55520415, z: 0.4162222, w: 0.71912193}
+  m_LocalPosition: {x: 2.9979503, y: 2.0128245, z: 8.513107}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -358,8 +358,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5855167201859866640}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.07282728, y: -0.08725506, z: 0.04979495, w: 0.9922718}
-  m_LocalPosition: {x: 0.5999367, y: 0.43490267, z: 6.16582}
+  m_LocalRotation: {x: -0.053398263, y: -0.6000031, z: 0.3419069, w: 0.7212799}
+  m_LocalPosition: {x: 2.9968033, y: 1.9974649, z: 8.490258}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -437,8 +437,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6011576364215562297}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.18222113, y: -0.09194769, z: 0.039708383, w: 0.97814333}
-  m_LocalPosition: {x: 0.5982864, y: 0.43471503, z: 6.165541}
+  m_LocalRotation: {x: -0.13293052, y: -0.6356327, z: 0.27372542, w: 0.70948935}
+  m_LocalPosition: {x: 2.997346, y: 2.0043283, z: 8.500468}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -731,7 +731,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7597975376128206467}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2780104, y: 0.28883633, z: -0.088059045, w: 0.9118824}
+  m_LocalRotation: {x: 0.27800763, y: 0.28883725, z: -0.0880584, w: 0.911883}
   m_LocalPosition: {x: 7.9371843, y: 5.1789484, z: -18.11916}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -765,7 +765,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 40
     OrthographicSize: 14.72
-    NearClipPlane: -30.2
+    NearClipPlane: -100
     FarClipPlane: 2000
     Dutch: 0
     ModeOverride: 1
