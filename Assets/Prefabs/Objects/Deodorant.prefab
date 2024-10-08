@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectName: Deodorant
+  isVertical: 1
   objectWeight: 20
   objectValue: 3
 --- !u!1 &7483123785024604477
@@ -103,7 +104,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 2.4, y: 2.4, z: 2.4}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2290957594298027323}

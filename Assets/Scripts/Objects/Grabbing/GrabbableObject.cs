@@ -5,6 +5,7 @@ public class GrabbableObject : MonoBehaviour, IGrabbable
     // ---- / Serialized Variables / ---- //
     [Header("Object Properties")]
     [SerializeField] private string objectName;
+    [SerializeField] private bool isVertical = false;
     [SerializeField] private float objectWeight = 5f;
     [SerializeField] private float objectValue = 5f;
     
