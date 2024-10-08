@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectName: Headphones
+  isVertical: 0
   objectWeight: 150
   objectValue: 40
 --- !u!1 &7483123785024604477

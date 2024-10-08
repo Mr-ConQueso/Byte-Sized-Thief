@@ -1,9 +1,7 @@
 public enum Menu
 {
     MainMenu,
-    SettingsMenu,
-    ExitMenu,
+    LevelChooserMenu,
     PauseMenu,
-    CreditsMenu,
-    ControlsMenu
+    CreditsMenu
 }

@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectName: Mini Mouse
+  isVertical: 0
   objectWeight: 70
   objectValue: 30
 --- !u!1 &7483123785024604477

@@ -13,9 +13,9 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
-    public void OnClick_Settings()
+    public void OnClick_Levels()
     {
-        MenuManager.OpenMenu(Menu.SettingsMenu, gameObject);
+        MenuManager.OpenMenu(Menu.LevelChooserMenu, gameObject);
     }
     
     public void OnClick_Credits()

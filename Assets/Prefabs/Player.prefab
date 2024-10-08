@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1904112279366304449}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,37 +32,6 @@ Transform:
   - {fileID: 2931659567209375162}
   m_Father: {fileID: 4668913625995196669}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2233958708419502485
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 661463643082441910}
-  m_Layer: 0
-  m_Name: RayOriginPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &661463643082441910
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2233958708419502485}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4668913625995196669}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2584288372581807640
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3848556084687223332}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HeldPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +77,7 @@ GameObject:
   - component: {fileID: 6235781385438170705}
   - component: {fileID: 1606237359596611547}
   - component: {fileID: 5798348151356611385}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -129,7 +98,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3848556084687223332}
-  - {fileID: 661463643082441910}
   - {fileID: 1904112279366304449}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -149,8 +117,8 @@ NavMeshAgent:
   m_AngularSpeed: 1000000
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
+  m_AutoBraking: 0
+  m_AutoRepath: 0
   m_Height: 1
   m_BaseOffset: 0.34
   m_WalkableMask: 4294967295
@@ -181,7 +149,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4838916716845314026}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b1ee05b9614b3011880e1fa7716e037, type: 3}
   m_Name: 
@@ -190,7 +158,7 @@ MonoBehaviour:
   highlightPointerDistance: 0.5
   grabbableObjectLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!114 &1606237359596611547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,6 +286,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SM_Raton
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f787052b8cfffe553b70c1bd5fdd36de,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

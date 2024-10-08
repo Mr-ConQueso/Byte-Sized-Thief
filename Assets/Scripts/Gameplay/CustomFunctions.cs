@@ -38,5 +38,18 @@ namespace BaseGame
                 ChangeLayerRecursively(child.gameObject, newLayer);
             }
         }
+        
+        public static bool TryGetComponentInChild<T>(this GameObject parent, out T component) where T : Component
+        {
+            component = parent.GetComponentInChildren<T>();
+
+            return component != null;
+        }
+        public static bool TryGetComponentInChild<T>(this Transform parent, out T component) where T : Component
+        {
+            component = parent.GetComponentInChildren<T>();
+
+            return component != null;
+        }
     }
 }

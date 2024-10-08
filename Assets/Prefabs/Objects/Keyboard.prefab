@@ -75,6 +75,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectName: Keyboard
+  isVertical: 0
   objectWeight: 670
   objectValue: 30
 --- !u!114 &4876983345833013341

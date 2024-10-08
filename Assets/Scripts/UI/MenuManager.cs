@@ -3,15 +3,14 @@ using UnityEngine;
 public class MenuManager : MonoBehaviour
 {
     // ---- / Public Variables / ---- //
-    public static GameObject MainMenu, SettingsMenu, PauseMenu, CreditsMenu, ControlsMenu;
+    public static GameObject MainMenu, PauseMenu, CreditsMenu, LevelChooserMenu;
 
     private void Awake()
     {
         MainMenu = transform.Find("MainMenu")?.gameObject;
-        SettingsMenu = transform.Find("SettingsMenu")?.gameObject;
         PauseMenu = transform.Find("PauseMenu")?.gameObject;
         CreditsMenu = transform.Find("CreditsMenu")?.gameObject;
-        ControlsMenu = transform.Find("ControlsMenu")?.gameObject;
+        LevelChooserMenu = transform.Find("LevelChooserMenu")?.gameObject;
     }
     
     /// <summary>
@@ -26,17 +25,14 @@ public class MenuManager : MonoBehaviour
             case Menu.MainMenu:
                 MainMenu.SetActive(true);
                 break;
-            case Menu.SettingsMenu:
-                SettingsMenu.SetActive(true);
-                break;
             case Menu.PauseMenu:
                 PauseMenu.SetActive(true);
                 break;
             case Menu.CreditsMenu:
                 CreditsMenu.SetActive(true);
                 break;
-            case Menu.ControlsMenu:
-                ControlsMenu.SetActive(true);
+            case Menu.LevelChooserMenu:
+                LevelChooserMenu.SetActive(true);
                 break;
         }
         

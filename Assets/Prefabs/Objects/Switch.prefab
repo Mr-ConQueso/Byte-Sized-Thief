@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectName: Switch
+  isVertical: 0
   objectWeight: 300
   objectValue: 300
 --- !u!1 &7483123785024604477

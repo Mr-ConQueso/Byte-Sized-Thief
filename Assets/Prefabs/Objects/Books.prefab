@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectName: Books
+  isVertical: 0
   objectWeight: 8
   objectValue: 1
 --- !u!1 &7483123785024604477

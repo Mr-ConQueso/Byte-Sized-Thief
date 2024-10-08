@@ -47,7 +47,7 @@ public class ObjectGrabber : MonoBehaviour
             
             grabbableObject.OnGrab();
             
-            UpdateMaxHeight();
+            //UpdateMaxHeight();
 
             Debug.Log("Object grabbed: " + grabbedObject.name + " | Total Weight: " + CurrentTotalWeight);
         }
@@ -85,7 +85,7 @@ public class ObjectGrabber : MonoBehaviour
             _grabbedObjects.RemoveAt(_grabbedObjects.Count - 1);
             CurrentTotalWeight -= grabbableObject.GetWeight();
             
-            UpdateMaxHeight();
+            //UpdateMaxHeight();
 
             Debug.Log("Last object released: " + lastObject.name);
         }
@@ -107,7 +107,7 @@ public class ObjectGrabber : MonoBehaviour
             CurrentTotalWeight -= GetLastGrabbableInterface().GetWeight();
             _grabbedObjects.RemoveAt(_grabbedObjects.Count - 1);
             
-            UpdateMaxHeight();
+            //UpdateMaxHeight();
         }
     }
 

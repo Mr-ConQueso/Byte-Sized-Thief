@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectName: Webcam
+  isVertical: 0
   objectWeight: 188
   objectValue: 18
 --- !u!1 &7483123785024604477

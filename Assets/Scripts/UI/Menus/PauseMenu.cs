@@ -25,11 +25,6 @@ public class PauseMenu : MonoBehaviour
     {
         SceneSwapManager.SwapScene("EndMenu");
     }
-
-    public void OnClick_Settings()
-    {
-        MenuManager.OpenMenu(Menu.SettingsMenu, gameObject);
-    }
     
     private void Awake()
     {

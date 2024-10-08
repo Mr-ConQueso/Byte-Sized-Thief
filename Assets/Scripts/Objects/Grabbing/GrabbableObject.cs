@@ -26,12 +26,10 @@ public class GrabbableObject : MonoBehaviour, IGrabbable
     public void OnGrab()
     {
         _rigidbody.isKinematic = true;
-        _rigidbody.includeLayers = new LayerMask();
-        _rigidbody.excludeLayers = _currentlyGrabbedLayer;
 
         if (isVertical)
         {
-            transform.Rotate(90f, 0f, 0f);
+            transform.Rotate(0f, 90f, -90f);
         }
 
         CustomFunctions.ChangeLayerRecursively(gameObject, _currentlyGrabbedLayer);
@@ -40,15 +38,13 @@ public class GrabbableObject : MonoBehaviour, IGrabbable
     public void OnRelease()
     {
         _rigidbody.isKinematic = false;
-        _rigidbody.excludeLayers = new LayerMask();
-        _rigidbody.includeLayers = _currentlyGrabbedLayer;
 
-        Vector3 forwardPush = transform.forward * 5f;
+        Vector3 forwardPush = transform.forward * 15f;
         _rigidbody.AddForce(forwardPush, ForceMode.Impulse);
 
         if (isVertical)
         {
-            transform.Rotate(-90f, 0f, 0f);
+            transform.Rotate(0f, -90f, 90f);
         }
 
         CustomFunctions.ChangeLayerRecursively(gameObject, _grabbableLayer);
