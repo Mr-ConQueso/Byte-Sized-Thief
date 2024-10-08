@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: AOC_Grab_PopUp
+  m_Controller: {fileID: 9100000, guid: 87fe05257b1032fe39b3189a7f86ec73, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 4446dbf22873701c7be9eea6c1573328, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: beb4a4a5271fd505ca880456714b4381, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 14a2835fd59a575fea30cc3424a5388e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 16ef89a8e636a56a18ea8b59ae4aa1f8, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: dd9ee01cff47a2bad97ce649349d5d02, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0409f0b0054197bfc94bb652f7238d32, type: 2}

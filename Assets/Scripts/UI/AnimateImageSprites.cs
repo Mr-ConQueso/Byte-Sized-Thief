@@ -11,7 +11,6 @@ public class AnimateImageSprites : MonoBehaviour
     
     // ---- / Private Variables / ---- //
     private Camera _camera;
-    private Canvas _canvas;
     private Image _image;
     
     private Coroutine _pingPongCoroutine;
@@ -19,10 +18,8 @@ public class AnimateImageSprites : MonoBehaviour
     private void Start()
     {
         _camera = Camera.main;
-        _canvas = GetComponent<Canvas>();
         _image = GetComponentInChildren<Image>();
 
-        _canvas.worldCamera = _camera;
         _pingPongCoroutine = StartCoroutine(PingPongSprite());
     }
 
