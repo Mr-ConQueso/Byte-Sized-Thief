@@ -22,6 +22,10 @@ public class Roomba : MonoBehaviour
     private Rigidbody _rb;
     public float _speed = 1f;
     private bool isCharging = false;
+    private Coroutine patrolCoroutine;
+    private float _timeSinceLastSeen = 0f;
+    private float _timeToResumePatrol = 3f;
+    private bool _playerDetected = false;
 
     void Start()
     {
@@ -31,34 +35,43 @@ public class Roomba : MonoBehaviour
         {
             Debug.LogError("NavMeshAgent is missing");
         }
-        //SetPath();
+        SetPath();
     }
 
     void FixedUpdate()
     {
-
         Ray ray = new Ray(transform.position, transform.forward);
+
         if (Physics.SphereCast(ray, detectArea, detectRange, detect))
         {
             Debug.Log("Player detected");
+            _playerDetected = true;
+            _timeSinceLastSeen = 0f;
             Attacking();
         }
         else
         {
-            Patroling();
+            _playerDetected = false;
+
+            _timeSinceLastSeen += Time.deltaTime;
+
+            if (_timeSinceLastSeen >= _timeToResumePatrol)
+            {
+                Patroling();
+            }
         }
     }
 
-   void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Wall"))
         {
             _charge = false;
             _rb.velocity = Vector3.zero;
-            _speed = 0;
+            _speed = 1;
             _enemy.enabled = true;
             _enemy.SetDestination(_directionToTarget);
-        }        
+        }
     }
 
     private void Patroling()
@@ -76,8 +89,11 @@ public class Roomba : MonoBehaviour
 
     private void Attacking()
     {
-
-
+        StopCoroutine(patrolCoroutine);
+        if (_enemy.enabled)
+        {
+            _enemy.isStopped = true;
+        }
         if (!isCharging)
         {
             StartCoroutine(Charge());
@@ -106,7 +122,7 @@ public class Roomba : MonoBehaviour
 
         isMoving = true;
 
-        StartCoroutine(RotateToAndMove());
+        patrolCoroutine = StartCoroutine(RotateToAndMove());
     }
 
     private IEnumerator RotateToAndMove()
@@ -127,12 +143,11 @@ public class Roomba : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
 
         _enemy.SetDestination(nodes[_currentPath].position);
-        /*
         while (_enemy.pathPending || _enemy.remainingDistance > _enemy.stoppingDistance)
         {
             yield return null;
         }
-        */
+
         isMoving = false;
     }
 
@@ -170,5 +185,4 @@ public class Roomba : MonoBehaviour
 
         Gizmos.DrawWireSphere(endPoint, detectArea);
     }
-    
 }
