@@ -7,116 +7,26 @@ using UnityEngine;
 public class ObjectGrabber : MonoBehaviour
 {
     // ---- / Public Variables / ---- //
-    [HideInInspector] public float MaxTraversableHeight { get; private set; }
-    [HideInInspector] public float CurrentTotalWeight { get; private set; }
+    [HideInInspector] public float CurrentTotalWeight { get; protected set; }
     
     public float maxGrabbableWeight = 50f;
     
     // ---- / Serialized Variables / ---- //
     [Header("Sounds")]
-    [SerializeField] private SoundData grabSoundData;
-    [SerializeField] private SoundData releaseSoundData;
-    [SerializeField] private SoundData sellSoundData;
+    [SerializeField] protected SoundData grabSoundData;
+    [SerializeField] protected SoundData releaseSoundData;
     
     [Header("Grabbing Objects")]
-    [SerializeField] private float grabDistance = 3f;
-    [SerializeField] private float grabPointerDistance = 0.5f;
-    [SerializeField] private LayerMask grabbableObjectLayer;
-    [SerializeField] private LayerMask currentlyGrabbedLayer;
-    [SerializeField] private Transform heldPoint;
-    
-    [Header("Selling Objects")]
-    [SerializeField] private float sellDistance = 12f;
-    
-    [Header("Debugging")]
-    [SerializeField] private TMP_Text weightText;
-    [SerializeField] private TMP_Text soldValueText;
+    [SerializeField] protected LayerMask grabbableObjectLayer;
+    [SerializeField] protected LayerMask currentlyGrabbedLayer;
+
+    [SerializeField] protected float grabDistance = 3f;
+    [SerializeField] protected Transform heldPoint;
 
     // ---- / Private Variables / ---- //
-    private Vector3 _sellPoint;
-    private List<GameObject> _grabbedObjects = new List<GameObject>();
-    private Camera _camera;
+    protected List<GameObject> _grabbedObjects = new List<GameObject>();
 
-    private void Start()
-    {
-        _camera = Camera.main;
-        
-        if (!GameController.Instance.DEBUG_MODE)
-        {
-            weightText.gameObject.SetActive(false);
-            soldValueText.gameObject.SetActive(false);
-        }
-        
-        if (CustomFunctions.TryGetTransformWithTag("SellPlace", out Transform targetTransform))
-        {
-            _sellPoint = targetTransform.position;
-        }
-        else
-        {
-            _sellPoint = Vector3.zero;
-        }
-    }
-
-    private void Update()
-    {
-        if (!GameController.Instance.IsPlayerFrozen)
-        {
-            if (InputManager.WasGrabOrReleasePressed)
-            {
-                TryGrabOrReleaseObject();
-            }
-        }
-
-        if (!GameController.Instance.IsGamePaused)
-        {
-            CheckIfSellPointInBounds();
-        }
-
-        if (GameController.Instance.DEBUG_MODE)
-        {
-            UpdateDebugGUI();
-        }
-    }
-    
-    private void TryGrabOrReleaseObject()
-    {
-        Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        // Perform a SphereCast from the mouse pointer
-        if (Physics.SphereCast(ray, grabPointerDistance, out hit, Mathf.Infinity, grabbableObjectLayer))
-        {
-            // Check if the object hit has an IGrabbable component
-            IGrabbable grabbableObject = hit.collider.GetComponentInParent<IGrabbable>();
-
-            if (grabbableObject != null)
-            {
-                // Check if the hit object is already in the grabbed list
-                GameObject hitObject = hit.collider.transform.parent.gameObject;
-                if (!_grabbedObjects.Contains(hitObject))
-                {
-                    // If the object is not in the grabbed list, attempt to grab it
-                    TryGrabObject(grabbableObject, hitObject);
-                }
-                else
-                {
-                    Debug.Log("Hit object is already grabbed: " + hitObject.name);
-                }
-            }
-            else if (_grabbedObjects.Count > 0)
-            {
-                // Release the last grabbed object if no grabbable object is found
-                ReleaseLastObject();
-            }
-        }
-        else if (_grabbedObjects.Count > 0)
-        {
-            // Release the last grabbed object if the SphereCast doesn't hit anything
-            ReleaseLastObject();
-        }
-    }
-
-    private void TryGrabObject(IGrabbable grabbableObject, GameObject grabbedObject)
+    protected virtual void TryGrabObject(IGrabbable grabbableObject, GameObject grabbedObject)
     {
         float distanceToPlayer = Vector3.Distance(transform.position, grabbedObject.transform.position);
         float objectWeight = grabbableObject.GetWeight();
@@ -147,31 +57,9 @@ public class ObjectGrabber : MonoBehaviour
         }
     }
 
-    private void PositionObject(GameObject newObject)
-    {
-        if (_grabbedObjects.Count == 1)
-        {
-            newObject.transform.SetParent(heldPoint);
-            newObject.transform.localPosition = Vector3.zero;
-            newObject.transform.localRotation = Quaternion.identity;
-        }
-        else
-        {
-            Vector3 origin = new Vector3(heldPoint.position.x, heldPoint.position.y + 100f, heldPoint.position.z);
-            if (Physics.Raycast(origin, Vector3.down, out var hit, Mathf.Infinity, currentlyGrabbedLayer))
-            {
-                newObject.transform.SetParent(heldPoint);
-                newObject.transform.position = hit.point;
-                newObject.transform.localRotation = Quaternion.identity;
+    protected virtual void PositionObject(GameObject grabbedObject) {}
 
-                MaxTraversableHeight = hit.point.y - transform.position.y;
-
-                Debug.Log("Object stacked on top: " + newObject.name);
-            }
-        }
-    }
-
-    private void ReleaseLastObject()
+    protected virtual void ReleaseLastObject()
     {
         if (_grabbedObjects.Count > 0)
         {
@@ -198,61 +86,64 @@ public class ObjectGrabber : MonoBehaviour
         }
     }
 
-    private void SellGrabbedObjects()
+    protected virtual void TransferLastGrabbedObject(SoundData transferSound, Transform newParent)
     {
-        AudioController.Instance.CreateSound()
-            .WithSoundData(sellSoundData)
-            .WithRandomPitch()
-            .WithPosition(this.transform.position)
-            .Play();
-        
-        GameObject lastObject = _grabbedObjects[^1];
+        if (_grabbedObjects.Count > 0)
+        {
+            AudioController.Instance.CreateSound()
+                .WithSoundData(transferSound)
+                .WithRandomPitch()
+                .WithPosition(this.transform.position)
+                .Play();
 
-        lastObject.transform.SetParent(null);
+            
 
-        IGrabbable grabbableObject = lastObject.GetComponent<IGrabbable>();
+            GetLastObject().transform.SetParent(newParent);
+            StartCoroutine(MoveAndShrink(GetLastObject().transform, newParent, GameController.Instance.sellShrinkDuration));
 
-        _grabbedObjects.RemoveAt(_grabbedObjects.Count - 1);
-        CurrentTotalWeight -= grabbableObject.GetWeight();
-        
-        PointsCounter.Instance.SellObject(grabbableObject, lastObject);
+
+            _grabbedObjects.RemoveAt(_grabbedObjects.Count - 1);
+            CurrentTotalWeight -= GetLastGrabbableInterface().GetWeight();
+        }
     }
 
-    private Coroutine _sellCoroutine;
+    protected GameObject GetLastObject()
+    {
+        GameObject lastObject = null;
+            
+        if (_grabbedObjects.Count == 1)
+        {
+            return lastObject = _grabbedObjects[0];
+        }
+        
+        return lastObject = _grabbedObjects[^1];
+    }
     
-    private void CheckIfSellPointInBounds()
+    protected IGrabbable GetLastGrabbableInterface()
     {
-        if (Vector3.Distance(transform.position, _sellPoint) <= sellDistance)
-        {
-            if (_sellCoroutine == null)
-            {
-                _sellCoroutine = StartCoroutine(SellItemsWithDelay(1f));
-            }
-        }
-        else
-        {
-            if (_sellCoroutine != null)
-            {
-                StopCoroutine(_sellCoroutine);
-                _sellCoroutine = null;
-            }
-        }
+        return GetLastObject().GetComponent<IGrabbable>();
     }
-
-    private IEnumerator SellItemsWithDelay(float interval)
+    
+    private IEnumerator MoveAndShrink(Transform objectTransform, Transform targetPosition, float duration)
     {
-        while (_grabbedObjects.Count > 0)
+        Vector3 initialPosition = objectTransform.position;
+        Vector3 initialScale = objectTransform.localScale;
+        Vector3 finalScale = Vector3.zero;
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
         {
-            SellGrabbedObjects();
-            yield return new WaitForSeconds(interval);
+            float t = elapsedTime / duration;
+            
+            objectTransform.position = Vector3.Lerp(initialPosition, targetPosition.position, t);
+            objectTransform.localScale = Vector3.Lerp(initialScale, finalScale, t);
+
+            elapsedTime += Time.deltaTime;
+
+            yield return null;
         }
 
-        _sellCoroutine = null;
-    }
-
-    private void UpdateDebugGUI()
-    {
-        weightText.text = $"Weight: {CurrentTotalWeight} / {maxGrabbableWeight}";
-        soldValueText.text = $"Sold Value: {PointsCounter.Instance.Value} $";
+        Destroy(objectTransform.gameObject);
     }
 }

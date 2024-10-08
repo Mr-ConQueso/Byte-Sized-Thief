@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using BaseGame;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PointsCounter : MonoBehaviour
 {
@@ -16,26 +17,23 @@ public class PointsCounter : MonoBehaviour
     public List<GameObject> AllGrabbedObjects { get; private set; } = new List<GameObject>();
     
     // ---- / Serialized Variables / ---- //
-    [SerializeField] private float sellDuration = 1;
     [SerializeField] private Transform savedObjects;
     
     // ---- / Private Variables / ---- //
-    private Vector3 targetPosition;
+    private Vector3 _targetPosition;
+    private Coroutine _moveAndShrink;
     
     public void SellObject(IGrabbable grabbedObject, GameObject soldObject)
     {
         AddOrUpdateItem(grabbedObject.GetName(), grabbedObject.GetValue());
-
+        
         GameObject soldObjectCopy = Instantiate(soldObject, savedObjects, false);
 
         soldObjectCopy.transform.localPosition = Vector3.zero;
         soldObjectCopy.transform.localScale = Vector3.zero;
         
         AllGrabbedObjects.Add(soldObjectCopy);
-
-        StartCoroutine(MoveAndShrink(soldObject.transform, targetPosition, sellDuration));
     }
-
     
     private void Awake()
     {
@@ -49,37 +47,13 @@ public class PointsCounter : MonoBehaviour
     {
         if (CustomFunctions.TryGetTransformWithTag("SellPlace", out Transform targetTransform))
         {
-            targetPosition = targetTransform.position;
+            _targetPosition = targetTransform.position;
         }
         else
         {
-            targetPosition = Vector3.zero;
+            _targetPosition = Vector3.zero;
         }
     }
-
-    private IEnumerator MoveAndShrink(Transform objectTransform, Vector3 targetPosition, float duration)
-    {
-        Vector3 initialPosition = objectTransform.position;
-        Vector3 initialScale = objectTransform.localScale;
-        Vector3 finalScale = Vector3.zero;
-
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            float t = elapsedTime / duration;
-            
-            objectTransform.position = Vector3.Lerp(initialPosition, targetPosition, t);
-            objectTransform.localScale = Vector3.Lerp(initialScale, finalScale, t);
-
-            elapsedTime += Time.deltaTime;
-
-            yield return null;
-        }
-
-        Destroy(objectTransform.gameObject);
-    }
-
     
     private void AddOrUpdateItem(string name, float value)
     {
@@ -98,14 +72,6 @@ public class PointsCounter : MonoBehaviour
         Debug.Log($"Added: {name}, Value: {value}, Amount: 1");
         
         Value = GetTotalValue();
-    }
-
-    private void PrintItems()
-    {
-        foreach (var item in ObtainedItems)
-        {
-            Debug.Log($"Name: {item.Item1}, Value: {item.Item2}, Amount: {item.Item3}");
-        }
     }
     
     private float GetTotalValue()

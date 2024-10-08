@@ -35,6 +35,7 @@ namespace BaseGame
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
         {
+            StopAllCoroutines();
         }
 
         private IEnumerator TransitionTheSwapScene(String scene)

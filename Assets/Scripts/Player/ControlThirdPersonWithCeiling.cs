@@ -61,6 +61,7 @@ public class ControlThirdPersonWithCeiling : MonoBehaviour
                     float ceilingDistance = ceilingHit.distance;
 
                     // If the ceiling distance is less than the max traversable height, stop and move there
+                    /*
                     if (ceilingDistance > _objectGrabber.MaxTraversableHeight)
                     {
                         Debug.Log($"Ceiling detected at {ceilingHit.point} with distance {ceilingDistance}. Moving to last valid point.");
@@ -76,6 +77,7 @@ public class ControlThirdPersonWithCeiling : MonoBehaviour
                         MoveToPoint(targetPoint);
                         break;
                     }
+                    */
                 }
             }
 
