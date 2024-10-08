@@ -13,29 +13,35 @@ public class GrabbableObject : MonoBehaviour, IGrabbable
     
     // ---- / Private Variables / ---- //
     private Rigidbody _rigidbody;
+    private static LayerMask _currentlyGrabbedLayer;
+    private static LayerMask _grabbableLayer;
 
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _currentlyGrabbedLayer = LayerMask.NameToLayer("CurrentlyGrabbed");
+        _grabbableLayer = LayerMask.NameToLayer("Grabbable");
     }
     
     public void OnGrab()
     {
-        Debug.Log(gameObject.name + " has been grabbed!");
         _rigidbody.isKinematic = true;
+        _rigidbody.includeLayers = new LayerMask();
+        _rigidbody.excludeLayers = _currentlyGrabbedLayer;
 
         if (isVertical)
         {
             transform.Rotate(90f, 0f, 0f);
         }
 
-        CustomFunctions.ChangeLayerRecursively(gameObject, LayerMask.NameToLayer("CurrentlyGrabbed"));
+        CustomFunctions.ChangeLayerRecursively(gameObject, _currentlyGrabbedLayer);
     }
 
     public void OnRelease()
     {
-        Debug.Log(gameObject.name + " has been released!");
         _rigidbody.isKinematic = false;
+        _rigidbody.excludeLayers = new LayerMask();
+        _rigidbody.includeLayers = _currentlyGrabbedLayer;
 
         Vector3 forwardPush = transform.forward * 5f;
         _rigidbody.AddForce(forwardPush, ForceMode.Impulse);
@@ -45,7 +51,7 @@ public class GrabbableObject : MonoBehaviour, IGrabbable
             transform.Rotate(-90f, 0f, 0f);
         }
 
-        CustomFunctions.ChangeLayerRecursively(gameObject, LayerMask.NameToLayer("Grabbable"));
+        CustomFunctions.ChangeLayerRecursively(gameObject, _grabbableLayer);
     }
 
     public float GetWeight()

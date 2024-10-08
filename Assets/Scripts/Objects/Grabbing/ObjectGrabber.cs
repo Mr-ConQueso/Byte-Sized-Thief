@@ -7,6 +7,7 @@ using UnityEngine;
 public class ObjectGrabber : MonoBehaviour
 {
     // ---- / Public Variables / ---- //
+    [HideInInspector] public float MaxTraversableHeight { get; protected set; }
     [HideInInspector] public float CurrentTotalWeight { get; protected set; }
     
     public float maxGrabbableWeight = 50f;
@@ -45,6 +46,8 @@ public class ObjectGrabber : MonoBehaviour
             PositionObject(grabbedObject);
             
             grabbableObject.OnGrab();
+            
+            UpdateMaxHeight();
 
             Debug.Log("Object grabbed: " + grabbedObject.name + " | Total Weight: " + CurrentTotalWeight);
         }
@@ -81,6 +84,8 @@ public class ObjectGrabber : MonoBehaviour
 
             _grabbedObjects.RemoveAt(_grabbedObjects.Count - 1);
             CurrentTotalWeight -= grabbableObject.GetWeight();
+            
+            UpdateMaxHeight();
 
             Debug.Log("Last object released: " + lastObject.name);
         }
@@ -101,6 +106,8 @@ public class ObjectGrabber : MonoBehaviour
 
             CurrentTotalWeight -= GetLastGrabbableInterface().GetWeight();
             _grabbedObjects.RemoveAt(_grabbedObjects.Count - 1);
+            
+            UpdateMaxHeight();
         }
     }
 
@@ -114,6 +121,25 @@ public class ObjectGrabber : MonoBehaviour
     protected IGrabbable GetLastGrabbableInterface()
     {
         return GetLastObject().GetComponent<IGrabbable>();
+    }
+    
+    protected void UpdateMaxHeight()
+    {
+        if (_grabbedObjects.Count == 0)
+        {
+            MaxTraversableHeight = 1;
+            return;
+        }
+
+        Vector3 origin = new Vector3(heldPoint.position.x, heldPoint.position.y + 500f, heldPoint.position.z);
+        RaycastHit hit;
+
+        float sphereRadius = 5f;
+        
+        if (Physics.SphereCast(origin, sphereRadius, Vector3.down, out hit, Mathf.Infinity, currentlyGrabbedLayer))
+        {
+            MaxTraversableHeight = hit.point.y - transform.position.y;
+        }
     }
     
     private IEnumerator MoveAndShrink(Transform objectTransform, Transform targetPosition, float duration)
