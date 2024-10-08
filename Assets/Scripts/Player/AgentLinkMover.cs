@@ -15,6 +15,7 @@ public class AgentLinkMover : MonoBehaviour
 {
     public OffMeshLinkMoveMethod m_Method = OffMeshLinkMoveMethod.Parabola;
     public AnimationCurve m_Curve = new AnimationCurve();
+    [SerializeField] private float jumpSpeed = 0.5f;
 
     IEnumerator Start()
     {
@@ -56,7 +57,7 @@ public class AgentLinkMover : MonoBehaviour
         while (normalizedTime < 1.0f)
         {
             float yOffset = height * 4.0f * (normalizedTime - normalizedTime * normalizedTime);
-            agent.transform.position = Vector3.Lerp(startPos, endPos, normalizedTime) + yOffset * Vector3.up;
+            agent.transform.position = Vector3.Lerp(startPos, endPos, jumpSpeed * normalizedTime) + yOffset * Vector3.up;
             normalizedTime += Time.deltaTime / duration;
             yield return null;
         }
