@@ -13,6 +13,7 @@ public class InputManager : MonoBehaviour
     public static bool WasGrabOrReleasePressed;
     public static bool WasReleaseAllPressed;
     public static bool WasMousePressed;
+    public static bool WasCenterPresed;
     
     // ---- / Private Variables / ---- //
     private static PlayerInput _playerInput;
@@ -25,6 +26,7 @@ public class InputManager : MonoBehaviour
     private InputAction _releaseAllAction;
     
     private InputAction _escapeAction;
+    private InputAction _pressJump;
 
     private void Awake()
     {

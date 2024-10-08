@@ -48,6 +48,7 @@ public class Highlightbjects : MonoBehaviour
             }
             else
             {
+                if()
                 _highlight.gameObject.GetComponent<Outline1>().enabled = false;
                 _highlight = null;
             } 
