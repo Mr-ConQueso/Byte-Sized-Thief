@@ -30,7 +30,7 @@ public class Highlightbjects : MonoBehaviour
 
         if(_highlight != null)
         {
-            _highlight.gameObject.GetComponent<Outline>().enabled = false;
+            _highlight.gameObject.GetComponent<Outline1>().enabled = false;
             _highlight = null;
         }
         if (Physics.SphereCast(ray, highlightPointerDistance, out hit, Mathf.Infinity,grabbableObjectLayer))
@@ -41,22 +41,14 @@ public class Highlightbjects : MonoBehaviour
             {
                 _highlight = hit.transform;
 
-                if (_highlight.gameObject.GetComponent<Outline>() != null)
+                if (_highlight.gameObject.GetComponent<Outline1>() != null)
                 {
-                    _highlight.gameObject.GetComponent<Outline>().enabled = true;
-                }
-                else
-                {
-                    Outline outline = _highlight.gameObject.AddComponent<Outline>();
-                    
-                    _highlight.gameObject.GetComponent<Outline>().OutlineColor = Color.magenta;
-                    _highlight.gameObject.GetComponent<Outline>().OutlineWidth = OutlineWidth;
-                    
-                    outline.enabled = true;
-                }          
+                    _highlight.gameObject.GetComponent<Outline1>().enabled = true;
+                }        
             }
             else
             {
+                _highlight.gameObject.GetComponent<Outline1>().enabled = false;
                 _highlight = null;
             } 
         }
