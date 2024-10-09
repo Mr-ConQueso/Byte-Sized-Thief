@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 750493069851494027}
-  - component: {fileID: 8282574635001494146}
+  - component: {fileID: 5714564958172940941}
   m_Layer: 6
   m_Name: Mesh
   m_TagString: Untagged
@@ -129,8 +129,8 @@ Transform:
   - {fileID: 8886674371917301309}
   m_Father: {fileID: 3505460452270812238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &8282574635001494146
-CapsuleCollider:
+--- !u!65 &5714564958172940941
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -147,11 +147,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.025
-  m_Height: 0.1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.045, z: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.053407114, y: 0.08732999, z: 0.04964481}
+  m_Center: {x: -0.000000010954616, y: 0.039849162, z: -0.00020435288}
 --- !u!1001 &8996351733035672022
 PrefabInstance:
   m_ObjectHideFlags: 0
