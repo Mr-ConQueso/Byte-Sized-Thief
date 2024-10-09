@@ -1653,7 +1653,7 @@ PrefabInstance:
     - target: {fileID: 3596137162502272691, guid: 48e59eebaf433e742960138595560eb0,
         type: 3}
       propertyPath: near clip plane
-      value: -80
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 7712712081795559518, guid: 48e59eebaf433e742960138595560eb0,
         type: 3}
@@ -2870,6 +2870,11 @@ PrefabInstance:
       propertyPath: m_LookAt
       value: 
       objectReference: {fileID: 1080415742835512485}
+    - target: {fileID: 3958025658714664573, guid: 8c85b0f7d99e6a94dacdb81800e13c0f,
+        type: 3}
+      propertyPath: m_Lens.NearClipPlane
+      value: -100
+      objectReference: {fileID: 0}
     - target: {fileID: 7597975376128206467, guid: 8c85b0f7d99e6a94dacdb81800e13c0f,
         type: 3}
       propertyPath: m_Name
@@ -5822,12 +5827,17 @@ PrefabInstance:
     - target: {fileID: 6902723968922819513, guid: 7884e0edac03744479b4ca8573afa521,
         type: 3}
       propertyPath: acceleration
-      value: 1.01
+      value: 1.03
       objectReference: {fileID: 0}
     - target: {fileID: 6902723968922819513, guid: 7884e0edac03744479b4ca8573afa521,
         type: 3}
       propertyPath: detect.m_Bits
       value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 6902723968922819513, guid: 7884e0edac03744479b4ca8573afa521,
+        type: 3}
+      propertyPath: maxChargeSpeed
+      value: 20000
       objectReference: {fileID: 0}
     - target: {fileID: 6902723968922819513, guid: 7884e0edac03744479b4ca8573afa521,
         type: 3}

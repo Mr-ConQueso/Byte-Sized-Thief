@@ -74,7 +74,6 @@ GameObject:
   - component: {fileID: 4668913625995196669}
   - component: {fileID: 5618909916889524838}
   - component: {fileID: 6906992122739895747}
-  - component: {fileID: 6235781385438170705}
   - component: {fileID: 1606237359596611547}
   - component: {fileID: 5798348151356611385}
   m_Layer: 8
@@ -142,23 +141,6 @@ MonoBehaviour:
   fadeTime: 30
   cameraOffset: 2
   translucentRadius: 1
---- !u!114 &6235781385438170705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4838916716845314026}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b1ee05b9614b3011880e1fa7716e037, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OutlineWidth: 1
-  highlightPointerDistance: 0.5
-  grabbableObjectLayer:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!114 &1606237359596611547
 MonoBehaviour:
   m_ObjectHideFlags: 0

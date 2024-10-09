@@ -67,6 +67,7 @@ public class ControlThirdPerson : MonoBehaviour
             Vector3 dist = transform.position - hit.collider.transform.position;
             if (InputManager.WasMousePressed)
             {
+
                 NavMeshPath path = new NavMeshPath();
                 _navAgent.CalculatePath(hit.point, path);
                 _navAgent.SetPath(path);

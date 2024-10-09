@@ -13,6 +13,7 @@ public class Roomba : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private float acceleration = 1.1f;
     [SerializeField] private float _chargeSpeed = 1f;
+    [SerializeField] private float maxChargeSpeed = 10000;
 
     // ---- / Private Variables / ---- //
     private NavMeshAgent _enemy;
@@ -173,7 +174,8 @@ public class Roomba : MonoBehaviour
 
         while (_charge)
         {
-            _chargeSpeed *= acceleration;
+            _chargeSpeed = Mathf.Min(_chargeSpeed * acceleration, maxChargeSpeed);
+
             _rb.velocity = transform.forward * _chargeSpeed * Time.deltaTime;
             //Debug.Log("Charging... Speed: " + _chargeSpeed);
             _rb.constraints = RigidbodyConstraints.FreezeRotation;
