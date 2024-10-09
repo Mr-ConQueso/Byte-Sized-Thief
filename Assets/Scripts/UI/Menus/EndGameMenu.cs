@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using BaseGame;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class EndGameMenu : MonoBehaviour
@@ -13,6 +12,7 @@ public class EndGameMenu : MonoBehaviour
     private static string _moneySuffix = "$";
     
     // ---- / Serialized Variables / ---- //
+    [SerializeField] private TMP_Text totalValueText;
     [SerializeField] private TMP_Text obtainedItemsText;
     [SerializeField] private float dropDelay = 0.1f;
     [SerializeField] private Transform dropPoint;
@@ -32,6 +32,11 @@ public class EndGameMenu : MonoBehaviour
     {
         StartCoroutine(ShowCredits(PointsCounter.Instance.ObtainedItems));
         StartCoroutine(DropObjectsWithDelay(PointsCounter.Instance.AllGrabbedObjects));
+    }
+
+    private void UpdateTotalCountText()
+    {
+        totalValueText.text = PointsCounter.Instance.GetTotalValue().ToString("00.00") + "$";
     }
 
     private IEnumerator DropObjectsWithDelay(List<GameObject> objectsToDrop)
@@ -75,5 +80,7 @@ public class EndGameMenu : MonoBehaviour
             
             yield return new WaitForSeconds(dropDelay);
         }
+        totalValueText.gameObject.SetActive(true);
+        UpdateTotalCountText();
     }
 }

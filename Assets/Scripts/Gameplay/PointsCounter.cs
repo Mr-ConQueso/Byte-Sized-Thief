@@ -74,7 +74,7 @@ public class PointsCounter : MonoBehaviour
         Value = GetTotalValue();
     }
     
-    private float GetTotalValue()
+    public float GetTotalValue()
     {
         float total = 0f;
 

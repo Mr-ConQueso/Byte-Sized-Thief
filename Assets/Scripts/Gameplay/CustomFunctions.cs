@@ -39,12 +39,27 @@ namespace BaseGame
             }
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="component"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static bool TryGetComponentInChild<T>(this GameObject parent, out T component) where T : Component
         {
             component = parent.GetComponentInChildren<T>();
 
             return component != null;
         }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="component"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static bool TryGetComponentInChild<T>(this Transform parent, out T component) where T : Component
         {
             component = parent.GetComponentInChildren<T>();
@@ -52,6 +67,12 @@ namespace BaseGame
             return component != null;
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="layer"></param>
+        /// <returns></returns>
         public static bool CompareLayer(this GameObject obj, int layer)
         {
             return obj.layer == layer;
