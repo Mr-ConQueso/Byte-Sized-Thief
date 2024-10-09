@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,16 +12,16 @@ public class Roomba : MonoBehaviour
     [SerializeField] private LayerMask detect;
     [SerializeField] private GameObject player;
     [SerializeField] private float acceleration = 1.1f;
+    [SerializeField] private float _chargeSpeed = 1f;
 
     // ---- / Private Variables / ---- //
     private NavMeshAgent _enemy;
-    private int _currentPath;
+    private int _currentPath = 0;
     private bool isMoving = false;
     private Vector3 _directionToTarget;
     private Vector3 _lastSeenPosition;
     private bool _charge = false;
     private Rigidbody _rb;
-    public float _speed = 1f;
     private bool isCharging = false;
     private Coroutine patrolCoroutine;
     private float _timeSinceLastSeen = 0f;
@@ -36,7 +36,7 @@ public class Roomba : MonoBehaviour
         {
             Debug.LogError("NavMeshAgent is missing");
         }
-        SetPath();
+        Patroling();
     }
 
     void FixedUpdate()
@@ -45,7 +45,7 @@ public class Roomba : MonoBehaviour
 
         if (Physics.SphereCast(ray, detectArea, detectRange, detect))
         {
-            Debug.Log("Player detected");
+            //sDebug.Log("Player detected");
             _playerDetected = true;
             _timeSinceLastSeen = 0f;
             Attacking();
@@ -68,7 +68,7 @@ public class Roomba : MonoBehaviour
         {
             _charge = false;
             _rb.velocity = Vector3.zero;
-            _speed = 1;
+            _chargeSpeed = 1;
             _enemy.enabled = true;
             _enemy.SetDestination(_directionToTarget);
             
@@ -82,7 +82,6 @@ public class Roomba : MonoBehaviour
             if (_enemy.isStopped)
             {
                 _enemy.isStopped = false;
-                _currentPath = (_currentPath + 1) % nodes.Length;
             }
             SetPath();
         }
@@ -101,11 +100,11 @@ public class Roomba : MonoBehaviour
     {
         if (nodes.Length == 0) return;
 
-        isMoving = true;  // Start moving
+        isMoving = true;  
 
         if (patrolCoroutine != null)
         {
-            StopCoroutine(patrolCoroutine);  // Stop any previous coroutine before starting a new one
+            StopCoroutine(patrolCoroutine);
         }
 
         patrolCoroutine = StartCoroutine(RotateToAndMove());
@@ -130,14 +129,12 @@ public class Roomba : MonoBehaviour
 
         _enemy.SetDestination(nodes[_currentPath].position);
 
-        // Wait until Roomba has reached the destination
         while (_enemy.pathPending || _enemy.remainingDistance > _enemy.stoppingDistance)
         {
             yield return null;
         }
-
-        // Once it reaches the target, reset isMoving to false
-        isMoving = false;  // End of movement
+        isMoving = false;
+        Debug.Log(isMoving);
     }
 
     private void Attacking()
@@ -176,9 +173,9 @@ public class Roomba : MonoBehaviour
 
         while (_charge)
         {
-            _speed *= acceleration;
-            _rb.velocity = transform.forward * _speed * Time.deltaTime;
-            Debug.Log("Charging... Speed: " + _speed);
+            _chargeSpeed *= acceleration;
+            _rb.velocity = transform.forward * _chargeSpeed * Time.deltaTime;
+            //Debug.Log("Charging... Speed: " + _chargeSpeed);
             _rb.constraints = RigidbodyConstraints.FreezeRotation;
             yield return null;
         }
@@ -186,7 +183,6 @@ public class Roomba : MonoBehaviour
         _enemy.enabled = true;
         isCharging = false;
 
-        // Resume patrol after charging
         if (!_playerDetected)
         {
             Patroling();

@@ -90,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if(InputManager.WasCenterPressed)
             {
-                
+                Debug.Log(jumpHit.collider.name);
                 if(!_navAgent.autoTraverseOffMeshLink)
                 {
                     _navAgent.autoTraverseOffMeshLink = true;
