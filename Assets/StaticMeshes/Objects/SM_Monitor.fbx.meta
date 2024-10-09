@@ -12,23 +12,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: blinn1.030
-    second: {fileID: 2100000, guid: 88a8273ffc1d233c5863cc3bbc369e9f, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: shadingMap1
-    second: {fileID: 2100000, guid: b95e4e91ebf1dce8ea4f0490ef21deff, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
       name: standardSurface3
     second: {fileID: 2100000, guid: d718ddf42061a12ffbd926fc4e84ead3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: standardSurface3.004
-    second: {fileID: 2100000, guid: d718ddf42061a12ffbd926fc4e84ead3, type: 2}
+    second: {fileID: 2100000, guid: 383c7a199f8277402b6a6b1b33c6c81b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
