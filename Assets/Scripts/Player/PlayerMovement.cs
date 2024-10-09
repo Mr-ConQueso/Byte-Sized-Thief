@@ -1,4 +1,4 @@
-using System.Linq;
+    using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -71,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 dist = transform.position - hit.collider.transform.position;
             //Debug.Log(hit.collider.name);
-            if (InputManager.WasMousePressed)
+            if (InputManager.WasMousePressed && !_navAgent.isOnOffMeshLink)
             {
                 
                 if(_navAgent.autoTraverseOffMeshLink)
@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit jumpHit;
         if(Physics.Raycast(ray,out jumpHit, 1000f, groundLayer))
         {
-            if(InputManager.WasJumpPressed)
+            if(InputManager.WasJumpPressed && !_navAgent.isOnOffMeshLink)
             {
                 Debug.Log(jumpHit.collider.name);
                 if(!_navAgent.autoTraverseOffMeshLink)

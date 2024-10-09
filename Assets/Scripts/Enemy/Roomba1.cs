@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Roomba : MonoBehaviour
+public class Roomba1 : MonoBehaviour
 {
     // ---- / Serializable Variables / ---- //
     [SerializeField] private Transform[] nodes;

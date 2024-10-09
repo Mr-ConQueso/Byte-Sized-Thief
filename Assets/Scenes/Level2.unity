@@ -1221,6 +1221,69 @@ Transform:
   m_Children: []
   m_Father: {fileID: 936611269}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &251362274
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 251362275}
+  - component: {fileID: 251362276}
+  m_Layer: 0
+  m_Name: NavMeshRoomba
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &251362275
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 251362274}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 757497495}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &251362276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 251362274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: -334000983
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 63
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.6666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: b5c67b6631661d148b31a5f5e399f75f, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!4 &254086516 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3505460452270812238, guid: 9477ae3821840391fa0032bd5988e049,
@@ -2367,6 +2430,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 23800000, guid: e93b0a83c1d3cef458ec5fd42ef90e50,
         type: 2}
+    - target: {fileID: 8794027389814321958, guid: cdeb04ca2dd4f93e1bef0f5d9c9259a7,
+        type: 3}
+      propertyPath: m_GenerateLinks
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8939309562236764128, guid: cdeb04ca2dd4f93e1bef0f5d9c9259a7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3285,7 +3353,7 @@ PrefabInstance:
     - target: {fileID: 1956073729713474361, guid: 728b05b2cdb5fbfb9a5a13d19af2d870,
         type: 3}
       propertyPath: m_Size.y
-      value: 0.0060841874
+      value: 0.0065788566
       objectReference: {fileID: 0}
     - target: {fileID: 1956073729713474361, guid: 728b05b2cdb5fbfb9a5a13d19af2d870,
         type: 3}
@@ -3300,7 +3368,7 @@ PrefabInstance:
     - target: {fileID: 1956073729713474361, guid: 728b05b2cdb5fbfb9a5a13d19af2d870,
         type: 3}
       propertyPath: m_Center.y
-      value: -0.0014624402
+      value: -0.0012151054
       objectReference: {fileID: 0}
     - target: {fileID: 1956073729713474361, guid: 728b05b2cdb5fbfb9a5a13d19af2d870,
         type: 3}
@@ -3829,6 +3897,7 @@ Transform:
   - {fileID: 2038140045}
   - {fileID: 448374767}
   - {fileID: 936611269}
+  - {fileID: 251362275}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &768210861 stripped
@@ -4138,7 +4207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AgentTypeID: -1372625422
-  m_StartPoint: {x: -19.153725, y: 11.930748, z: 18.143791}
+  m_StartPoint: {x: -19.153725, y: 11.930748, z: 20.187674}
   m_EndPoint: {x: -19, y: 16.81, z: 29.4}
   m_Width: 0
   m_CostModifier: -1
@@ -4159,7 +4228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AgentTypeID: -1372625422
   m_StartPoint: {x: -29, y: 0, z: 7.8}
-  m_EndPoint: {x: -18.982965, y: 11.888408, z: 18.11348}
+  m_EndPoint: {x: -18.982965, y: 11.888408, z: 16.752647}
   m_Width: 0
   m_CostModifier: -1
   m_Bidirectional: 1
@@ -4199,7 +4268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AgentTypeID: -1372625422
   m_StartPoint: {x: 44.180794, y: 36.674778, z: 2.50179}
-  m_EndPoint: {x: 43.66, y: 36.13112, z: -13.517219}
+  m_EndPoint: {x: 43.66, y: 36.052906, z: -13.517219}
   m_Width: 0
   m_CostModifier: -1
   m_Bidirectional: 1
@@ -5183,6 +5252,11 @@ PrefabInstance:
         type: 3}
       propertyPath: detect.m_Bits
       value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 6902723968922819513, guid: 7884e0edac03744479b4ca8573afa521,
+        type: 3}
+      propertyPath: waitForCharge
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6902723968922819513, guid: 7884e0edac03744479b4ca8573afa521,
         type: 3}
