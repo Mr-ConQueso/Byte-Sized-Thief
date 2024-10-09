@@ -21,13 +21,17 @@ public class GameController : MonoBehaviour
     // ---- / Public Variables / ---- //
     public bool DEBUG_MODE = true;
     public int TimerInSeconds = 120;
-    public float sellShrinkDuration = 0.01f;
-    public float sellDelayDuration = 0.01f;
+    public float sellShrinkDuration = 0.5f;
+    public float sellDelayDuration = 0.5f;
     
     // ---- / Hidden Public Variables / ---- //
     [HideInInspector] public bool CanPauseGame = false;
     [HideInInspector] public bool IsPlayerFrozen { get; private set; } = true;
     [HideInInspector] public bool IsGamePaused { get; private set; }
+    
+    // ---- / Private Variables / ---- //
+    private GameObject _sceneInteractableObjects;
+    private bool _isGameEnded;
 
     public void InvokeOnGameResumed()
     {
@@ -62,6 +66,7 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         StartGame();
+        _sceneInteractableObjects = GameObject.FindWithTag("AllInteractable");
     }
 
     private void Update()
@@ -80,6 +85,14 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void CheckIfAllObjectsCollected()
+    {
+        if (!CustomFunctions.HasChildren(_sceneInteractableObjects) && !_isGameEnded)
+        {
+            EndGame();
+        }
+    }
+    
     private void OnTimerStart()
     {
         IsPlayerFrozen = false;
@@ -89,7 +102,6 @@ public class GameController : MonoBehaviour
     private void StartGame()
     {
         OnGameStart?.Invoke();
-        
     }
 
     private void PauseGame()
@@ -108,6 +120,7 @@ public class GameController : MonoBehaviour
     {
         IsPlayerFrozen = true;
         OnGameEnd?.Invoke();
+        _isGameEnded = true;
         SceneSwapManager.SwapScene("EndMenu");
     }
 }

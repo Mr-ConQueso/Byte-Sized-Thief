@@ -11,8 +11,9 @@ public class InputManager : MonoBehaviour
     
     public static bool WasEscapePressed;
     public static bool WasGrabPressed;
-    public static bool WasReleasePressed;
-    public static bool WasMousePressed;
+    public static bool IsReleasePressed;
+    
+    public static bool IsMousePressed;
     public static bool WasJumpPressed;
     
     // ---- / Private Variables / ---- //
@@ -52,10 +53,10 @@ public class InputManager : MonoBehaviour
     {
         NavigationInput = _navigationAction.ReadValue<Vector2>();
         
-        WasMousePressed = _moveAction.IsPressed();
+        IsMousePressed = _moveAction.IsPressed();
         
         WasGrabPressed = _grabAction.WasPressedThisFrame();
-        WasReleasePressed = _releaseAction.WasPerformedThisFrame();
+        IsReleasePressed = _releaseAction.IsPressed();
 
         WasJumpPressed = _jumpAction.WasPressedThisFrame();
         WasEscapePressed = _escapeAction.WasPressedThisFrame();

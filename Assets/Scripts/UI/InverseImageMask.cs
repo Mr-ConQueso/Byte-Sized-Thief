@@ -2,11 +2,11 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-public class StencilMaterialModifier : Image
+public class InverseImageMask : Image
 {
     private static readonly int StencilComp = Shader.PropertyToID("_StencilComp");
     private Material maskMaterial;
-
+    
     public override Material materialForRendering
     {
         get

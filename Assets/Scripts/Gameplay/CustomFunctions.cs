@@ -82,5 +82,10 @@ namespace BaseGame
         {
             return obj.layer == LayerMask.NameToLayer(layerName);
         }
+        
+        public static bool HasChildren(GameObject obj)
+        {
+            return obj.transform.childCount > 0;
+        }
     }
 }

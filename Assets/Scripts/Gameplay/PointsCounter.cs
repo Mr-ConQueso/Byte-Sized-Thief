@@ -33,6 +33,7 @@ public class PointsCounter : MonoBehaviour
         soldObjectCopy.transform.localScale = Vector3.zero;
         
         AllGrabbedObjects.Add(soldObjectCopy);
+        GameController.Instance.CheckIfAllObjectsCollected();
     }
     
     private void Awake()

@@ -36,7 +36,7 @@ public class MovementControlsPopUp : MonoBehaviour
 
     private void Update()
     {
-        if (InputManager.WasMousePressed && _hasSeenMovementTutorial == 1)
+        if (InputManager.IsMousePressed && _hasSeenMovementTutorial == 1)
         {
             _animator.SetTrigger("hidePopUp");
             _hasSeenMovementTutorial = 2;

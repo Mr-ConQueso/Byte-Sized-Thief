@@ -2,14 +2,17 @@ using System.Collections;
 using BaseGame;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerObjectGrabber : ObjectGrabber
 {
-    // ---- / Public Variables / ---- //
-    
     // ---- / Serialized Variables / ---- //
     [SerializeField] private SoundData sellSoundData;
     [SerializeField] private float grabPointerDistance = 0.5f;
+    
+    [Header("Dropping Objects")]
+    [SerializeField] private float holdTime;
+    [SerializeField] private GameObject dropProgressBar;
     
     [Header("Selling Objects")]
     [SerializeField] private float sellDistance = 12f;
@@ -17,6 +20,8 @@ public class PlayerObjectGrabber : ObjectGrabber
     // ---- / Private Variables / ---- //
     private Camera _camera;
     private Transform _sellPoint;
+    private float _currentHeldTime;
+    private GameObject _currentDropProgressCanvas;
 
     public void SuckAllObjects(SoundData soundData, Transform roombaTransform)
     {
@@ -44,22 +49,19 @@ public class PlayerObjectGrabber : ObjectGrabber
     {
         if (!GameController.Instance.IsPlayerFrozen)
         {
-            if (InputManager.WasReleasePressed)
-            {
-                ReleaseLastObject();
-            }
             if (InputManager.WasGrabPressed)
             {
                 TryGrabObjectWithPlayer();
             }
+            
+            UpdateDropUI();
         }
 
         if (!GameController.Instance.IsGamePaused)
         {
             CheckIfSellPointInBounds();
+            UpdateMaxHeight();
         }
-
-        UpdateMaxHeight();
     }
     
     protected override void PositionObject(GameObject newObject)
@@ -79,6 +81,42 @@ public class PlayerObjectGrabber : ObjectGrabber
                 newObject.transform.position = hit.point;
                 newObject.transform.localRotation = Quaternion.identity;
             }
+        }
+    }
+
+    private void UpdateDropUI()
+    {
+        if (InputManager.IsReleasePressed)
+        {
+            _currentHeldTime += Time.deltaTime;
+
+            if (_currentHeldTime > 0.2f && !_currentDropProgressCanvas && _grabbedObjects.Count > 0)
+            {
+                _currentDropProgressCanvas = Instantiate(dropProgressBar, transform.position, Quaternion.identity, transform);
+            }
+
+            if (_currentDropProgressCanvas != null && _currentDropProgressCanvas.TryGetComponentInChild<Slider>(out Slider slider))
+            {
+                slider.value = _currentHeldTime / holdTime;
+                Vector3 cameraForward = _camera.transform.forward;
+                _currentDropProgressCanvas.transform.forward = cameraForward;
+            }
+
+            if (_currentHeldTime >= holdTime)
+            {
+                ReleaseLastObject();
+                
+                if (_grabbedObjects.Count == 0)
+                {
+                    _currentHeldTime = 0f;
+                    Destroy(_currentDropProgressCanvas);
+                }
+            }
+        }
+        else
+        {
+            _currentHeldTime = 0f;
+            Destroy(_currentDropProgressCanvas);
         }
     }
 

@@ -22,7 +22,7 @@ public class WorldSpaceOverlayUI : MonoBehaviour
 
         foreach (var graphic in uiElementsToApplyTo)
         {
-            Material material = graphic.materialForRendering;
+            Material material = graphic.material;
             if (material == null)
             {
                 Debug.LogError($"{nameof(WorldSpaceOverlayUI)}: skipping target without material {graphic.name}.{graphic.GetType().Name}");
@@ -35,8 +35,8 @@ public class WorldSpaceOverlayUI : MonoBehaviour
                 materialMappings.Add(material, materialCopy);
             }
 
-            materialCopy.SetInt(shaderTestMode, (int)desiredUIComparison);
-            graphic.material = materialCopy;
+            material.SetInt(shaderTestMode, (int)desiredUIComparison);
+            //graphic.material = materialCopy;
         }
     }
 }

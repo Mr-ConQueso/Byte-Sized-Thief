@@ -71,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 dist = transform.position - hit.collider.transform.position;
             //Debug.Log(hit.collider.name);
-            if (InputManager.WasMousePressed && !_navAgent.isOnOffMeshLink)
+            if (InputManager.IsMousePressed && !_navAgent.isOnOffMeshLink)
             {
                 
                 if(_navAgent.autoTraverseOffMeshLink)
