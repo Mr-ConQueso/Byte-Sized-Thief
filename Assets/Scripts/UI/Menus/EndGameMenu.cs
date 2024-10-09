@@ -20,6 +20,7 @@ public class EndGameMenu : MonoBehaviour
     
     public void OnClick_Exit()
     {
+        PointsCounter.Instance.RemoveAllSavedObjects();
         SceneSwapManager.SwapScene("StartMenu");
     }
     
@@ -60,8 +61,6 @@ public class EndGameMenu : MonoBehaviour
 
             yield return new WaitForSeconds(dropDelay);
         }
-
-        objectsToDrop.Clear();
     }
 
     private IEnumerator ShowCredits(List<Tuple<string, float, int>> items)

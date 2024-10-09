@@ -33,7 +33,7 @@ public class JumpControlsPopUp : MonoBehaviour
 
     private void Update()
     {
-        if (InputManager.WasCenterPressed && _hasSeenJumpTutorial == 2)
+        if (InputManager.WasJumpPressed && _hasSeenJumpTutorial == 2)
         {
             _animator.SetTrigger("hidePopUp");
             _hasSeenJumpTutorial = 3;

@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 6906992122739895747}
   - component: {fileID: 1606237359596611547}
   - component: {fileID: 5798348151356611385}
+  - component: {fileID: 518513951121839895}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -139,7 +140,7 @@ MonoBehaviour:
     m_Bits: 16
   transparencyLevel: 0.5
   fadeTime: 30
-  cameraOffset: 2
+  cameraOffset: 0.1
   translucentRadius: 1
 --- !u!114 &1606237359596611547
 MonoBehaviour:
@@ -174,7 +175,7 @@ MonoBehaviour:
   currentlyGrabbedLayer:
     serializedVersion: 2
     m_Bits: 128
-  grabDistance: 8
+  grabDistance: 12
   heldPoint: {fileID: 3848556084687223332}
   sellSoundData:
     clip: {fileID: 8300000, guid: 9ad45567b45227c2d948d8a1bc490e78, type: 3}
@@ -185,8 +186,6 @@ MonoBehaviour:
     frequentSound: 0
   grabPointerDistance: 0.5
   sellDistance: 12
-  weightText: {fileID: 0}
-  soldValueText: {fileID: 0}
 --- !u!114 &5798348151356611385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,11 +200,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 24
   ceilingLayer:
     serializedVersion: 2
     m_Bits: 16
   speedMinMax: {x: 5, y: 30}
+--- !u!114 &518513951121839895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4838916716845314026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 971f8393a6af9fb45bcd493203382bf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Method: 2
+  m_Curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.36314118
+      value: 0.7769507
+      inSlope: 0.6423982
+      outSlope: 0.6423982
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.10398843
+    - serializedVersion: 3
+      time: 0.8228516
+      value: 0.0016652942
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  jumpSpeed: 1
 --- !u!1001 &3397369594843660881
 PrefabInstance:
   m_ObjectHideFlags: 0

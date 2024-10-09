@@ -73,6 +73,20 @@ public class PointsCounter : MonoBehaviour
         
         Value = GetTotalValue();
     }
+
+    public void RemoveAllSavedObjects()
+    {
+        Debug.Log("Grabbed Objects: " + AllGrabbedObjects.Count);
+        for (int i = 0; i < AllGrabbedObjects.Count; i++)
+        {
+            if (AllGrabbedObjects[i] != null)
+            {
+                Destroy(AllGrabbedObjects[i]);
+            }
+        }
+        AllGrabbedObjects.Clear();
+        ObtainedItems.Clear();
+    }
     
     public float GetTotalValue()
     {

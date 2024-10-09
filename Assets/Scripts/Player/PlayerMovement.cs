@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit jumpHit;
         if(Physics.Raycast(ray,out jumpHit, 1000f, groundLayer))
         {
-            if(InputManager.WasCenterPressed)
+            if(InputManager.WasJumpPressed)
             {
                 Debug.Log(jumpHit.collider.name);
                 if(!_navAgent.autoTraverseOffMeshLink)

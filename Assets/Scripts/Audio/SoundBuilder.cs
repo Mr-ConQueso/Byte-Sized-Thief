@@ -22,9 +22,9 @@ namespace Audio
             return this;
         }
         
-        public SoundBuilder WithRandomPitch()
+        public SoundBuilder WithRandomPitch(bool useRandomPitch = true)
         {
-            this._randomPitch = true;
+            this._randomPitch = useRandomPitch;
             return this;
         }
         

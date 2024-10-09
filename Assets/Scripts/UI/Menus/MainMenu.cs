@@ -27,6 +27,7 @@ public class MainMenu : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true; 
+        Screen.fullScreen = true;
     }
 
     private void Update()

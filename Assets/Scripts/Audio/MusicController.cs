@@ -9,6 +9,7 @@ public class MusicController : MonoBehaviour
     {
         AudioController.Instance.CreateSound()
             .WithSoundData(musicData)
+            .WithRandomPitch(false)
             .WithPosition(this.transform.position)
             .Play();
     }

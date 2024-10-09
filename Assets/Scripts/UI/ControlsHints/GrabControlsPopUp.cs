@@ -37,7 +37,7 @@ public class GrabControlsPopUp : MonoBehaviour
 
     private void Update()
     {
-        if (InputManager.WasGrabOrReleasePressed && _hasSeenGrabTutorial == 2)
+        if (InputManager.WasGrabPressed && _hasSeenGrabTutorial == 2)
         {
             _animator.SetTrigger("hidePopUp");
             _hasSeenGrabTutorial = 3;

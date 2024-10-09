@@ -14,10 +14,6 @@ public class PlayerObjectGrabber : ObjectGrabber
     [Header("Selling Objects")]
     [SerializeField] private float sellDistance = 12f;
     
-    [Header("Debugging")]
-    [SerializeField] private TMP_Text weightText;
-    [SerializeField] private TMP_Text soldValueText;
-    
     // ---- / Private Variables / ---- //
     private Camera _camera;
     private Transform _sellPoint;
@@ -34,15 +30,6 @@ public class PlayerObjectGrabber : ObjectGrabber
     {
         _camera = Camera.main;
         
-        if (!GameController.Instance.DEBUG_MODE)
-        {
-            if (weightText != null && soldValueText != null)
-            {
-                weightText.gameObject.SetActive(false);
-                soldValueText.gameObject.SetActive(false);   
-            }
-        }
-        
         if (CustomFunctions.TryGetTransformWithTag("SellPlace", out Transform targetTransform))
         {
             _sellPoint = targetTransform;
@@ -57,24 +44,19 @@ public class PlayerObjectGrabber : ObjectGrabber
     {
         if (!GameController.Instance.IsPlayerFrozen)
         {
-            if (InputManager.WasGrabOrReleasePressed)
+            if (InputManager.WasReleasePressed)
             {
-                TryGrabOrReleaseObject();
+                ReleaseLastObject();
             }
-            if (InputManager.WasReleaseAllPressed)
+            if (InputManager.WasGrabPressed)
             {
-                //ReleaseAllObjects();
+                TryGrabObjectWithPlayer();
             }
         }
 
         if (!GameController.Instance.IsGamePaused)
         {
             CheckIfSellPointInBounds();
-        }
-
-        if (GameController.Instance.DEBUG_MODE)
-        {
-            UpdateDebugGUI();
         }
 
         UpdateMaxHeight();
@@ -100,7 +82,7 @@ public class PlayerObjectGrabber : ObjectGrabber
         }
     }
 
-    private void TryGrabOrReleaseObject()
+    private void TryGrabObjectWithPlayer()
     {
         Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -125,16 +107,6 @@ public class PlayerObjectGrabber : ObjectGrabber
                     Debug.Log("Hit object is already grabbed: " + hitObject.name);
                 }
             }
-            else if (_grabbedObjects.Count > 0)
-            {
-                // Release the last grabbed object if no grabbable object is found
-                ReleaseLastObject();
-            }
-        }
-        else if (_grabbedObjects.Count > 0)
-        {
-            // Release the last grabbed object if the SphereCast doesn't hit anything
-            ReleaseLastObject();
         }
     }
 
@@ -173,15 +145,6 @@ public class PlayerObjectGrabber : ObjectGrabber
             }
 
             Debug.Log("All objects released.");
-        }
-    }
-    
-    private void UpdateDebugGUI()
-    {
-        if (weightText != null && soldValueText != null)
-        {
-            weightText.text = $"Weight: {CurrentTotalWeight} / {maxGrabbableWeight}";
-            soldValueText.text = $"Sold Value: {PointsCounter.Instance.Value} $";
         }
     }
     

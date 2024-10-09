@@ -10,10 +10,10 @@ public class InputManager : MonoBehaviour
     public Vector2 NavigationInput { get; set; }
     
     public static bool WasEscapePressed;
-    public static bool WasGrabOrReleasePressed;
-    public static bool WasReleaseAllPressed;
+    public static bool WasGrabPressed;
+    public static bool WasReleasePressed;
     public static bool WasMousePressed;
-    public static bool WasCenterPressed;
+    public static bool WasJumpPressed;
     
     // ---- / Private Variables / ---- //
     private static PlayerInput _playerInput;
@@ -22,11 +22,11 @@ public class InputManager : MonoBehaviour
     
     private InputAction _moveAction;
 
-    private InputAction _grabReleaseAction;
-
+    private InputAction _grabAction;
+    private InputAction _releaseAction;
     
     private InputAction _escapeAction;
-    private InputAction _pressJumpAction;
+    private InputAction _jumpAction;
 
     private void Awake()
     {
@@ -40,9 +40,10 @@ public class InputManager : MonoBehaviour
         _navigationAction = _playerInput.actions["Navigate"];
         
         _moveAction = _playerInput.actions["Move"];
-        _pressJumpAction = _playerInput.actions["Jump"];
+        _jumpAction = _playerInput.actions["Jump"];
 
-        _grabReleaseAction = _playerInput.actions["GrabRelease"];
+        _grabAction = _playerInput.actions["Grab"];
+        _releaseAction = _playerInput.actions["Release"];
         
         _escapeAction = _playerInput.actions["Escape"];
     }
@@ -53,9 +54,10 @@ public class InputManager : MonoBehaviour
         
         WasMousePressed = _moveAction.IsPressed();
         
-        WasGrabOrReleasePressed = _grabReleaseAction.WasPressedThisFrame();
+        WasGrabPressed = _grabAction.WasPressedThisFrame();
+        WasReleasePressed = _releaseAction.WasPerformedThisFrame();
 
-        WasCenterPressed = _pressJumpAction.WasPressedThisFrame();
+        WasJumpPressed = _jumpAction.WasPressedThisFrame();
         WasEscapePressed = _escapeAction.WasPressedThisFrame();
     }
 }

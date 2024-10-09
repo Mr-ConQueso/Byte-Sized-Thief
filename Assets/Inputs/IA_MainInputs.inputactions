@@ -24,12 +24,21 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "GrabRelease",
+                    "name": "Grab",
                     "type": "Button",
                     "id": "290f23db-dbcb-4edd-893a-d913da6a24e2",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Release",
+                    "type": "Button",
+                    "id": "9bfc3728-5399-4819-b8d3-24c8a9a10d60",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(duration=0.4,pressPoint=0.5)",
                     "initialStateCheck": false
                 },
                 {
@@ -83,7 +92,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "GrabRelease",
+                    "action": "Grab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "99029cf7-9855-4a25-a991-557a70198f60",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Release",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

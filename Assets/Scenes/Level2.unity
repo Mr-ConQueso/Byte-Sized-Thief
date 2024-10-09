@@ -4997,6 +4997,7 @@ Transform:
   - {fileID: 1173186127}
   - {fileID: 243539064}
   - {fileID: 509768178}
+  - {fileID: 1081679049}
   m_Father: {fileID: 757497495}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &943153285 stripped
@@ -5592,6 +5593,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 287858898}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1081679048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1081679049}
+  m_Layer: 0
+  m_Name: Node 5
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1081679049
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081679048}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -29.6, y: 0, z: 38.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 936611269}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1090534579 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3848556084687223332, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
@@ -5842,7 +5874,7 @@ PrefabInstance:
     - target: {fileID: 6902723968922819513, guid: 7884e0edac03744479b4ca8573afa521,
         type: 3}
       propertyPath: nodes.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6902723968922819513, guid: 7884e0edac03744479b4ca8573afa521,
         type: 3}
@@ -5864,6 +5896,11 @@ PrefabInstance:
       propertyPath: nodes.Array.data[3]
       value: 
       objectReference: {fileID: 509768178}
+    - target: {fileID: 6902723968922819513, guid: 7884e0edac03744479b4ca8573afa521,
+        type: 3}
+      propertyPath: nodes.Array.data[4]
+      value: 
+      objectReference: {fileID: 1081679049}
     - target: {fileID: 7950033882213122584, guid: 7884e0edac03744479b4ca8573afa521,
         type: 3}
       propertyPath: m_Name

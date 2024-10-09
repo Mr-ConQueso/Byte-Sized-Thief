@@ -84,8 +84,12 @@ public class AudioController : MonoBehaviour
     {
         for (int i = 0; i < ActiveSoundEmitter.Count; i++)
         {
-            Destroy(ActiveSoundEmitter[i].gameObject);
+            if (ActiveSoundEmitter[i].gameObject != null)
+            {
+                Destroy(ActiveSoundEmitter[i].gameObject);
+            }
         }
+        ActiveSoundEmitter.Clear();
     }
 
     private void OnDestroyPoolObject(SoundEmitter soundEmitter)
