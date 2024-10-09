@@ -51,5 +51,15 @@ namespace BaseGame
 
             return component != null;
         }
+        
+        public static bool CompareLayer(this GameObject obj, int layer)
+        {
+            return obj.layer == layer;
+        }
+
+        public static bool CompareLayer(this GameObject obj, string layerName)
+        {
+            return obj.layer == LayerMask.NameToLayer(layerName);
+        }
     }
 }
