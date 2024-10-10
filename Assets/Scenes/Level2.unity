@@ -5250,6 +5250,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6902723968922819513, guid: 7884e0edac03744479b4ca8573afa521,
         type: 3}
+      propertyPath: visionAngle
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6902723968922819513, guid: 7884e0edac03744479b4ca8573afa521,
+        type: 3}
+      propertyPath: visionRange
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6902723968922819513, guid: 7884e0edac03744479b4ca8573afa521,
+        type: 3}
       propertyPath: acceleration
       value: 1.03
       objectReference: {fileID: 0}

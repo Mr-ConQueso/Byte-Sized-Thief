@@ -1,4 +1,5 @@
     using System.Collections;
+using System.Security.Principal;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,6 +17,10 @@ public class Roomba : MonoBehaviour
     [SerializeField] private float maxChargeSpeed = 10000;
     [SerializeField] private float waitForCharge;
 
+    // ---- / Vision Cone / ---- //
+    [SerializeField] private float visionAngle;
+    [SerializeField] private float visionRange;
+
     // ---- / Private Variables / ---- //
     private NavMeshAgent _enemy;
     private int _currentPath = 0;
@@ -29,6 +34,10 @@ public class Roomba : MonoBehaviour
     private float _timeSinceLastSeen = 0f;
     private float _timeToResumePatrol = 3f;
     private bool _playerDetected = false;
+    private int _numberOfRayCast;
+    private Vector3 _rayDirection;
+    private float Value;
+    private Vector3 newVector3;
 
     void Start()
     {
@@ -43,6 +52,8 @@ public class Roomba : MonoBehaviour
 
     void FixedUpdate()
     {
+        VisionCone();
+        Debug.DrawRay(transform.position, newVector3 * 1000, Color.yellow); 
         Ray ray = new Ray(transform.position, transform.forward);
 
         if (Physics.SphereCast(ray, detectArea, detectRange, detect))
@@ -165,6 +176,7 @@ public class Roomba : MonoBehaviour
         }
     }
 
+    
     private IEnumerator Charge()
     {
         isCharging = true;
@@ -203,5 +215,18 @@ public class Roomba : MonoBehaviour
         Gizmos.DrawLine(ray.origin, endPoint);
 
         Gizmos.DrawWireSphere(endPoint, detectArea);
+    }
+
+    private void VisionCone()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            Value = 1/Mathf.Atan(0.75f) * 180/Mathf.PI;
+            Debug.Log(Value);
+            float newVectorx = visionRange * Mathf.Cos(Value);
+            float newVectory = visionRange * Mathf.Sin(Value);
+            newVector3 = new Vector3(newVectorx, 0 , newVectory);
+        }
+
     }
 }
