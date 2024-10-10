@@ -4811,12 +4811,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1071554503}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1087960446 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4838916716845314026, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
-    type: 3}
-  m_PrefabInstance: {fileID: 5573497681949010787}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1088914494
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10233,53 +10227,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5573497681949010787}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1080415742835512486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1087960446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 971f8393a6af9fb45bcd493203382bf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Method: 2
-  m_Curve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.35729405
-      value: 0.7335472
-      inSlope: 0.42116243
-      outSlope: 0.42116243
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.08314443
-    - serializedVersion: 3
-      time: 0.8751221
-      value: -0.004180908
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  jumpSpeed: 1
 --- !u!1001 &2900331741358148282
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10484,11 +10431,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4838916716845314026, guid: ed1e5830f46a178eab0e435a3a0a2eb9,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1080415742835512486}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed1e5830f46a178eab0e435a3a0a2eb9, type: 3}
 --- !u!1001 &7366193398286082521
 PrefabInstance:
