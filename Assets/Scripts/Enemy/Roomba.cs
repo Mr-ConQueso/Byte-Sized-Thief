@@ -83,7 +83,7 @@ public class Roomba : MonoBehaviour
         }
     }
     private void Search()
-    {
+    {   
         _enemy.SetDestination(_directionToTarget);
     }
 
@@ -208,7 +208,7 @@ public class Roomba : MonoBehaviour
             float newVectory = visionRange * Mathf.Sin(angleToRadians);
             newVector3 = new Vector3(newVectorx, 0 , newVectory).normalized;
             Debug.DrawRay(transform.position, newVector3 * visionRange, Color.red);
-            if(Physics.Raycast(transform.position, newVector3, visionRange, detect))
+            if(Physics.Raycast(transform.position, newVector3, visionRange, detect) && attackingIsActive)
             {
                 Debug.Log("Player detected");
                 _playerDetected = true;
