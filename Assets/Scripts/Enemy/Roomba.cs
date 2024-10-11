@@ -6,16 +6,14 @@ using UnityEngine.AI;
 public class Roomba : MonoBehaviour
 {
     // ---- / Serializable Variables / ---- //
+    [Header("Movement Variables")]
     [SerializeField] private Transform[] nodes;
     [SerializeField] private float waitTime;
-    [SerializeField] private float detectRange;
-    [SerializeField] private float detectArea;
-    [SerializeField] private LayerMask detect;
-    [SerializeField] private GameObject player;
     [SerializeField] private float acceleration = 1.1f;
     [SerializeField] private float chargeSpeed = 1f;
     [SerializeField] private float maxChargeSpeed = 10000;
     [SerializeField] private float waitForCharge;
+    
     // ---- / Debugging / ---- //
     [Header("Debugging")]
 
@@ -23,8 +21,11 @@ public class Roomba : MonoBehaviour
     [SerializeField] private bool attackingIsActive = true;
 
     // ---- / Vision Cone / ---- //
+    [Header("Vision Cone")]
     [SerializeField] private float visionAngle;
     [SerializeField] private float visionRange;
+    [SerializeField] private LayerMask detect;
+    [SerializeField] private GameObject player;
 
     // ---- / Private Variables / ---- //
     private NavMeshAgent _enemy;
@@ -39,9 +40,6 @@ public class Roomba : MonoBehaviour
     private float _timeSinceLastSeen = 0f;
     private float _timeToResumePatrol = 3f;
     private bool _playerDetected = false;
-    private int _numberOfRayCast;
-    private Vector3 _rayDirection;
-    private float Value;
     private Vector3 newVector3;
     
 
@@ -59,26 +57,6 @@ public class Roomba : MonoBehaviour
     void FixedUpdate()
     {
         VisionCone();
-        Ray ray = new Ray(transform.position, transform.forward);
-        /*
-        if (Physics.SphereCast(ray, detectArea, detectRange, detect) && attackingIsActive)
-        {
-            //sDebug.Log("Player detected");
-            _playerDetected = true;
-            _timeSinceLastSeen = 0f;
-            Attacking();
-        }
-        else
-        {
-            _playerDetected = false;
-            _timeSinceLastSeen += Time.deltaTime;
-
-            if (_timeSinceLastSeen >= _timeToResumePatrol && !isCharging && patrolisActive)
-            {
-                Patroling();
-            }
-        }
-        */
     }
 
     void OnCollisionEnter(Collision collision)
@@ -89,8 +67,7 @@ public class Roomba : MonoBehaviour
             _rb.velocity = Vector3.zero;
             chargeSpeed = 1;
             _enemy.enabled = true;
-            _enemy.SetDestination(_directionToTarget);
-            
+            Search();            
         }
     }
 
@@ -104,6 +81,10 @@ public class Roomba : MonoBehaviour
             }
             SetPath();
         }
+    }
+    private void Search()
+    {
+        _enemy.SetDestination(_directionToTarget);
     }
 
     private void SetPath()
@@ -158,6 +139,7 @@ public class Roomba : MonoBehaviour
 
     private void Attacking()
     {
+        _directionToTarget = -transform.position + player.transform.position;
         if (patrolCoroutine != null)
         {
             StopCoroutine(patrolCoroutine);
@@ -212,15 +194,7 @@ public class Roomba : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Ray ray = new Ray(transform.position, transform.forward);
-
-        Gizmos.color = Color.red;
-
-        Vector3 endPoint = ray.origin + ray.direction * detectRange;
-
-        Gizmos.DrawLine(ray.origin, endPoint);
-
-        Gizmos.DrawWireSphere(endPoint, detectArea);
+        Debug.DrawRay(transform.position, newVector3 * visionRange, Color.red);
     }
 
     private void VisionCone()
@@ -244,7 +218,10 @@ public class Roomba : MonoBehaviour
             else
             {
                 _playerDetected = false;
-                _timeSinceLastSeen += Time.deltaTime;
+                if(!_enemy.pathPending)
+                {
+                    _timeSinceLastSeen += Time.deltaTime;
+                }
 
                 if (_timeSinceLastSeen >= _timeToResumePatrol && !isCharging && patrolisActive)
                 {
