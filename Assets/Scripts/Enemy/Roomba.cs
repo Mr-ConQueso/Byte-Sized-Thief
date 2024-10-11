@@ -16,6 +16,11 @@ public class Roomba : MonoBehaviour
     [SerializeField] private float chargeSpeed = 1f;
     [SerializeField] private float maxChargeSpeed = 10000;
     [SerializeField] private float waitForCharge;
+    // ---- / Debugging / ---- //
+    [Header("Debugging")]
+
+    [SerializeField] private bool patrolisActive = true;
+    [SerializeField] private bool attackingIsActive = true;
 
     // ---- / Vision Cone / ---- //
     [SerializeField] private float visionAngle;
@@ -38,6 +43,7 @@ public class Roomba : MonoBehaviour
     private Vector3 _rayDirection;
     private float Value;
     private Vector3 newVector3;
+    
 
     void Start()
     {
@@ -53,10 +59,9 @@ public class Roomba : MonoBehaviour
     void FixedUpdate()
     {
         VisionCone();
-        Debug.DrawRay(transform.position, newVector3 * 1000, Color.yellow); 
         Ray ray = new Ray(transform.position, transform.forward);
-
-        if (Physics.SphereCast(ray, detectArea, detectRange, detect))
+        /*
+        if (Physics.SphereCast(ray, detectArea, detectRange, detect) && attackingIsActive)
         {
             //sDebug.Log("Player detected");
             _playerDetected = true;
@@ -68,11 +73,12 @@ public class Roomba : MonoBehaviour
             _playerDetected = false;
             _timeSinceLastSeen += Time.deltaTime;
 
-            if (_timeSinceLastSeen >= _timeToResumePatrol && !isCharging)
+            if (_timeSinceLastSeen >= _timeToResumePatrol && !isCharging && patrolisActive)
             {
                 Patroling();
             }
         }
+        */
     }
 
     void OnCollisionEnter(Collision collision)
@@ -90,7 +96,7 @@ public class Roomba : MonoBehaviour
 
     private void Patroling()
     {
-        if (!isMoving && !_enemy.pathPending && _enemy.remainingDistance <= _enemy.stoppingDistance)
+        if (!isMoving && !_enemy.pathPending && _enemy.remainingDistance <= _enemy.stoppingDistance && patrolisActive)
         {
             if (_enemy.isStopped)
             {
@@ -219,14 +225,34 @@ public class Roomba : MonoBehaviour
 
     private void VisionCone()
     {
-        for(int i = 0; i < 3; i++)
+        for(float i = visionAngle; i <= visionAngle + 90; i++)
         {
-            Value = 1/Mathf.Atan(0.75f) * 180/Mathf.PI;
-            Debug.Log(Value);
-            float newVectorx = visionRange * Mathf.Cos(Value);
-            float newVectory = visionRange * Mathf.Sin(Value);
-            newVector3 = new Vector3(newVectorx, 0 , newVectory);
+            float angleToRadians = (-transform.eulerAngles.y + i) * Mathf.Deg2Rad;
+            //Value = 1/Mathf.Atan(0.75f) * 180/Mathf.PI;
+            //Debug.Log(angleToRadians);
+            float newVectorx = visionRange * Mathf.Cos(angleToRadians);
+            float newVectory = visionRange * Mathf.Sin(angleToRadians);
+            newVector3 = new Vector3(newVectorx, 0 , newVectory).normalized;
+            Debug.DrawRay(transform.position, newVector3 * visionRange, Color.red);
+            if(Physics.Raycast(transform.position, newVector3, visionRange, detect))
+            {
+                Debug.Log("Player detected");
+                _playerDetected = true;
+                _timeSinceLastSeen = 0f;
+                Attacking();
+            }
+            else
+            {
+                _playerDetected = false;
+                _timeSinceLastSeen += Time.deltaTime;
+
+                if (_timeSinceLastSeen >= _timeToResumePatrol && !isCharging && patrolisActive)
+                {
+                    Patroling();
+                }
+            }
         }
+
 
     }
 }
