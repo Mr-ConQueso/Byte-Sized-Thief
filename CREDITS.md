@@ -9,5 +9,5 @@ in the next sections we will detail the assets that were used with public licens
 [Cash Register Sound Effect](https://youtu.be/uiBkqnBh-B0)
 
 # Software & Thanks
-This project was created using educational licences of _Autodesk Maya_, _Unity3D_ & _Jetbrains Rider_,
+This project was created using educational licences of [_Autodesk Maya_](https://www.autodesk.com/education/edu-software/overview), [_Unity Personal_](https://unity.com/es/products/unity-personal) & [_Jetbrains Rider_](https://www.jetbrains.com/community/education/#students),
 we must also thank our university [U-Tad](https://u-tad.com) for providing the tools and knowledge necesary for it's development.
